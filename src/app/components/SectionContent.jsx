@@ -1,0 +1,136 @@
+import { motion } from "framer-motion";
+import { useState } from "react";
+import CustomSlideOne from "./CustomSlideOne";
+import CustomSlideTwo from "./CustomSlideTwo";
+import CustomSlideThree from "./CustomSlideThree";
+
+const SECTION_HEADINGS = [
+  "People",
+  "Emotions",
+  "Movies",
+  "Your life, your story",
+];
+const SECTION_SUBHEADINGS = [
+  "This is a story about",
+  "This is a story about",
+  "This is a story about",
+  "This is a story about",
+];
+
+const TABS = [
+  {
+    title: "Watch",
+    description:
+      "Choose to watch your life's precious moments as a cinematic experience, reliving your story in the most compelling way.",
+  },
+  {
+    title: "Create",
+    description:
+      "Get creative and customize how your story is told. Shape your moments into a masterpiece.",
+  },
+  {
+    title: "Share",
+    description:
+      "Share your life's story with the world or keep it private – the choice is yours to make.",
+  },
+];
+
+const SectionContent = ({ section, scrollDirection }) => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const renderTabs = () => (
+    <div
+      className="mt-12 border border-gray-300 rounded-lg p-4 md:p-6 font-medium text-center w-full max-w-3xl"
+      style={{ minHeight: "200px" }}
+    >
+      <div
+        className="relative flex justify-around mb-4 text-gray-700"
+        style={{ maxWidth: "600px", width: "100%", margin: "0 auto" }}
+      >
+        {TABS.map((tab, index) => (
+          <button
+            key={tab.title}
+            className={`relative text-[16px] md:text-[20px] lg:text-[24px] font-medium flex-grow transition-colors duration-300 ${
+              activeTab === index ? "text-black" : "text-gray-500"
+            }`}
+            style={{
+              textAlign: "center",
+              minWidth: "80px",
+            }}
+            onClick={() => setActiveTab(index)}
+          >
+            {tab.title}
+            {activeTab === index && (
+              <motion.div
+                layoutId="underline"
+                className="absolute left-0 right-0 bottom-[-2px] h-[2px] bg-black"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            )}
+          </button>
+        ))}
+      </div>
+      <motion.div
+        key={activeTab}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 10 }}
+        transition={{ duration: 0.3 }}
+        className="text-sm md:text-base mt-4 text-gray-600"
+      >
+        <strong>{TABS[activeTab].title}:</strong> {TABS[activeTab].description}
+      </motion.div>
+    </div>
+  );
+
+  switch (section) {
+    case 4:
+      return <CustomSlideOne />;
+    case 5:
+      return <CustomSlideTwo />;
+    case 6:
+      return <CustomSlideThree />;
+    default:
+      return (
+        <div className="flex flex-col items-start">
+          <motion.div
+            key={`subheading-${section}`}
+            initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
+            transition={{ duration: 0.5 }}
+            className="text-[24px] w-full lg:w-fit text-center lg:text-left -mb-6 md:-mb-12 font-roboto font-light text-gray-600"
+          >
+            {SECTION_SUBHEADINGS[section]}
+          </motion.div>
+          <motion.div
+            key={`heading-${section}`}
+            initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-[50px] w-full lg:w-fit text-center lg:text-left md:text-[80px] lg:text-[120px] mt-6 md:mt-12 font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none"
+          >
+            {section === 3 ? (
+              <>
+                <div className="flex flex-col">
+                  <span>Your life,</span>
+                  <span>Your story</span>
+                </div>
+                <div className="text-[16px] md:text-[20px] lg:text-[24px] mt-4 md:mt-6 text-gray-700 font-light">
+                  Turn your most Precious Moments into Cinematic Experiences
+                </div>
+                {renderTabs()}
+              </>
+            ) : (
+              SECTION_HEADINGS[section]
+            )}
+          </motion.div>
+        </div>
+      );
+  }
+};
+
+export default SectionContent;
