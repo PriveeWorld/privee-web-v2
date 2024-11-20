@@ -194,7 +194,7 @@ export default function Home() {
   ]);
 
   return (
-    <div className="w-screen px-12 flex items-center justify-center min-h-screen overflow-hidden relative">
+    <div className="w-screen overflow-hidden px-0 lg:px-12 flex items-center justify-center max-h-screen lg:min-h-screen relative">
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
