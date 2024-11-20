@@ -23,6 +23,8 @@ export default function Home() {
   const scrollDirection = useRef("down");
   const lottieRef = useRef(null);
   const animationInstance = useRef(null);
+  const touchStartY = useRef(0);
+  const touchEndY = useRef(0);
   const SECTIONS_COUNT = 7;
   const SECTION_HEIGHT = typeof window !== "undefined" ? window.innerHeight : 0;
 
@@ -41,7 +43,7 @@ export default function Home() {
 
     preloadLottieAnimation();
 
-    return () => animationInstance.current.destroy();
+    return () => animationInstance.current?.destroy();
   }, [section]);
 
   const animateLottieFrames = useCallback(
@@ -55,10 +57,10 @@ export default function Home() {
           (reverse && currentFrame > endFrame)
         ) {
           currentFrame += frameIncrement;
-          animationInstance.current.goToAndStop(currentFrame, true);
+          animationInstance.current?.goToAndStop(currentFrame, true);
           requestAnimationFrame(step);
         } else {
-          animationInstance.current.goToAndStop(endFrame, true);
+          animationInstance.current?.goToAndStop(endFrame, true);
           isTransitioning.current = false;
         }
       };
@@ -83,7 +85,7 @@ export default function Home() {
       setSection(index);
 
       if (index < 4) {
-        const totalFrames = animationInstance.current.totalFrames;
+        const totalFrames = animationInstance.current?.totalFrames || 0;
         const framesPerSection = totalFrames / 4;
         const startFrame = framesPerSection * section;
         const endFrame = framesPerSection * index;
@@ -99,7 +101,7 @@ export default function Home() {
 
       setTimeout(() => {
         isTransitioning.current = false;
-      }, 2500);
+      }, 1200);
     },
     [section, animateLottieFrames]
   );
@@ -148,17 +150,51 @@ export default function Home() {
     [section, scrollToSection]
   );
 
+  const handleTouchStart = useCallback((event) => {
+    touchStartY.current = event.touches[0].clientY;
+  }, []);
+
+  const handleTouchMove = useCallback((event) => {
+    touchEndY.current = event.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (isTransitioning.current) return;
+
+    const swipeDistance = touchStartY.current - touchEndY.current;
+    const swipeThreshold = 50;
+
+    if (swipeDistance > swipeThreshold && section < SECTIONS_COUNT - 1) {
+      scrollToSection(section + 1);
+    } else if (swipeDistance < -swipeThreshold && section > 0) {
+      scrollToSection(section - 1);
+    }
+  }, [section, scrollToSection]);
+
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+
     return () => {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [handleWheel, handleKeyDown]);
+  }, [
+    handleWheel,
+    handleKeyDown,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+  ]);
 
   return (
-    <div className="w-screen flex items-center justify-center min-h-screen overflow-hidden relative">
+    <div className="w-screen px-12 flex items-center justify-center min-h-screen overflow-hidden relative">
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
@@ -170,7 +206,7 @@ export default function Home() {
       />
       <TopNav onMenuClick={() => setIsNavOpen(true)} section={section} />
 
-      <div className="flex relative flex-col w-full px-4 max-w-[1600px] items-center lg:items-start justify-center">
+      <div className="flex relative flex-col w-full px-4 max-w-[1600px] pt-32 h-screen lg:h-fit items-center lg:items-start justify-start">
         <AnimatePresence mode="wait">
           <SectionContent
             section={section}
