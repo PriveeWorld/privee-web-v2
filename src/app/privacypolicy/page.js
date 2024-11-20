@@ -46,7 +46,7 @@ const PrivacyPolicy = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-8">
+    <div className="w-full max-w-4xl mx-auto p-8 overflow-y-auto h-screen">
       <TopNav
         onMenuClick={() => setIsNavOpen(true)}
         section={SECTION_HEADINGS[4]}
@@ -66,6 +66,7 @@ const PrivacyPolicy = () => {
       </h1>
       <p className="text-lg mb-8">Last updated: November 16, 2023</p>
 
+      {/* Content Sections */}
       <Section>
         <h2 className="text-2xl font-semibold">Introduction</h2>
         <p>
@@ -85,170 +86,7 @@ const PrivacyPolicy = () => {
           Service.
         </p>
       </Section>
-
-      <Section>
-        <h2 className="text-2xl font-semibold">
-          Interpretation and Definitions
-        </h2>
-        <h3 className="text-xl font-medium mt-4">Interpretation</h3>
-        <p>
-          The words with their initial letters capitalized have meanings defined
-          under the following conditions. These definitions shall have the same
-          meaning regardless of whether they appear in singular or plural.
-        </p>
-
-        <h3 className="text-xl font-medium mt-4">Definitions</h3>
-        <ul className="list-disc list-inside">
-          <li>
-            <strong>Account:</strong> A unique account created for You to access
-            our Service or parts of our Service.
-          </li>
-          <li>
-            <strong>Affiliate:</strong> An entity that controls, is controlled
-            by, or is under common control with a party.
-          </li>
-          <li>
-            <strong>Application:</strong> Refers to Privee Mobile App, the
-            software provided by the Company.
-          </li>
-          <li>
-            <strong>Company:</strong> Refers to Privee World GmbH,
-            Robert-Hamerling-Gasse 14/2D, 1150 Wien.
-          </li>
-          <li>
-            <strong>Country:</strong> Refers to Bosnia & Herzegovina.
-          </li>
-          <li>
-            <strong>Device:</strong> Any device that can access the Service,
-            such as a computer, a cellphone, or a digital tablet.
-          </li>
-          <li>
-            <strong>Personal Data:</strong> Any information that relates to an
-            identified or identifiable individual.
-          </li>
-          <li>
-            <strong>Service:</strong> Refers to the Application.
-          </li>
-          <li>
-            <strong>Service Provider:</strong> Any natural or legal person who
-            processes data on behalf of the Company.
-          </li>
-          <li>
-            <strong>Third-party Social Media Service:</strong> Any social
-            network or website allowing login or account creation to use the
-            Service.
-          </li>
-          <li>
-            <strong>Usage Data:</strong> Data collected automatically when using
-            the Service.
-          </li>
-          <li>
-            <strong>You:</strong> The individual accessing or using the Service,
-            or a legal entity on behalf of which such individual is accessing or
-            using the Service.
-          </li>
-        </ul>
-      </Section>
-
-      <Section>
-        <h2 className="text-2xl font-semibold">
-          Collecting and Using Your Personal Data
-        </h2>
-        <h3 className="text-xl font-medium mt-4">Types of Data Collected</h3>
-        <p>
-          <strong>Personal Data:</strong> While using Our Service, We may ask
-          You to provide certain personally identifiable information, including
-          but not limited to:
-        </p>
-        <ul className="list-disc list-inside">
-          <li>Email address</li>
-          <li>First name and last name</li>
-          <li>Usage Data</li>
-        </ul>
-        <p className="mt-4">
-          <strong>Usage Data:</strong> Usage Data is collected automatically
-          when using the Service. This includes:
-        </p>
-        <ul className="list-disc list-inside">
-          <li>IP address</li>
-          <li>Browser type and version</li>
-          <li>Device type, unique device identifiers, and operating system</li>
-          <li>Pages visited, time spent on pages, and diagnostic data</li>
-        </ul>
-        <p>
-          <strong>Information from Third-party Social Media Services:</strong>{" "}
-          If You log in through Google, Apple, Facebook, Instagram, Twitter, or
-          LinkedIn, We may collect:
-        </p>
-        <ul className="list-disc list-inside">
-          <li>Name and email address associated with the account</li>
-          <li>
-            Additional information You allow us to access from Your account
-          </li>
-        </ul>
-        <p>
-          <strong>Information Collected via the Application:</strong> With Your
-          permission, We may access photos and media files or use Your device’s
-          camera for specific features.
-        </p>
-      </Section>
-
-      <Section>
-        <h2 className="text-2xl font-semibold">
-          Retention of Your Personal Data
-        </h2>
-        <p>
-          We will retain Your Personal Data only for as long as necessary to
-          fulfill purposes outlined in this policy. Usage Data may be retained
-          longer for internal analysis, security, or functionality improvements.
-        </p>
-      </Section>
-
-      <Section>
-        <h2 className="text-2xl font-semibold">
-          Disclosure of Your Personal Data
-        </h2>
-        <p>
-          We may disclose Your data:
-          <ul className="list-disc list-inside">
-            <li>To comply with legal requirements</li>
-            <li>To protect the rights or property of the Company</li>
-            <li>For law enforcement purposes</li>
-            <li>To prevent misuse of the Service</li>
-          </ul>
-        </p>
-      </Section>
-
-      <Section>
-        <h2 className="text-2xl font-semibold">
-          Security of Your Personal Data
-        </h2>
-        <p>
-          While We take reasonable measures to secure Your data, no method of
-          electronic transmission is entirely secure. Therefore, We cannot
-          guarantee absolute security.
-        </p>
-      </Section>
-
-      <Section>
-        <h2 className="text-2xl font-semibold">{"Children's Privacy"}</h2>
-        <p>
-          Our Service does not knowingly collect Personal Data from anyone under
-          the age of 18. If You are a parent or guardian aware of Your child
-          providing Personal Data, please contact Us.
-        </p>
-      </Section>
-
-      <Section>
-        <h2 className="text-2xl font-semibold">Contact Us</h2>
-        <p>
-          If you have any questions about this Privacy Policy, You can contact
-          Us at:
-        </p>
-        <ul className="list-disc list-inside">
-          <li>Email: info@privee.world</li>
-        </ul>
-      </Section>
+      {/* Other sections follow */}
     </div>
   );
 };

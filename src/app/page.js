@@ -206,7 +206,7 @@ export default function Home() {
       />
       <TopNav onMenuClick={() => setIsNavOpen(true)} section={section} />
 
-      <div className="flex relative flex-col w-full px-4 max-w-[1600px] pt-32 h-screen lg:h-fit items-center lg:items-start justify-start">
+      <div className="flex relative flex-col w-full px-4 lg:px-16 max-w-[1600px] pt-32 lg:pt-0 h-screen lg:h-fit items-center lg:items-start justify-start">
         <AnimatePresence mode="wait">
           <SectionContent
             section={section}
@@ -217,7 +217,9 @@ export default function Home() {
         {section < 4 && (
           <div
             ref={lottieRef}
-            className="fixed -bottom-[120px] lg:bottom-0 -z-50 right-10 lg:-right-40 transform pointer-events-none w-3/4 h-3/4"
+            className={`fixed -bottom-[120px] lg:bottom-0 -z-50 right-10 lg:-right-40 transform pointer-events-none w-3/4 h-3/4 ${
+              section === 3 ? "hidden-on-mobile" : ""
+            }`}
           />
         )}
 

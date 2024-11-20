@@ -39,7 +39,7 @@ const PriveeStory = () => {
         section={SECTION_HEADINGS[section]}
       />
 
-      <div className="flex relative flex-col w-full max-w-[1600px] items-start justify-center px-4 sm:px-8 py-8 sm:py-16">
+      <div className="flex overflow-y-auto h-screen relative flex-col w-full max-w-[1600px] items-start justify-center px-4 sm:px-8 py-8 sm:py-16">
         <AnimatePresence mode="wait">
           <motion.div
             key={section}
@@ -49,7 +49,7 @@ const PriveeStory = () => {
             transition={{ duration: 0.5 }}
             className="text-center w-full"
           >
-            <h1 className="text-[32px] mt-12 sm:text-[40px] md:text-[50px] lg:text-[60px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent tracking-tight mb-4 leading-tight">
+            <h1 className="text-[32px] mt-40 mt-12 sm:text-[40px] md:text-[50px] lg:text-[60px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent tracking-tight mb-4 leading-tight">
               Crafting Moments, Sharing Stories
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl font-light text-gray-700 max-w-3xl mx-auto mb-8 sm:mb-12">

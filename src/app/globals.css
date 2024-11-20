@@ -116,3 +116,9 @@ body {
 .snap-start {
   scroll-snap-align: start;
 }
+
+@media (max-width: 768px) {
+  .hidden-on-mobile {
+    display: none;
+  }
+}

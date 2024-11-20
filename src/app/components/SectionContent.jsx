@@ -39,10 +39,7 @@ const SectionContent = ({ section, scrollDirection }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const renderTabs = () => (
-    <div
-      className="mt-12 border border-gray-300 rounded-lg p-4 md:p-6 font-medium text-center w-full max-w-3xl"
-      style={{ minHeight: "200px" }}
-    >
+    <div className="mt-12 border border-gray-300 rounded-lg p-4 md:p-6 font-medium text-center w-full max-w-3xl">
       <div
         className="relative flex justify-around mb-4 text-gray-700"
         style={{ maxWidth: "600px", width: "100%", margin: "0 auto" }}
@@ -111,7 +108,7 @@ const SectionContent = ({ section, scrollDirection }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-[50px] w-full lg:w-fit text-center lg:text-left md:text-[80px] lg:text-[120px] mt-6 md:mt-12 font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none"
+            className="text-[50px] w-full lg:w-fit text-center lg:text-left md:text-[90px] mt-6 md:mt-12 font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none"
           >
             {section === 3 ? (
               <>

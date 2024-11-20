@@ -80,7 +80,7 @@ const ContactForm = () => {
         }}
       />
 
-      <div className="flex flex-col md:flex-row min-h-screen">
+      <div className="flex overflow-y-auto h-screen flex-col md:flex-row">
         <div className="flex-1 flex items-center justify-center bg-gray-100 p-6 md:p-8">
           <div className="max-w-md text-center md:text-left">
             <h1 className="text-[24px] font-clash mt-12 sm:text-[32px] md:text-[40px] lg:text-[48px] font-semibold mb-4">

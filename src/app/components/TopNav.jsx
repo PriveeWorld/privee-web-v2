@@ -28,7 +28,7 @@ function TopNav({ onMenuClick, section }) {
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 w-full flex items-center justify-center p-4 z-30 ${
+      className={`fixed top-0 left-0 w-full flex items-center justify-center px-4 py-4 z-30 ${
         isTransparent
           ? "bg-transparent border-none"
           : "bg-white border-b border-[#e4e4e4]"
@@ -37,7 +37,7 @@ function TopNav({ onMenuClick, section }) {
       initial="hidden"
       animate="visible"
     >
-      <div className="flex justify-between w-full self-center max-w-[1600px]">
+      <div className="flex justify-between w-full self-center max-w-[1600px] px-4 lg:px-16">
         <motion.div
           className="flex items-center"
           variants={itemVariants}
