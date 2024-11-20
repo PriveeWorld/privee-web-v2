@@ -206,7 +206,7 @@ export default function Home() {
       />
       <TopNav onMenuClick={() => setIsNavOpen(true)} section={section} />
 
-      <div className="flex relative flex-col w-full px-4 lg:px-16 max-w-[1600px] pt-32 lg:pt-0 h-screen lg:h-fit items-center lg:items-start justify-start">
+      <div className="flex relative flex-col w-full mt-20 px-4 lg:px-16 max-w-[1600px] pt-32 lg:pt-0 h-screen lg:h-fit items-center lg:items-start justify-start">
         <AnimatePresence mode="wait">
           <SectionContent
             section={section}

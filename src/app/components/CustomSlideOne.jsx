@@ -31,7 +31,6 @@ const CustomSlideOne = () => {
 
   return (
     <div className="fixed inset-0 w-screen h-screen z-0">
-      {/* Background Video */}
       <motion.video
         className="absolute top-0 left-0 w-full h-full object-cover"
         src="/images/priveeweb.mp4"
@@ -44,7 +43,6 @@ const CustomSlideOne = () => {
         controls
       />
 
-      {/* Play Button */}
       <motion.div
         className="absolute inset-0 flex items-center justify-center z-10"
         initial="initial"
@@ -69,12 +67,11 @@ const CustomSlideOne = () => {
         </motion.button>
       </motion.div>
 
-      {/* Fullscreen Video Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-90 z-[99999] flex items-center justify-center">
           <div className="relative w-11/12 md:w-3/4 lg:w-1/2">
             <iframe
-              className="w-full h-[calc(100vw * 9 / 16)] md:h-[calc(75vw * 9 / 16)] lg:h-[calc(50vw * 9 / 16)]"
+              className="w-full h-[250px] lg:h-[500px]"
               src="https://www.youtube.com/embed/Z6Wq0z3zrNI?enablejsapi=1&autoplay=1"
               title="YouTube video player"
               frameBorder="0"

@@ -39,7 +39,7 @@ const SectionContent = ({ section, scrollDirection }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const renderTabs = () => (
-    <div className="mt-12 border border-gray-300 rounded-lg p-4 md:p-6 font-medium text-center w-full max-w-3xl">
+    <div className="mt-12 border border-gray-300 rounded-lg p-4 md:p-6 font-medium text-center w-full lg:w-2/3">
       <div
         className="relative flex justify-around mb-4 text-gray-700"
         style={{ maxWidth: "600px", width: "100%", margin: "0 auto" }}
