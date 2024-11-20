@@ -100,3 +100,19 @@ body {
   height: 30px;
   background-color: rgba(79, 70, 229, 1);
 }
+
+html,
+body {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: none;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.snap-y {
+  scroll-snap-type: y mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
