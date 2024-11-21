@@ -5,28 +5,48 @@ import { FaPlay } from "react-icons/fa";
 
 const CustomSlideOne = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const playerRef = useRef(null);
 
-  const videoVariants = {
-    hidden: { opacity: 0, scale: 1.1 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 1.5, ease: "easeOut" },
-    },
+  useEffect(() => {
+    // Load YouTube API
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName("script")[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    window.onYouTubeIframeAPIReady = () => {
+      playerRef.current = new YT.Player("youtube-player", {
+        events: {
+          onStateChange: onPlayerStateChange,
+        },
+      });
+    };
+
+    return () => {
+      // Clean up
+      window.onYouTubeIframeAPIReady = null;
+    };
+  }, []);
+
+  const onPlayerStateChange = (event) => {
+    if (event.data === YT.PlayerState.PLAYING) {
+      disableSeekingForDuration(10); // Disable seeking for 10 seconds
+    }
   };
 
-  const buttonVariants = {
-    initial: {
-      boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
-    },
-    hover: {
-      scale: 1.2,
-      boxShadow: "0 0 30px rgba(255, 255, 255, 0.9)",
-      transition: { duration: 0.3, ease: "easeInOut" },
-    },
-    tap: {
-      scale: 0.95,
-    },
+  const disableSeekingForDuration = (duration) => {
+    const player = playerRef.current;
+    if (!player) return;
+
+    const startTime = player.getCurrentTime();
+    const interval = setInterval(() => {
+      const currentTime = player.getCurrentTime();
+      if (currentTime > startTime + duration) {
+        clearInterval(interval);
+      } else if (currentTime !== startTime) {
+        player.seekTo(startTime);
+      }
+    }, 100);
   };
 
   return (
@@ -37,9 +57,6 @@ const CustomSlideOne = () => {
         autoPlay
         loop
         playsInline
-        variants={videoVariants}
-        initial="hidden"
-        animate="visible"
         controls
       />
 
@@ -48,7 +65,6 @@ const CustomSlideOne = () => {
         initial="initial"
         whileHover="hover"
         whileTap="tap"
-        variants={buttonVariants}
         onClick={() => setIsModalOpen(true)}
       >
         <motion.button
@@ -71,6 +87,7 @@ const CustomSlideOne = () => {
         <div className="fixed inset-0 bg-black bg-opacity-90 z-[99999] flex items-center justify-center">
           <div className="relative w-11/12 md:w-3/4 lg:w-1/2">
             <iframe
+              id="youtube-player"
               className="w-full h-[250px] lg:h-[500px]"
               src="https://www.youtube.com/embed/Z6Wq0z3zrNI?enablejsapi=1&autoplay=1"
               title="YouTube video player"

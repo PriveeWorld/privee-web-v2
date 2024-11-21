@@ -39,7 +39,7 @@ const SectionContent = ({ section, scrollDirection }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const renderTabs = () => (
-    <div className="mt-12 border border-gray-300 rounded-lg p-4 md:p-6 font-medium text-center w-full lg:w-2/3">
+    <div className="mt-12 border border-gray-300 rounded-lg p-4 md:p-6 font-medium text-center w-full lg:w-[600px]">
       <div
         className="relative flex justify-around mb-4 text-gray-700"
         style={{ maxWidth: "600px", width: "100%", margin: "0 auto" }}
@@ -119,7 +119,7 @@ const SectionContent = ({ section, scrollDirection }) => {
                 <div className="text-[16px] md:text-[20px] lg:text-[24px] mt-4 md:mt-6 text-gray-700 font-light">
                   Turn your most Precious Moments into Cinematic Experiences
                 </div>
-                {renderTabs()}
+                <div className="flex w-full px-4">{renderTabs()}</div>
               </>
             ) : (
               SECTION_HEADINGS[section]

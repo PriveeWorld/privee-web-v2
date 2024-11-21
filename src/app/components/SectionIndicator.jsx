@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const SectionIndicator = ({ section, onScrollToSection, sectionsCount }) => (
-  <div className="fixed top-1/2 right-10 transform -translate-y-1/2 z-20 flex flex-col items-center space-y-4">
+  <div className="fixed top-1/2 right-2 lg:right-10 transform -translate-y-1/2 z-20 flex flex-col items-center space-y-4">
     {Array.from({ length: sectionsCount }).map((_, index) => (
       <motion.div
         key={index}
