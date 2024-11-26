@@ -24,7 +24,7 @@ const PriveeStory = () => {
   };
 
   return (
-    <div className="w-screen flex items-center justify-center min-h-screen overflow-hidden relative">
+    <div className="w-screen mb-20 flex items-center justify-center min-h-screen overflow-hidden relative">
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
