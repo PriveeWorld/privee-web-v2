@@ -86,7 +86,7 @@ const SectionContent = ({ section, scrollDirection }) => {
   const sharedSubheadingStyles =
     "text-[24px] mt-12 w-full lg:w-fit text-center lg:text-left font-roboto font-light text-gray-600";
   const sharedHeadingStyles =
-    "text-[50px] mt-12 w-full lg:w-fit text-center lg:text-left md:text-[90px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none";
+    "text-[50px] w-full lg:w-fit text-center lg:text-left md:text-[90px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none";
 
   switch (section) {
     case 4:
