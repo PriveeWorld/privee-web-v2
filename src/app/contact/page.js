@@ -64,7 +64,7 @@ const ContactForm = () => {
   };
 
   return (
-    <>
+    <div className="w-screen max-w-4xl overflow-y-auto h-screen">
       <TopNav
         onMenuClick={() => setIsNavOpen(true)}
         section={SECTION_HEADINGS[4]}
@@ -80,8 +80,8 @@ const ContactForm = () => {
         }}
       />
 
-      <div className="flex overflow-y-auto h-screen flex-col md:flex-row">
-        <div className="flex-1 flex items-center justify-center bg-gray-100 p-6 md:p-8">
+      <div className="flex mt-12 overflow-y-auto h-screen flex-col md:flex-row">
+        <div className="flex-1 flex items-center px-6 justify-center bg-gray-100 p-0 md:p-8">
           <div className="max-w-md text-center md:text-left">
             <h1 className="text-[24px] font-clash mt-12 sm:text-[32px] md:text-[40px] lg:text-[48px] font-semibold mb-4">
               Contact Us
@@ -190,7 +190,7 @@ const ContactForm = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
