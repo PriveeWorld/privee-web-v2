@@ -24,7 +24,7 @@ const PriveeHub = () => {
   };
 
   return (
-    <div className="w-screen overflow-y-auto h-screen flex items-center justify-center min-h-screen overflow-hidden relative bg-gradient-to-b from-[#0d1b2a] to-[#1b263b] text-white">
+    <div className="w-full max-w-4xl mx-auto p-0 lg:p-8 overflow-y-auto h-screen  bg-gradient-to-b from-[#0d1b2a] to-[#1b263b] text-white">
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}

@@ -82,6 +82,11 @@ const SectionContent = ({ section, scrollDirection }) => {
     </div>
   );
 
+  const sharedSubheadingStyles =
+    "text-[24px] w-full lg:w-fit text-center lg:text-left font-roboto font-light text-gray-600";
+  const sharedHeadingStyles =
+    "text-[50px] w-full lg:w-fit text-center lg:text-left md:text-[90px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none";
+
   switch (section) {
     case 4:
       return <CustomSlideOne />;
@@ -98,17 +103,18 @@ const SectionContent = ({ section, scrollDirection }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
             transition={{ duration: 0.5 }}
-            className="text-[24px] w-full lg:w-fit text-center lg:text-left -mb-6 md:-mb-12 font-roboto font-light text-gray-600"
+            className={`${sharedSubheadingStyles}`}
           >
             {SECTION_SUBHEADINGS[section]}
           </motion.div>
+
           <motion.div
             key={`heading-${section}`}
             initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-[50px] w-full lg:w-fit text-center lg:text-left md:text-[90px] mt-6 md:mt-12 font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none"
+            className={`${sharedHeadingStyles}`}
           >
             {section === 3 ? (
               <>

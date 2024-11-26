@@ -1,63 +1,53 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 const CustomSlideOne = () => {
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const playerRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState("/images/priveeweb.mp4");
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    // Load YouTube API
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName("script")[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    window.onYouTubeIframeAPIReady = () => {
-      playerRef.current = new YT.Player("youtube-player", {
-        events: {
-          onStateChange: onPlayerStateChange,
-        },
-      });
+    const handleResize = () => {
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        setVideoSrc("/images/privee.mp4");
+      } else {
+        setVideoSrc("/images/priveeweb.mp4");
+      }
     };
 
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      // Clean up
-      window.onYouTubeIframeAPIReady = null;
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  const onPlayerStateChange = (event) => {
-    if (event.data === YT.PlayerState.PLAYING) {
-      disableSeekingForDuration(10); // Disable seeking for 10 seconds
+  const togglePlayPause = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video.play();
+      setIsPlaying(true);
+    } else {
+      video.pause();
+      setIsPlaying(false);
     }
-  };
-
-  const disableSeekingForDuration = (duration) => {
-    const player = playerRef.current;
-    if (!player) return;
-
-    const startTime = player.getCurrentTime();
-    const interval = setInterval(() => {
-      const currentTime = player.getCurrentTime();
-      if (currentTime > startTime + duration) {
-        clearInterval(interval);
-      } else if (currentTime !== startTime) {
-        player.seekTo(startTime);
-      }
-    }, 100);
   };
 
   return (
     <div className="fixed inset-0 w-screen h-screen z-0">
       <motion.video
+        ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
-        src="/images/priveeweb.mp4"
+        src={videoSrc}
         autoPlay
         loop
         playsInline
-        controls
       />
 
       <motion.div
@@ -82,6 +72,19 @@ const CustomSlideOne = () => {
           </motion.div>
         </motion.button>
       </motion.div>
+
+      <div className="absolute bottom-8 left-8 z-20 flex items-center gap-4">
+        <button
+          onClick={togglePlayPause}
+          className="bg-white p-0 rounded-full shadow hover:scale-110 transition"
+        >
+          {isPlaying ? (
+            <FaPause className="text-black text-lg" />
+          ) : (
+            <FaPlay className="text-black text-lg" />
+          )}
+        </button>
+      </div>
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-90 z-[99999] flex items-center justify-center">

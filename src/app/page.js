@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useDrag } from "@use-gesture/react";
 import { motion, AnimatePresence } from "framer-motion";
 import lottie from "lottie-web";
 import animationData from "../../public/priveeanimation.json";
@@ -19,12 +20,11 @@ const SECTION_HEADINGS = [
 export default function Home() {
   const [section, setSection] = useState(0);
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const isTransitioning = useRef(false);
+  const isTransitioning = useRef(false); // Block additional transitions
   const scrollDirection = useRef("down");
   const lottieRef = useRef(null);
   const animationInstance = useRef(null);
-  const touchStartY = useRef(0);
-  const touchEndY = useRef(0);
+  const containerRef = useRef(null);
   const SECTIONS_COUNT = 7;
   const SECTION_HEIGHT = typeof window !== "undefined" ? window.innerHeight : 0;
 
@@ -80,7 +80,7 @@ export default function Home() {
       )
         return;
 
-      isTransitioning.current = true;
+      isTransitioning.current = true; // Block new transitions
       scrollDirection.current = index > section ? "down" : "up";
       setSection(index);
 
@@ -94,107 +94,72 @@ export default function Home() {
         animateLottieFrames(startFrame, endFrame, reverse);
       }
 
+      // Smooth scroll to the next section
       window.scrollTo({
         top: SECTION_HEIGHT * index,
         behavior: "smooth",
       });
 
+      // Allow new transitions after a delay
       setTimeout(() => {
         isTransitioning.current = false;
-      }, 1200);
+      }, 1200); // Match this to your animation duration
     },
     [section, animateLottieFrames]
   );
 
-  const throttle = (func, limit) => {
-    let inThrottle;
-    return function (...args) {
-      if (!inThrottle) {
-        func(...args);
-        inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
-      }
-    };
-  };
-
-  const handleWheel = throttle(
-    useCallback(
-      (event) => {
-        if (isTransitioning.current) return;
-        if (event.deltaY > 0 && section < SECTIONS_COUNT - 1) {
-          scrollToSection(section + 1);
-        } else if (event.deltaY < 0 && section > 0) {
-          scrollToSection(section - 1);
-        }
-      },
-      [section, scrollToSection]
-    ),
-    1200
-  );
-
-  const handleKeyDown = useCallback(
+  const handleWheel = useCallback(
     (event) => {
-      if (isTransitioning.current) return;
-      if (
-        (event.key === "ArrowDown" || event.key === "ArrowRight") &&
-        section < SECTIONS_COUNT - 1
-      ) {
-        scrollToSection(section + 1);
-      } else if (
-        (event.key === "ArrowUp" || event.key === "ArrowLeft") &&
-        section > 0
-      ) {
-        scrollToSection(section - 1);
+      if (isTransitioning.current) return; // Ignore additional scrolls during transition
+
+      // Threshold to prevent excessive sensitivity
+      const threshold = 50; // Adjust based on desired sensitivity
+      if (Math.abs(event.deltaY) < threshold) return;
+
+      if (event.deltaY > 0 && section < SECTIONS_COUNT - 1) {
+        scrollToSection(section + 1); // Scroll down
+      } else if (event.deltaY < 0 && section > 0) {
+        scrollToSection(section - 1); // Scroll up
       }
     },
     [section, scrollToSection]
   );
 
-  const handleTouchStart = useCallback((event) => {
-    touchStartY.current = event.touches[0].clientY;
-  }, []);
-
-  const handleTouchMove = useCallback((event) => {
-    touchEndY.current = event.touches[0].clientY;
-  }, []);
-
-  const handleTouchEnd = useCallback(() => {
-    if (isTransitioning.current) return;
-
-    const swipeDistance = touchStartY.current - touchEndY.current;
-    const swipeThreshold = 50;
-
-    if (swipeDistance > swipeThreshold && section < SECTIONS_COUNT - 1) {
-      scrollToSection(section + 1);
-    } else if (swipeDistance < -swipeThreshold && section > 0) {
-      scrollToSection(section - 1);
-    }
-  }, [section, scrollToSection]);
-
   useEffect(() => {
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    const container = containerRef.current;
+    if (!container) return;
 
+    container.addEventListener("wheel", handleWheel, { passive: false });
     return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
+      container.removeEventListener("wheel", handleWheel);
     };
-  }, [
-    handleWheel,
-    handleKeyDown,
-    handleTouchStart,
-    handleTouchMove,
-    handleTouchEnd,
-  ]);
+  }, [handleWheel]);
+
+  // Use the useDrag hook for swipe gesture handling
+  const bind = useDrag(
+    ({ last, movement: [, my], direction: [, dy], cancel }) => {
+      if (isTransitioning.current) {
+        cancel && cancel();
+        return;
+      }
+
+      if (last) {
+        if (dy > 0 && section > 0) {
+          scrollToSection(section - 1); // Swipe down
+        } else if (dy < 0 && section < SECTIONS_COUNT - 1) {
+          scrollToSection(section + 1); // Swipe up
+        }
+      }
+    },
+    { axis: "y", filterTaps: true }
+  );
 
   return (
-    <div className="w-screen overflow-hidden px-0 glg:px-12 flex items-center justify-center max-h-screen lg:min-h-screen relative">
+    <div
+      {...bind()} // Attach gesture handling
+      ref={containerRef} // Attach ref for handling wheel events
+      className="w-screen h-screen overflow-hidden flex items-center justify-center touch-none"
+    >
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
