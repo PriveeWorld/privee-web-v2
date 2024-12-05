@@ -24,7 +24,7 @@ const PriveeHub = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-0 lg:p-8 overflow-y-auto h-screen  bg-gradient-to-b from-[#0d1b2a] to-[#1b263b] text-white">
+    <div className="w-full flex items-center justify-center max-w-screen mx-auto p-0 lg:p-8 overflow-y-auto h-screen  bg-gradient-to-b from-[#0d1b2a] to-[#1b263b] text-white">
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
@@ -36,7 +36,7 @@ const PriveeHub = () => {
       />
       <TopNav onMenuClick={() => setIsNavOpen(true)} section={4} />
 
-      <div className="flex relative flex-col w-full max-w-[1600px] items-start justify-center px-8 py-16">
+      <div className="flex relative mt-24 flex-col w-full max-w-[1400px] items-start justify-center px-8 py-16">
         <AnimatePresence mode="wait">
           <motion.div
             key={section}
@@ -47,7 +47,7 @@ const PriveeHub = () => {
             className="flex flex-col md:flex-row w-full"
           >
             {/* Text Section */}
-            <div className="flex-1 text-left">
+            <div className="flex-1 text-left mt-[320px] lg:mt-0">
               <h1 className="text-[50px] font-clash font-semibold tracking-tight mb-8">
                 Privee Hub
               </h1>
