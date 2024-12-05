@@ -106,7 +106,7 @@ export default function ParisPage() {
           />
 
           <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800">
-            <div className="z-1 absolute left-0 top-0 h-20 w-full bg-gradient-to-r from-[#17111F] to-[#0E0914]"></div>
+            <div className="absolute left-0 top-0 z-[1] h-20 w-full bg-gradient-to-r from-[#17111F] to-[#0E0914]"></div>
             <div>
               <div className="relative z-10 flex items-center gap-2">
                 <motion.div
