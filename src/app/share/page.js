@@ -1,4 +1,5 @@
 "use client";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +18,7 @@ export default function ParisPage() {
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
   const searchParams = useSearchParams();
+
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoPath, setVideoPath] = useState(null);
   const [useFallback, setUseFallback] = useState(false);
@@ -28,6 +30,7 @@ export default function ParisPage() {
   const [captionName, setCaptionName] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
 
+  // Fetch video data on mount
   useEffect(() => {
     const fetchVideoData = async () => {
       const videoId = searchParams.get("videoId");
@@ -69,6 +72,7 @@ export default function ParisPage() {
     fetchVideoData();
   }, [searchParams]);
 
+  // Initialize video playback
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -105,23 +109,6 @@ export default function ParisPage() {
       if (hlsRef.current) hlsRef.current.destroy();
     };
   }, [videoPath, useFallback]);
-
-  const shareIconParentVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.4 },
-    },
-  };
-
-  const shareIconChildVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
-  };
 
   const SkeletonLoader = ({ width, height, className }) => (
     <div
@@ -283,7 +270,13 @@ export default function ParisPage() {
 
           <motion.div
             className="absolute right-4 top-24 z-50 flex flex-col gap-2 rounded-full bg-[#161616]/25 px-2 py-2 backdrop-blur-[3px]"
-            variants={shareIconParentVariants}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: { staggerChildren: 0.2, delayChildren: 0.4 },
+              },
+            }}
             initial="hidden"
             animate="visible"
           >
@@ -291,7 +284,14 @@ export default function ParisPage() {
               <motion.button
                 key={i}
                 className="rounded-full p-2"
-                variants={shareIconChildVariants}
+                variants={{
+                  hidden: { opacity: 0, scale: 0.8 },
+                  visible: {
+                    opacity: 1,
+                    scale: 1,
+                    transition: { duration: 0.4, ease: "easeOut" },
+                  },
+                }}
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.2 }}
               >
