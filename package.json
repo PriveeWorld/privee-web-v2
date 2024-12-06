@@ -12,6 +12,7 @@
     "@use-gesture/react": "^10.3.1",
     "framer-motion": "^11.11.11",
     "fullpage.js": "^4.0.30",
+    "hls.js": "^1.5.17",
     "lottie-web": "^5.12.2",
     "next": "15.0.3",
     "nodemailer": "^6.9.16",

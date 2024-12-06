@@ -2,6 +2,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import Hls from "hls.js";
+import { useSearchParams } from "next/navigation";
 
 export default function ParisPage() {
   const navLinks = [
@@ -11,33 +14,121 @@ export default function ParisPage() {
     { title: "Contact Us", href: "/contact" },
   ];
 
+  const videoRef = useRef(null);
+  const hlsRef = useRef(null);
+  const searchParams = useSearchParams();
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoPath, setVideoPath] = useState(null);
+  const [useFallback, setUseFallback] = useState(false);
+
+  // Metadata states
+  const [userName, setUserName] = useState(null);
+  const [movieName, setMovieName] = useState(null);
+  const [videoTitle, setVideoTitle] = useState(null);
+  const [captionName, setCaptionName] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+
+  useEffect(() => {
+    const fetchVideoData = async () => {
+      const videoId = searchParams.get("videoId");
+      if (!videoId) {
+        setUseFallback(true);
+        return;
+      }
+
+      const apiUrl = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${videoId}`;
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Failed to fetch video data");
+
+        const result = await response.json();
+        const videoData = result?.data?.video;
+
+        // Extract video path and metadata
+        const path = videoData?.visual?.videoPath;
+        const title = videoData?.visual?.title || null;
+        const movie = videoData?.movie?.name || null;
+        const firstName = videoData?.user?.firstName || null;
+        const lastName = videoData?.user?.lastName || null;
+        const captionText = videoData?.visual?.captionText || null;
+        const profilePic = videoData?.user?.profilePicture || null;
+
+        // Set states
+        if (path) setVideoPath(path);
+        setVideoTitle(title);
+        setMovieName(movie);
+        setUserName(firstName && lastName ? `${firstName} ${lastName}` : null);
+        setCaptionName(captionText);
+        setProfilePicture(profilePic);
+      } catch (error) {
+        console.error("Error fetching video data:", error);
+        setUseFallback(true);
+      }
+    };
+
+    fetchVideoData();
+  }, [searchParams]);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    if (useFallback) {
+      videoElement.src = "/images/priveeweb.mp4";
+      videoElement.addEventListener("loadedmetadata", () => {
+        setIsVideoLoaded(true);
+        videoElement.play().catch(() => console.warn("Autoplay failed."));
+      });
+      return;
+    }
+
+    if (videoPath) {
+      if (Hls.isSupported()) {
+        const hls = new Hls({ startLevel: 0 });
+        hls.loadSource(videoPath);
+        hls.attachMedia(videoElement);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          setIsVideoLoaded(true);
+          videoElement.play().catch(() => console.warn("Autoplay failed."));
+        });
+        hlsRef.current = hls;
+      } else if (videoElement.canPlayType("application/vnd.apple.mpegurl")) {
+        videoElement.src = videoPath;
+        videoElement.addEventListener("loadedmetadata", () => {
+          setIsVideoLoaded(true);
+          videoElement.play().catch(() => console.warn("Autoplay failed."));
+        });
+      }
+    }
+
+    return () => {
+      if (hlsRef.current) hlsRef.current.destroy();
+    };
+  }, [videoPath, useFallback]);
+
   const shareIconParentVariants = {
-    hidden: {
-      opacity: 0,
-    },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.4,
-      },
+      transition: { staggerChildren: 0.2, delayChildren: 0.4 },
     },
   };
 
   const shareIconChildVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.8,
-    },
+    hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
-      },
+      transition: { duration: 0.4, ease: "easeOut" },
     },
   };
+
+  const SkeletonLoader = ({ width, height, className }) => (
+    <div
+      className={`animate-pulse rounded bg-gray-300 ${className}`}
+      style={{ width, height }}
+    />
+  );
 
   return (
     <div className="relative flex min-h-screen bg-gradient-to-r from-[#17111F] to-[#0E0914] lg:bg-white lg:bg-none">
@@ -97,12 +188,21 @@ export default function ParisPage() {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
+          {!isVideoLoaded && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50">
+              <div className="spinner-border inline-block h-8 w-8 animate-spin rounded-full border-4 border-gray-500 border-t-gray-200"></div>
+            </div>
+          )}
+
           <video
-            src="/images/priveeweb.mp4"
+            ref={videoRef}
             autoPlay
+            crossOrigin="anonymous"
+            preload="auto"
+            playsInline
             muted
             loop
-            className="absolute inset-0 top-[74] z-[1] h-full w-full rounded-tl-2xl rounded-tr-2xl object-cover"
+            className="absolute inset-0 top-[74] z-[0] h-full w-full rounded-tl-2xl rounded-tr-2xl object-cover"
           />
 
           <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800">
@@ -116,41 +216,52 @@ export default function ParisPage() {
                   transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                 >
                   <Image
-                    src="/shareicons/priveeicon.svg"
+                    src={profilePicture || "/shareicons/priveeicon.svg"}
                     alt="Profile"
                     width={40}
                     height={40}
                   />
                 </motion.div>
                 <div>
-                  <p className="text-md font-clash font-semibold text-white">
-                    Traveling
-                  </p>
-                  <p className="text-xs text-white">Manuel Santos</p>
+                  {movieName ? (
+                    <p className="text-md font-clash font-semibold text-white">
+                      {movieName}
+                    </p>
+                  ) : (
+                    <SkeletonLoader width="100px" height="16px" />
+                  )}
+                  {userName ? (
+                    <p className="text-xs text-white">{userName}</p>
+                  ) : (
+                    <SkeletonLoader width="120px" height="12px" />
+                  )}
                 </div>
               </div>
 
               <div className="relative z-50 mt-8 rounded-lg">
-                <h2 className="text-lg font-bold text-white">
-                  Montmartre mon amour!
-                </h2>
-                {/* <p className="text-xs text-white">
-                  02 Aug 2022 &nbsp;&bull;&nbsp; 980 views
-                </p> */}
+                {videoTitle ? (
+                  <h2 className="text-lg font-bold text-white">{videoTitle}</h2>
+                ) : (
+                  <SkeletonLoader width="200px" height="20px" />
+                )}
               </div>
             </div>
 
-            <div className="relative z-50 mb-4 flex flex-col justify-center gap-4">
-              <motion.div
-                className="flex justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-              >
-                <p className="rounded-full bg-black/90 px-6 py-3 text-sm font-semibold text-white shadow-md">
-                  I love Paris!
-                </p>
-              </motion.div>
+            <div className="flex flex-col gap-4">
+              {captionName && (
+                <div className="relative z-50 mb-4 flex flex-col justify-center gap-4">
+                  <motion.div
+                    className="flex justify-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.5 }}
+                  >
+                    <p className="rounded-full bg-black/90 px-6 py-3 text-sm font-semibold text-white shadow-md">
+                      {captionName}
+                    </p>
+                  </motion.div>
+                </div>
+              )}
 
               <motion.div
                 className="mb-4 flex justify-center"
@@ -161,7 +272,7 @@ export default function ParisPage() {
                 <div className="flex h-20 w-20 items-center justify-center rounded-full">
                   <Image
                     src="/shareicons/priveeicon.svg"
-                    alt="Profile"
+                    alt="Center Icon"
                     width={120}
                     height={120}
                   />
