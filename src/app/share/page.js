@@ -4,8 +4,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import Hls from "hls.js";
+import dynamicImport from "next/dynamic"; // Renamed to avoid conflict
 import { useSearchParams } from "next/navigation";
+
+const Hls = dynamicImport(() => import("hls.js"), { ssr: false });
+
+export const dynamicRendering = "force-dynamic"; // Renamed the export
 
 export default function ParisPage() {
   const navLinks = [
@@ -17,21 +21,21 @@ export default function ParisPage() {
 
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
-  const searchParams = useSearchParams();
+  const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
 
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoPath, setVideoPath] = useState(null);
   const [useFallback, setUseFallback] = useState(false);
 
-  // Metadata states
   const [userName, setUserName] = useState(null);
   const [movieName, setMovieName] = useState(null);
   const [videoTitle, setVideoTitle] = useState(null);
   const [captionName, setCaptionName] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
 
-  // Fetch video data on mount
   useEffect(() => {
+    if (!searchParams) return;
+
     const fetchVideoData = async () => {
       const videoId = searchParams.get("videoId");
       if (!videoId) {
@@ -47,7 +51,6 @@ export default function ParisPage() {
         const result = await response.json();
         const videoData = result?.data?.video;
 
-        // Extract video path and metadata
         const path = videoData?.visual?.videoPath;
         const title = videoData?.visual?.title || null;
         const movie = videoData?.movie?.name || null;
@@ -56,7 +59,6 @@ export default function ParisPage() {
         const captionText = videoData?.visual?.captionText || null;
         const profilePic = videoData?.user?.profilePicture || null;
 
-        // Set states
         if (path) setVideoPath(path);
         setVideoTitle(title);
         setMovieName(movie);
@@ -72,8 +74,9 @@ export default function ParisPage() {
     fetchVideoData();
   }, [searchParams]);
 
-  // Initialize video playback
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
