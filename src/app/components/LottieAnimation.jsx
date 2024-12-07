@@ -1,3 +1,4 @@
+"use client";
 import { useRef, useEffect } from "react";
 import lottie from "lottie-web";
 
@@ -19,7 +20,7 @@ export default function LottieAnimation({ animationData }) {
   return (
     <div
       ref={lottieRef}
-      className="w-3/4 h-3/4 fixed bottom-0 -right-40 transform z-10 pointer-events-none"
+      className="pointer-events-none fixed -right-40 bottom-0 z-10 h-3/4 w-3/4 transform"
     />
   );
 }

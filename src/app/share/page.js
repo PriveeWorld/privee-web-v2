@@ -1,15 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import dynamicImport from "next/dynamic"; // Renamed to avoid conflict
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-const Hls = dynamicImport(() => import("hls.js"), { ssr: false });
-
-export const dynamicRendering = "force-dynamic"; // Renamed the export
+const Hls = dynamic(() => import("hls.js"), { ssr: false });
 
 export default function ParisPage() {
   const navLinks = [
@@ -21,7 +19,7 @@ export default function ParisPage() {
 
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
-  const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
+  const searchParams = useSearchParams();
 
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoPath, setVideoPath] = useState(null);
@@ -34,8 +32,6 @@ export default function ParisPage() {
   const [profilePicture, setProfilePicture] = useState(null);
 
   useEffect(() => {
-    if (!searchParams) return;
-
     const fetchVideoData = async () => {
       const videoId = searchParams.get("videoId");
       if (!videoId) {
@@ -75,38 +71,51 @@ export default function ParisPage() {
   }, [searchParams]);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    const loadVideo = async () => {
+      const videoElement = videoRef.current;
 
-    const videoElement = videoRef.current;
-    if (!videoElement) return;
+      if (!videoElement) return;
 
-    if (useFallback) {
-      videoElement.src = "/images/priveeweb.mp4";
-      videoElement.addEventListener("loadedmetadata", () => {
-        setIsVideoLoaded(true);
-        videoElement.play().catch(() => console.warn("Autoplay failed."));
-      });
-      return;
-    }
-
-    if (videoPath) {
-      if (Hls.isSupported()) {
-        const hls = new Hls({ startLevel: 0 });
-        hls.loadSource(videoPath);
-        hls.attachMedia(videoElement);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          setIsVideoLoaded(true);
-          videoElement.play().catch(() => console.warn("Autoplay failed."));
-        });
-        hlsRef.current = hls;
-      } else if (videoElement.canPlayType("application/vnd.apple.mpegurl")) {
-        videoElement.src = videoPath;
+      if (useFallback) {
+        videoElement.src = "/images/priveeweb.mp4";
         videoElement.addEventListener("loadedmetadata", () => {
           setIsVideoLoaded(true);
-          videoElement.play().catch(() => console.warn("Autoplay failed."));
+          videoElement
+            .play()
+            .catch((err) => console.warn("Autoplay failed:", err));
         });
+        return;
       }
-    }
+
+      if (videoPath) {
+        const HlsLibrary = await Hls;
+
+        if (HlsLibrary.isSupported()) {
+          const hls = new HlsLibrary();
+          hls.loadSource(videoPath);
+          hls.attachMedia(videoElement);
+
+          hls.on(HlsLibrary.Events.MANIFEST_PARSED, () => {
+            setIsVideoLoaded(true);
+            videoElement
+              .play()
+              .catch((err) => console.warn("Autoplay failed:", err));
+          });
+
+          hlsRef.current = hls;
+        } else if (videoElement.canPlayType("application/vnd.apple.mpegurl")) {
+          videoElement.src = videoPath;
+          videoElement.addEventListener("loadedmetadata", () => {
+            setIsVideoLoaded(true);
+            videoElement
+              .play()
+              .catch((err) => console.warn("Autoplay failed:", err));
+          });
+        }
+      }
+    };
+
+    loadVideo();
 
     return () => {
       if (hlsRef.current) hlsRef.current.destroy();

@@ -1,7 +1,8 @@
+"use client";
 import ScrollButton from "./ScrollButton";
 
 const NavigationButtons = ({ section, sectionsCount, onScrollToSection }) => (
-  <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-20 flex space-x-4">
+  <div className="fixed bottom-10 left-1/2 z-20 flex -translate-x-1/2 transform space-x-4">
     <ScrollButton
       direction="up"
       isDisabled={section === 0}

@@ -1,12 +1,13 @@
+"use client";
 import { motion } from "framer-motion";
 
 const SectionIndicator = ({ section, onScrollToSection, sectionsCount }) => (
-  <div className="fixed top-1/2 right-2 lg:right-10 transform -translate-y-1/2 z-20 flex flex-col items-center space-y-4">
+  <div className="fixed right-2 top-1/2 z-20 flex -translate-y-1/2 transform flex-col items-center space-y-4 lg:right-10">
     {Array.from({ length: sectionsCount }).map((_, index) => (
       <motion.div
         key={index}
         onClick={() => onScrollToSection(index)}
-        className="cursor-pointer w-3 rounded-full"
+        className="w-3 cursor-pointer rounded-full"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{
           opacity: 1,

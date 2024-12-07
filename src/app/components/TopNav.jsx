@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { HiMenu } from "react-icons/hi";
@@ -28,16 +29,16 @@ function TopNav({ onMenuClick, section }) {
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 w-full flex items-center justify-center px-4 py-4 z-30 ${
+      className={`fixed left-0 top-0 z-30 flex w-full items-center justify-center px-4 py-4 ${
         isTransparent
-          ? "bg-transparent border-none"
-          : "bg-white border-b border-[#e4e4e4]"
+          ? "border-none bg-transparent"
+          : "border-b border-[#e4e4e4] bg-white"
       }`}
       variants={navVariants}
       initial="hidden"
       animate="visible"
     >
-      <div className="flex justify-between w-full self-center max-w-[1600px] px-4 lg:px-16">
+      <div className="flex w-full max-w-[1600px] justify-between self-center px-4 lg:px-16">
         <motion.div
           className="flex items-center"
           variants={itemVariants}
@@ -59,7 +60,7 @@ function TopNav({ onMenuClick, section }) {
         </motion.div>
 
         <motion.div
-          className={`flex items-center space-x-1 md:space-x-4 text-xl ${iconColor}`}
+          className={`flex items-center space-x-1 text-xl md:space-x-4 ${iconColor}`}
           variants={itemVariants}
           custom={1}
         >
@@ -70,7 +71,7 @@ function TopNav({ onMenuClick, section }) {
             aria-label="Facebook"
             variants={itemVariants}
             custom={1.5}
-            className={`p-2 border rounded-full hover:bg-gray-100 transition duration-300 ${
+            className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
               isTransparent
                 ? "border-white/30 hover:bg-white/10"
                 : "border-gray-300 hover:bg-gray-100"
@@ -86,7 +87,7 @@ function TopNav({ onMenuClick, section }) {
             aria-label="Twitter"
             variants={itemVariants}
             custom={2.0}
-            className={`p-2 border rounded-full hover:bg-gray-100 transition duration-300 ${
+            className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
               isTransparent
                 ? "border-white/30 hover:bg-white/10"
                 : "border-gray-300 hover:bg-gray-100"
@@ -102,7 +103,7 @@ function TopNav({ onMenuClick, section }) {
             aria-label="Instagram"
             variants={itemVariants}
             custom={2.5}
-            className={`p-2 border rounded-full hover:bg-gray-100 transition duration-300 ${
+            className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
               isTransparent
                 ? "border-white/30 hover:bg-white/10"
                 : "border-gray-300 hover:bg-gray-100"
@@ -115,10 +116,10 @@ function TopNav({ onMenuClick, section }) {
 
         <motion.button
           onClick={onMenuClick}
-          className={`p-2 border rounded-full text-2xl focus:outline-none transition duration-300 ${
+          className={`rounded-full border p-2 text-2xl transition duration-300 focus:outline-none ${
             isTransparent
-              ? "text-white border-white/30 hover:bg-white/10"
-              : "text-gray-800 border-gray-300 hover:bg-gray-100"
+              ? "border-white/30 text-white hover:bg-white/10"
+              : "border-gray-300 text-gray-800 hover:bg-gray-100"
           }`}
           aria-label="Open Menu"
           variants={itemVariants}
