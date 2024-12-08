@@ -207,7 +207,7 @@ export default function ParisPage() {
             playsInline
             muted
             loop
-            className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-2xl rounded-tr-2xl object-cover"
+            className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
           />
 
           <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800">
@@ -243,7 +243,7 @@ export default function ParisPage() {
                 </div>
               </div>
 
-              <div className="relative z-50 mt-8 rounded-lg">
+              <div className="relative z-50 mt-10 rounded-lg">
                 {videoTitle ? (
                   <h2 className="text-lg font-bold text-white">{videoTitle}</h2>
                 ) : (
