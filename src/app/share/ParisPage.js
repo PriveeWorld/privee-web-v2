@@ -207,7 +207,7 @@ export default function ParisPage() {
             playsInline
             muted
             loop
-            className="absolute inset-0 top-[74] z-[0] h-full w-full rounded-tl-2xl rounded-tr-2xl object-cover"
+            className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-2xl rounded-tr-2xl object-cover"
           />
 
           <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800">
