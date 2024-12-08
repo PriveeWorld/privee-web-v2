@@ -186,7 +186,10 @@ export default function ParisPage() {
           ))}
         </motion.div>
       </motion.aside>
-      <div className="flex flex-1 items-center justify-center">
+      <Link
+        className="flex flex-1 items-center justify-center"
+        href={"https://priveee.onelink.me/AMM3"}
+      >
         <motion.div
           className="relative h-[calc(100vh)] w-full max-w-[500px] overflow-hidden rounded-xl bg-gradient-to-r from-[#17111F] to-[#0E0914] shadow-lg lg:max-h-[850px]"
           initial={{ scale: 0.9, opacity: 0 }}
@@ -274,7 +277,7 @@ export default function ParisPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, duration: 0.4, ease: "easeOut" }}
               >
-                <div className="flex h-20 w-20 items-center justify-center rounded-full">
+                <div className="flex h-24 w-24 items-center justify-center rounded-full">
                   <Image
                     src="/shareicons/priveeicon.svg"
                     alt="Center Icon"
@@ -323,7 +326,7 @@ export default function ParisPage() {
             ))}
           </motion.div>
         </motion.div>
-      </div>
+      </Link>
     </div>
   );
 }
