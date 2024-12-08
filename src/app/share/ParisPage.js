@@ -287,7 +287,7 @@ export default function ParisPage() {
           </div>
 
           <motion.div
-            className="absolute right-4 top-24 z-50 flex flex-col gap-1 rounded-[20px] bg-[#161616]/25 px-2 py-2 backdrop-blur-[3px]"
+            className="absolute right-4 top-24 z-50 flex flex-col gap-1 rounded-[20px] bg-[#161616]/25 px-2 py-4 backdrop-blur-[3px]"
             variants={{
               hidden: { opacity: 0 },
               visible: {
@@ -301,7 +301,7 @@ export default function ParisPage() {
             {Array.from({ length: 7 }, (_, i) => (
               <motion.button
                 key={i}
-                className="rounded-full p-1"
+                className="rounded-full p-2"
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },
                   visible: {
