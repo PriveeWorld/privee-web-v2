@@ -177,7 +177,7 @@ export default function ParisPage() {
               <div className="absolute inset-0 z-0 h-full w-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] transition-all duration-300 ease-in-out group-hover:w-full"></div>
 
               <Link
-                className="relative z-10 block w-full border-b border-gray-300 px-4 py-6 font-clash text-lg font-bold text-gray-800 transition-colors duration-300 group-hover:text-white"
+                className="font-regular relative z-10 block w-full border-b border-gray-300 px-4 py-6 font-clash text-lg text-gray-800 transition-colors duration-300 group-hover:text-white"
                 href={link.href}
               >
                 {link.title}
@@ -229,7 +229,7 @@ export default function ParisPage() {
                 </motion.div>
                 <div>
                   {movieName ? (
-                    <p className="text-md font-clash font-semibold text-white">
+                    <p className="text-md font-clash font-medium text-white">
                       {movieName}
                     </p>
                   ) : (
@@ -287,7 +287,7 @@ export default function ParisPage() {
           </div>
 
           <motion.div
-            className="absolute right-4 top-24 z-50 flex flex-col gap-2 rounded-[20px] bg-[#161616]/25 px-2 py-2 backdrop-blur-[3px]"
+            className="absolute right-4 top-24 z-50 flex flex-col gap-1 rounded-[20px] bg-[#161616]/25 px-2 py-2 backdrop-blur-[3px]"
             variants={{
               hidden: { opacity: 0 },
               visible: {
@@ -301,7 +301,7 @@ export default function ParisPage() {
             {Array.from({ length: 7 }, (_, i) => (
               <motion.button
                 key={i}
-                className="rounded-full p-2"
+                className="rounded-full p-1"
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },
                   visible: {
