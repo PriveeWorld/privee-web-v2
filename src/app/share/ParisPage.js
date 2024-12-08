@@ -177,7 +177,7 @@ export default function ParisPage() {
               <div className="absolute inset-0 z-0 h-full w-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] transition-all duration-300 ease-in-out group-hover:w-full"></div>
 
               <Link
-                className="relative z-10 block w-full border-b border-gray-300 px-4 py-6 font-clash text-lg font-medium text-gray-800 transition-colors duration-300 group-hover:text-white"
+                className="relative z-10 block w-full border-b border-gray-300 px-4 py-6 font-clash text-lg font-bold text-gray-800 transition-colors duration-300 group-hover:text-white"
                 href={link.href}
               >
                 {link.title}
@@ -261,7 +261,7 @@ export default function ParisPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
                   >
-                    <p className="rounded-full bg-black/90 px-6 py-3 text-sm font-semibold text-white shadow-md">
+                    <p className="rounded-0 bg-black/90 px-1 py-1 text-lg font-semibold text-white shadow-md">
                       {captionName}
                     </p>
                   </motion.div>
@@ -287,7 +287,7 @@ export default function ParisPage() {
           </div>
 
           <motion.div
-            className="absolute right-4 top-24 z-50 flex flex-col gap-2 rounded-full bg-[#161616]/25 px-2 py-2 backdrop-blur-[3px]"
+            className="absolute right-4 top-24 z-50 flex flex-col gap-2 rounded-[20px] bg-[#161616]/25 px-2 py-2 backdrop-blur-[3px]"
             variants={{
               hidden: { opacity: 0 },
               visible: {
@@ -316,9 +316,9 @@ export default function ParisPage() {
                 <Image
                   src={`/shareicons/${i + 1}.svg`}
                   alt={`Share Icon ${i + 1}`}
-                  width={20}
-                  height={20}
-                  className="h-5 w-5"
+                  width={32}
+                  height={32}
+                  className="h-7 w-7"
                 />
               </motion.button>
             ))}
