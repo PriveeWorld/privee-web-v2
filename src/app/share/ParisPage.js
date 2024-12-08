@@ -186,12 +186,7 @@ export default function ParisPage() {
           ))}
         </motion.div>
       </motion.aside>
-      <div
-        onClick={() => {
-          window.location.href = "https://priveee.onelink.me/AMM3";
-        }}
-        className="flex flex-1 items-center justify-center"
-      >
+      <div className="flex flex-1 items-center justify-center">
         <motion.div
           className="relative h-[calc(100vh)] w-full max-w-[500px] overflow-hidden rounded-xl bg-gradient-to-r from-[#17111F] to-[#0E0914] shadow-lg lg:max-h-[850px]"
           initial={{ scale: 0.9, opacity: 0 }}
@@ -222,6 +217,9 @@ export default function ParisPage() {
                 <motion.div
                   className="h-10 w-10 overflow-hidden rounded-full bg-gray-300"
                   initial={{ scale: 0 }}
+                  onClick={() => {
+                    window.location.href = "https://priveee.onelink.me/AMM3";
+                  }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                 >
@@ -232,18 +230,27 @@ export default function ParisPage() {
                     height={40}
                   />
                 </motion.div>
-                <div>
+                <div
+                  onClick={() => {
+                    window.location.href = "https://priveee.onelink.me/AMM3";
+                  }}
+                  className="flex flex-col"
+                >
                   {movieName ? (
                     <p className="text-md font-clash font-medium text-white">
                       {movieName}
                     </p>
                   ) : (
-                    <SkeletonLoader width="100px" height="16px" />
+                    <SkeletonLoader
+                      className="mb-1"
+                      width="100px"
+                      height="16px"
+                    />
                   )}
                   {userName ? (
                     <p className="text-xs text-white">{userName}</p>
                   ) : (
-                    <SkeletonLoader width="120px" height="12px" />
+                    <SkeletonLoader width="120px" height="8px" />
                   )}
                 </div>
               </div>
@@ -278,6 +285,9 @@ export default function ParisPage() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, duration: 0.4, ease: "easeOut" }}
+                onClick={() => {
+                  window.location.href = "https://priveee.onelink.me/AMM3";
+                }}
               >
                 <div className="flex h-24 w-24 items-center justify-center rounded-full">
                   <Image
@@ -303,8 +313,11 @@ export default function ParisPage() {
             initial="hidden"
             animate="visible"
           >
-            {Array.from({ length: 7 }, (_, i) => (
+            {Array.from({ length: 6 }, (_, i) => (
               <motion.button
+                onClick={() => {
+                  window.location.href = "https://priveee.onelink.me/AMM3";
+                }}
                 key={i}
                 className="rounded-full p-2"
                 variants={{
