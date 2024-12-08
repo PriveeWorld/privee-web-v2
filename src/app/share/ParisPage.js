@@ -186,9 +186,11 @@ export default function ParisPage() {
           ))}
         </motion.div>
       </motion.aside>
-      <Link
+      <div
+        onClick={() => {
+          window.location.href = "https://priveee.onelink.me/AMM3";
+        }}
         className="flex flex-1 items-center justify-center"
-        href={"https://priveee.onelink.me/AMM3"}
       >
         <motion.div
           className="relative h-[calc(100vh)] w-full max-w-[500px] overflow-hidden rounded-xl bg-gradient-to-r from-[#17111F] to-[#0E0914] shadow-lg lg:max-h-[850px]"
@@ -326,7 +328,7 @@ export default function ParisPage() {
             ))}
           </motion.div>
         </motion.div>
-      </Link>
+      </div>
     </div>
   );
 }
