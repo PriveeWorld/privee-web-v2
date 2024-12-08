@@ -7,7 +7,31 @@ import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import { useSearchParams } from "next/navigation";
 
+function useViewportHeightFix() {
+  useEffect(() => {
+    const setViewportHeight = () => {
+      // Calculate the viewport height in pixels
+      const vh = window.innerHeight * 0.01;
+      // Set it as a CSS variable
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    // Initial calculation
+    setViewportHeight();
+
+    // Update on resize
+    window.addEventListener("resize", setViewportHeight);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("resize", setViewportHeight);
+    };
+  }, []);
+}
+
 export default function ParisPage() {
+  useViewportHeightFix();
+
   const navLinks = [
     { title: "Discover Privee", href: "/" },
     { title: "Privee Story", href: "/priveestory" },
@@ -23,14 +47,12 @@ export default function ParisPage() {
   const [videoPath, setVideoPath] = useState(null);
   const [useFallback, setUseFallback] = useState(false);
 
-  // Metadata states
   const [userName, setUserName] = useState(null);
   const [movieName, setMovieName] = useState(null);
   const [videoTitle, setVideoTitle] = useState(null);
   const [captionName, setCaptionName] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
 
-  // Fetch video data on mount
   useEffect(() => {
     const fetchVideoData = async () => {
       const videoId = searchParams.get("videoId");
@@ -47,7 +69,6 @@ export default function ParisPage() {
         const result = await response.json();
         const videoData = result?.data?.video;
 
-        // Extract video path and metadata
         const path = videoData?.visual?.videoPath;
         const title = videoData?.visual?.title || null;
         const movie = videoData?.movie?.name || null;
@@ -56,7 +77,6 @@ export default function ParisPage() {
         const captionText = videoData?.visual?.captionText || null;
         const profilePic = videoData?.user?.profilePicture || null;
 
-        // Set states
         if (path) setVideoPath(path);
         setVideoTitle(title);
         setMovieName(movie);
@@ -72,7 +92,6 @@ export default function ParisPage() {
     fetchVideoData();
   }, [searchParams]);
 
-  // Initialize video playback
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -118,7 +137,7 @@ export default function ParisPage() {
   );
 
   return (
-    <div className="relative flex min-h-screen bg-gradient-to-r from-[#17111F] to-[#0E0914] lg:bg-white lg:bg-none">
+    <div className="relative flex min-h-[calc(var(--vh)_*100)] bg-gradient-to-r from-[#17111F] to-[#0E0914] lg:bg-white lg:bg-none">
       <motion.aside
         className="hidden h-full w-[300px] flex-col items-start border-r bg-white lg:flex"
         initial={{ x: -300, opacity: 0 }}
@@ -167,7 +186,6 @@ export default function ParisPage() {
           ))}
         </motion.div>
       </motion.aside>
-
       <div className="flex flex-1 items-center justify-center">
         <motion.div
           className="relative h-[calc(100vh)] w-full max-w-[500px] overflow-hidden rounded-xl bg-gradient-to-r from-[#17111F] to-[#0E0914] shadow-lg lg:max-h-[850]"
