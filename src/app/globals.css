@@ -122,3 +122,14 @@ body {
     display: none;
   }
 }
+
+.fullscreen-container {
+  height: calc(var(--vh, 1vh) * 100); /* Use dynamically calculated vh */
+  padding-bottom: 200px;
+  background: linear-gradient(to right, white, white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Ensure positioning for overlays */
+  overflow: hidden; /* Prevent any overflow issues */
+}

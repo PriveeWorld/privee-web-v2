@@ -269,7 +269,7 @@ export default function ParisPage() {
               )}
 
               <motion.div
-                className="mb-4 flex justify-center"
+                className="mb-20 flex justify-center"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, duration: 0.4, ease: "easeOut" }}
@@ -316,9 +316,8 @@ export default function ParisPage() {
                 <Image
                   src={`/shareicons/${i + 1}.svg`}
                   alt={`Share Icon ${i + 1}`}
-                  width={32}
-                  height={32}
-                  className="h-7 w-7"
+                  width={26}
+                  height={26}
                 />
               </motion.button>
             ))}
