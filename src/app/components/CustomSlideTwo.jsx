@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const CustomSlideTwo = () => {
   const [displayedText, setDisplayedText] = useState("");
@@ -31,15 +32,15 @@ const CustomSlideTwo = () => {
   };
 
   return (
-    <div className="custom-slide flex flex-col items-start justify-center w-full px-4 md:w-3/4 lg:w-1/2 gap-4">
+    <div className="custom-slide flex w-full flex-col items-start justify-center gap-4 px-4 md:w-3/4 lg:w-1/2">
       {/* Responsive Typing Text */}
-      <h1 className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[60px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none">
+      <h1 className="bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[32px] font-semibold leading-tight text-transparent sm:text-[40px] md:text-[48px] md:leading-none lg:text-[60px]">
         {displayedText}
       </h1>
 
       {/* Subtitle */}
       <motion.h2
-        className="font-roboto text-[16px] sm:text-[18px] md:text-[20px] font-medium text-gray-600"
+        className="font-roboto text-[16px] font-medium text-gray-600 sm:text-[18px] md:text-[20px]"
         variants={fadeInVariants}
         initial="hidden"
         animate="visible"
@@ -50,7 +51,7 @@ const CustomSlideTwo = () => {
 
       {/* Description Paragraphs */}
       <motion.p
-        className="font-roboto text-[14px] sm:text-[16px] md:text-[18px] font-light text-gray-600"
+        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         variants={fadeInVariants}
         initial="hidden"
         animate="visible"
@@ -61,7 +62,7 @@ const CustomSlideTwo = () => {
         suits your interests.
       </motion.p>
       <motion.p
-        className="font-roboto text-[14px] sm:text-[16px] md:text-[18px] font-light text-gray-600"
+        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         variants={fadeInVariants}
         initial="hidden"
         animate="visible"
@@ -71,7 +72,7 @@ const CustomSlideTwo = () => {
         and discovery.
       </motion.p>
       <motion.p
-        className="font-roboto text-[14px] sm:text-[16px] md:text-[18px] font-light text-gray-600"
+        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         variants={fadeInVariants}
         initial="hidden"
         animate="visible"
@@ -82,16 +83,16 @@ const CustomSlideTwo = () => {
 
       {/* App Store and Play Store Buttons */}
       <motion.div
-        className="flex flex-wrap gap-4 mt-6"
+        className="mt-6 flex flex-wrap gap-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.5 }}
       >
-        <a
+        <Link
           href="https://apps.apple.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:opacity-80 transition-opacity"
+          className="transition-opacity hover:opacity-80"
         >
           <Image
             src="/images/appstore.svg"
@@ -100,12 +101,12 @@ const CustomSlideTwo = () => {
             height={45}
             className="sm:w-[150px] md:w-[160px] lg:w-[180px]"
           />
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://play.google.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:opacity-80 transition-opacity"
+          className="transition-opacity hover:opacity-80"
         >
           <Image
             src="/images/playstore.svg"
@@ -114,7 +115,7 @@ const CustomSlideTwo = () => {
             height={45}
             className="sm:w-[150px] md:w-[160px] lg:w-[180px]"
           />
-        </a>
+        </Link>
       </motion.div>
     </div>
   );

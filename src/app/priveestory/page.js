@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import TopNav from "../components/TopNav";
 import FullscreenNav from "../components/FullscreenNav";
+import Link from "next/link";
 
 const SECTION_HEADINGS = [
   "Discover Privee",
@@ -24,7 +25,7 @@ const PriveeStory = () => {
   };
 
   return (
-    <div className="w-screen mb-20 flex items-center justify-center min-h-screen overflow-hidden relative">
+    <div className="relative mb-20 flex min-h-screen w-screen items-center justify-center overflow-hidden">
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
@@ -39,7 +40,7 @@ const PriveeStory = () => {
         section={SECTION_HEADINGS[section]}
       />
 
-      <div className="flex overflow-y-auto h-screen relative flex-col w-full max-w-[1600px] items-start justify-center px-4 sm:px-8 py-8 sm:py-16">
+      <div className="relative flex h-screen w-full max-w-[1600px] flex-col items-start justify-center overflow-y-auto px-4 py-8 sm:px-8 sm:py-16">
         <AnimatePresence mode="wait">
           <motion.div
             key={section}
@@ -47,12 +48,12 @@ const PriveeStory = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
-            className="text-center w-full"
+            className="w-full text-center"
           >
-            <h1 className="text-[32px] mt-40 mt-12 sm:text-[40px] md:text-[50px] lg:text-[60px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent tracking-tight mb-4 leading-tight">
+            <h1 className="mb-4 mt-12 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[32px] font-semibold leading-tight tracking-tight text-transparent sm:text-[40px] md:text-[50px] lg:text-[60px]">
               Crafting Moments, Sharing Stories
             </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl font-light text-gray-700 max-w-3xl mx-auto mb-8 sm:mb-12">
+            <p className="mx-auto mb-8 max-w-3xl text-sm font-light text-gray-700 sm:mb-12 sm:text-base md:text-lg lg:text-xl">
               Privee is all about creating moments and sharing stories through
               visual storytelling. We are dedicated to empowering individuals to
               create immersive cinematic narratives.{" "}
@@ -62,45 +63,45 @@ const PriveeStory = () => {
                 introspection and community engagement.
               </strong>
             </p>
-            <div className="flex justify-center mb-12 sm:mb-16">
+            <div className="mb-12 flex justify-center sm:mb-16">
               <Image
                 src="/images/priveecolor.png"
                 alt="Privee Logo"
                 width={160}
                 height={80}
-                className="w-[120px] sm:w-[160px] md:w-[200px] h-auto"
+                className="h-auto w-[120px] sm:w-[160px] md:w-[200px]"
               />
             </div>
           </motion.div>
         </AnimatePresence>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 w-full"
+          className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
           <motion.div
-            className="p-6 sm:p-8 border border-gray-200 rounded-lg transition"
+            className="rounded-lg border border-gray-200 p-6 transition sm:p-8"
             whileHover={{ scale: 1.02 }}
           >
-            <h3 className="text-lg sm:text-xl md:text-2xl font-clash font-semibold mb-2 sm:mb-4">
+            <h3 className="mb-2 font-clash text-lg font-semibold sm:mb-4 sm:text-xl md:text-2xl">
               Innovation in Storytelling
             </h3>
-            <p className="text-sm sm:text-base md:text-lg font-light text-gray-600">
+            <p className="text-sm font-light text-gray-600 sm:text-base md:text-lg">
               Seamlessly merge images and clips to create captivating narratives
               that surpass conventional norms.
             </p>
           </motion.div>
 
           <motion.div
-            className="p-6 sm:p-8 border border-gray-200 rounded-lg transition"
+            className="rounded-lg border border-gray-200 p-6 transition sm:p-8"
             whileHover={{ scale: 1.02 }}
           >
-            <h3 className="text-lg sm:text-xl md:text-2xl font-clash font-semibold mb-2 sm:mb-4">
+            <h3 className="mb-2 font-clash text-lg font-semibold sm:mb-4 sm:text-xl md:text-2xl">
               Your Tale, Your Authority
             </h3>
-            <p className="text-sm sm:text-base md:text-lg font-light text-gray-600">
+            <p className="text-sm font-light text-gray-600 sm:text-base md:text-lg">
               {
                 "Empower yourself to be the narrator of your life's cinematic moments while preserving privacy and authenticity."
               }

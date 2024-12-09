@@ -1,11 +1,26 @@
-"use client";
 import { motion } from "framer-motion";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { HiMenu } from "react-icons/hi";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 function TopNav({ onMenuClick, section }) {
+  let router;
+
+  try {
+    router = useRouter(); // Use try-catch to safely access useRouter
+  } catch (error) {
+    router = null; // Fallback for non-router contexts
+  }
+
+  const handleLogoClick = () => {
+    if (router) {
+      router.reload("/");
+    } else {
+      window.location.href = "/"; // Fallback for cases where router is unavailable
+    }
+  };
+
   const navVariants = {
     hidden: { y: -100, opacity: 0 },
     visible: {
@@ -43,20 +58,19 @@ function TopNav({ onMenuClick, section }) {
           className="flex items-center"
           variants={itemVariants}
           custom={0}
+          onClick={handleLogoClick}
         >
-          <Link href="/">
-            <Image
-              src={
-                section === 4
-                  ? "/images/priveewhite.png"
-                  : "/images/priveelogo.png"
-              }
-              alt="Logo"
-              width={150}
-              height={50}
-              className="object-contain"
-            />
-          </Link>
+          <Image
+            src={
+              section === 4
+                ? "/images/priveewhite.png"
+                : "/images/priveelogo.png"
+            }
+            alt="Logo"
+            width={150}
+            height={50}
+            className="object-contain"
+          />
         </motion.div>
 
         <motion.div

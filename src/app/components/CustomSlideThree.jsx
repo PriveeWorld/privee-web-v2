@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const CustomSlideThree = () => {
   const fadeInVariants = {
@@ -12,10 +13,10 @@ const CustomSlideThree = () => {
   };
 
   return (
-    <section className="custom-slide flex flex-col items-start justify-center w-full px-4 md:w-3/4 lg:w-1/2 gap-4">
+    <section className="custom-slide flex w-full flex-col items-start justify-center gap-4 px-4 md:w-3/4 lg:w-1/2">
       {/* Title */}
       <motion.h1
-        className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[60px] w-full text-left mt-6 md:mt-12 font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none"
+        className="mt-6 w-full bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-left font-clash text-[32px] font-semibold leading-tight text-transparent sm:text-[40px] md:mt-12 md:text-[48px] md:leading-none lg:text-[60px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -26,7 +27,7 @@ const CustomSlideThree = () => {
 
       {/* Paragraph 1 */}
       <motion.p
-        className="font-roboto text-[14px] sm:text-[16px] md:text-[18px] font-light text-gray-600"
+        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -39,7 +40,7 @@ const CustomSlideThree = () => {
 
       {/* Paragraph 2 */}
       <motion.p
-        className="font-roboto text-[14px] sm:text-[16px] md:text-[18px] font-light text-gray-600"
+        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -52,7 +53,7 @@ const CustomSlideThree = () => {
 
       {/* Paragraph 3 */}
       <motion.p
-        className="font-roboto text-[14px] sm:text-[16px] md:text-[18px] font-light text-gray-600"
+        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -63,19 +64,19 @@ const CustomSlideThree = () => {
 
       {/* Paragraph 4 with Link */}
       <motion.p
-        className="font-roboto text-[14px] sm:text-[16px] md:text-[18px] font-light text-gray-600"
+        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
         custom={4}
       >
         For more information, please{" "}
-        <a
+        <Link
           href="/contact"
-          className="text-purple-300 underline hover:text-purple-200 transition-colors"
+          className="text-purple-300 underline transition-colors hover:text-purple-200"
         >
           contact us
-        </a>
+        </Link>
         .
       </motion.p>
     </section>

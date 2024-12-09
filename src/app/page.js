@@ -9,6 +9,7 @@ import TopNav from "./components/TopNav";
 import SectionIndicator from "./components/SectionIndicator";
 import NavigationButtons from "./components/NavigationButtons";
 import SectionContent from "./components/SectionContent";
+import Link from "next/link";
 
 const SECTION_HEADINGS = [
   "People",
@@ -67,7 +68,7 @@ export default function Home() {
 
       step();
     },
-    []
+    [],
   );
 
   const scrollToSection = useCallback(
@@ -105,7 +106,7 @@ export default function Home() {
         isTransitioning.current = false;
       }, 1200); // Match this to your animation duration
     },
-    [section, animateLottieFrames]
+    [section, animateLottieFrames],
   );
 
   const handleWheel = useCallback(
@@ -122,8 +123,36 @@ export default function Home() {
         scrollToSection(section - 1); // Scroll up
       }
     },
-    [section, scrollToSection]
+    [section, scrollToSection],
   );
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (isTransitioning.current) return;
+
+      switch (event.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          if (section < SECTIONS_COUNT - 1) {
+            scrollToSection(section + 1);
+          }
+          break;
+        case "ArrowLeft":
+        case "ArrowUp":
+          if (section > 0) {
+            scrollToSection(section - 1);
+          }
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [section, scrollToSection]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -151,14 +180,14 @@ export default function Home() {
         }
       }
     },
-    { axis: "y", filterTaps: true }
+    { axis: "y", filterTaps: true },
   );
 
   return (
     <div
       {...bind()} // Attach gesture handling
       ref={containerRef} // Attach ref for handling wheel events
-      className="w-screen h-screen overflow-hidden flex items-center justify-center touch-none"
+      className="flex h-screen w-screen touch-none items-center justify-center overflow-hidden"
     >
       <FullscreenNav
         isOpen={isNavOpen}
@@ -171,7 +200,7 @@ export default function Home() {
       />
       <TopNav onMenuClick={() => setIsNavOpen(true)} section={section} />
 
-      <div className="flex relative flex-col w-full mt-20 px-4 lg:px-16 max-w-[1600px] pt-32 lg:pt-0 h-screen lg:h-fit items-center lg:items-start justify-start">
+      <div className="relative mt-20 flex h-screen w-full max-w-[1600px] flex-col items-center justify-start px-4 pt-32 lg:h-fit lg:items-start lg:px-16 lg:pt-0">
         <AnimatePresence mode="wait">
           <SectionContent
             section={section}
@@ -182,7 +211,7 @@ export default function Home() {
         {section < 4 && (
           <div
             ref={lottieRef}
-            className={`fixed -bottom-[120px] lg:bottom-0 -z-50 right-10 lg:-right-40 transform pointer-events-none w-3/4 h-3/4 ${
+            className={`pointer-events-none fixed -bottom-[120px] right-10 -z-50 h-3/4 w-3/4 transform lg:-right-40 lg:bottom-0 ${
               section === 3 ? "hidden-on-mobile" : ""
             }`}
           />

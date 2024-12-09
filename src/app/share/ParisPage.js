@@ -214,6 +214,13 @@ export default function ParisPage() {
             <div className="absolute left-0 top-0 z-[1] h-20 w-full bg-gradient-to-r from-[#17111F] to-[#0E0914]"></div>
             <div>
               <div className="relative z-10 flex items-center gap-2">
+                <Image
+                  className="absolute right-4 lg:hidden"
+                  src="/images/priveewhite.png"
+                  width={120}
+                  height={100}
+                  alt=""
+                />
                 <motion.div
                   className="h-10 w-10 overflow-hidden rounded-full bg-gray-300"
                   initial={{ scale: 0 }}
