@@ -34,7 +34,7 @@ const CustomSlideTwo = () => {
   return (
     <div className="custom-slide flex w-full flex-col items-start justify-center gap-4 px-4 md:w-3/4 lg:w-1/2">
       {/* Responsive Typing Text */}
-      <h1 className="bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[32px] font-semibold leading-tight text-transparent sm:text-[40px] md:text-[48px] md:leading-none lg:text-[60px]">
+      <h1 className="mt-8 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[32px] font-semibold leading-tight text-transparent sm:text-[40px] md:text-[48px] md:leading-none lg:text-[60px]">
         {displayedText}
       </h1>
 
