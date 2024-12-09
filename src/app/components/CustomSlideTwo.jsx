@@ -89,7 +89,7 @@ const CustomSlideTwo = () => {
         transition={{ delay: 1.5, duration: 0.5 }}
       >
         <Link
-          href="https://apps.apple.com"
+          href="https://priveee.onelink.me/AMM3"
           target="_blank"
           rel="noopener noreferrer"
           className="transition-opacity hover:opacity-80"
@@ -103,7 +103,7 @@ const CustomSlideTwo = () => {
           />
         </Link>
         <Link
-          href="https://play.google.com"
+          href="https://priveee.onelink.me/AMM3"
           target="_blank"
           rel="noopener noreferrer"
           className="transition-opacity hover:opacity-80"
