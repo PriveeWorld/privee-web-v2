@@ -16,7 +16,7 @@ const CustomSlideThree = () => {
     <section className="custom-slide flex w-full flex-col items-start justify-center gap-4 px-4 md:w-3/4 lg:w-1/2">
       {/* Title */}
       <motion.h1
-        className="mt-6 w-full bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-left font-clash text-[32px] font-semibold leading-tight text-transparent sm:text-[40px] md:mt-12 md:text-[48px] md:leading-none lg:text-[60px]"
+        className="mt-10 w-full bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-left font-clash text-[32px] font-semibold leading-tight text-transparent sm:text-[40px] md:mt-12 md:text-[48px] md:leading-none lg:text-[60px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
