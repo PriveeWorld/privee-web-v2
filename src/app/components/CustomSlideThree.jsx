@@ -27,7 +27,7 @@ const CustomSlideThree = () => {
 
       {/* Paragraph 1 */}
       <motion.p
-        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
+        className="font-roboto text-[16px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -40,7 +40,7 @@ const CustomSlideThree = () => {
 
       {/* Paragraph 2 */}
       <motion.p
-        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
+        className="font-roboto text-[16px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -53,7 +53,7 @@ const CustomSlideThree = () => {
 
       {/* Paragraph 3 */}
       <motion.p
-        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
+        className="font-roboto text-[16px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -64,7 +64,7 @@ const CustomSlideThree = () => {
 
       {/* Paragraph 4 with Link */}
       <motion.p
-        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
+        className="font-roboto text-[16px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}

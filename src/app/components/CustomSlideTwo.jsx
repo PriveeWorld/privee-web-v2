@@ -51,7 +51,7 @@ const CustomSlideTwo = () => {
 
       {/* Description Paragraphs */}
       <motion.p
-        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
+        className="font-roboto text-[16px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         variants={fadeInVariants}
         initial="hidden"
         animate="visible"
@@ -62,7 +62,7 @@ const CustomSlideTwo = () => {
         suits your interests.
       </motion.p>
       <motion.p
-        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
+        className="font-roboto text-[16px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         variants={fadeInVariants}
         initial="hidden"
         animate="visible"
@@ -72,7 +72,7 @@ const CustomSlideTwo = () => {
         and discovery.
       </motion.p>
       <motion.p
-        className="font-roboto text-[14px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
+        className="font-roboto text-[16px] font-light text-gray-600 sm:text-[16px] md:text-[18px]"
         variants={fadeInVariants}
         initial="hidden"
         animate="visible"

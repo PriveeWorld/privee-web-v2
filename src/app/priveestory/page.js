@@ -53,7 +53,7 @@ const PriveeStory = () => {
             <h1 className="mb-4 mt-12 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[32px] font-semibold leading-tight tracking-tight text-transparent sm:text-[40px] md:text-[50px] lg:text-[60px]">
               Crafting Moments, Sharing Stories
             </h1>
-            <p className="mx-auto mb-8 max-w-3xl text-sm font-light text-gray-700 sm:mb-12 sm:text-base md:text-lg lg:text-xl">
+            <p className="text-md mx-auto mb-8 max-w-3xl font-light text-gray-700 sm:mb-12 sm:text-base md:text-lg lg:text-xl">
               Privee is all about creating moments and sharing stories through
               visual storytelling. We are dedicated to empowering individuals to
               create immersive cinematic narratives.{" "}
