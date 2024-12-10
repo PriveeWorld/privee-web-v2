@@ -5,7 +5,7 @@ export const metadata = {
   title: "Privee World",
   description: "Check out this amazing movie..",
   openGraph: {
-    title: "Check out this amazing movie.",
+    title: "Privee World",
     description: "Check out this amazing movie.",
     url: "https://privee.world",
     images: [
