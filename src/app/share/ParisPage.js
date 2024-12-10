@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import { useSearchParams } from "next/navigation";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 function useViewportHeightFix() {
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function ParisPage() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoPath, setVideoPath] = useState(null);
   const [useFallback, setUseFallback] = useState(false);
-
+  const [isPlaying, setIsPlaying] = useState(false); // State for play/pause
   const [userName, setUserName] = useState(null);
   const [movieName, setMovieName] = useState(null);
   const [videoTitle, setVideoTitle] = useState(null);
@@ -136,6 +137,18 @@ export default function ParisPage() {
     />
   );
 
+  const togglePlayPause = () => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    if (isPlaying) {
+      videoElement.pause();
+    } else {
+      videoElement.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
   return (
     <div className="relative flex min-h-[calc(var(--vh)_*100)] bg-gradient-to-r from-[#17111F] to-[#0E0914] lg:bg-white lg:bg-none">
       <motion.aside
@@ -201,14 +214,22 @@ export default function ParisPage() {
 
           <video
             ref={videoRef}
-            autoPlay
             crossOrigin="anonymous"
             preload="auto"
             playsInline
-            muted
-            loop
             className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
           />
+
+          <button
+            onClick={togglePlayPause}
+            className="absolute inset-0 z-20 flex items-center justify-center"
+          >
+            {isPlaying ? (
+              <FaPause size={40} color="white" />
+            ) : (
+              <FaPlay size={40} color="white" />
+            )}
+          </button>
 
           <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800">
             <div className="absolute left-0 top-0 z-[1] h-20 w-full bg-gradient-to-r from-[#17111F] to-[#0E0914]"></div>
@@ -222,7 +243,7 @@ export default function ParisPage() {
                   alt=""
                 />
                 <motion.div
-                  className="h-10 w-10 overflow-hidden rounded-full bg-gray-300"
+                  className="relative z-[99999] h-10 w-10 overflow-hidden rounded-full bg-gray-300"
                   initial={{ scale: 0 }}
                   onClick={() => {
                     window.location.href = "https://priveee.onelink.me/AMM3";
@@ -263,10 +284,8 @@ export default function ParisPage() {
               </div>
 
               <div className="relative z-50 mt-10 rounded-lg">
-                {videoTitle ? (
+                {videoTitle && (
                   <h2 className="text-lg font-bold text-white">{videoTitle}</h2>
-                ) : (
-                  <SkeletonLoader width="200px" height="20px" />
                 )}
               </div>
             </div>
@@ -296,7 +315,7 @@ export default function ParisPage() {
                   window.location.href = "https://priveee.onelink.me/AMM3";
                 }}
               >
-                <div className="flex h-24 w-24 items-center justify-center rounded-full">
+                <div className="z-50 flex h-24 w-24 items-center justify-center rounded-full">
                   <Image
                     src="/shareicons/priveeicon.svg"
                     alt="Center Icon"
