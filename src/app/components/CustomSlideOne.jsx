@@ -100,7 +100,7 @@ const CustomSlideOne = () => {
               allowFullScreen
             />
             <button
-              className="absolute right-4 top-4 rounded-full bg-gray-800 p-2 text-2xl text-white hover:bg-gray-700"
+              className="absolute right-4 top-1 rounded-full bg-gray-800 p-2 text-2xl text-white hover:bg-gray-700"
               onClick={() => setIsModalOpen(false)}
             >
               &times;
