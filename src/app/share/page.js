@@ -48,7 +48,10 @@ export async function generateMetadata({ searchParams }) {
 
   // Extract data
   const {
-    visual: { captionText } = {},
+    visual: {
+      captionText,
+      media: { thumbnailImagePath } = {},
+    } = {},
     movie: { name: movieName } = {},
     user: { firstName, lastName, profilePicture } = {},
   } = videoData;
@@ -59,12 +62,12 @@ export async function generateMetadata({ searchParams }) {
   // Description: "Watch this visual from John Doe"
   const userFullName = [firstName, lastName].filter(Boolean).join(" ");
   const metaDesc = userFullName
-    ? `Watch more from ${userFullName}`
+    ? `Watch more from ${userFullName} on Privee!`
     : "Check out this video on Privee!";
 
   // Image fallback
-  const metaImage = profilePicture
-    ? profilePicture
+  const metaImage = thumbnailImagePath
+    ? thumbnailImagePath
     : `${domain}/images/priveelogo.png`;
     
   // Full URL for "og:url"
