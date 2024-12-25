@@ -3,10 +3,7 @@
 import { Suspense } from "react";
 import ParisPage from "./ParisPage";
 
-/**
- * Helper to fetch the video data from your API.
- * This runs on the server during SSR.
- */
+// 1) SERVER function to fetch video data
 async function getVideoData(videoId) {
   if (!videoId) return null;
 
@@ -19,16 +16,16 @@ async function getVideoData(videoId) {
 }
 
 /**
- * generateMetadata: Next.js 13+ API for dynamic SEO/OG tags in the App Router.
- * https://nextjs.org/docs/app/api-reference/functions/generate-metadata
+ * 2) generateMetadata – sets our SEO/OG tags
+ *    - Use movieName for the title
+ *    - "Watch this visual from John Doe" for description
  */
 export async function generateMetadata({ searchParams }) {
+  const domain = "https://p.privee.world"; // Your domain
   const videoId = searchParams?.videoId;
   const videoData = await getVideoData(videoId);
 
-  const domain = "https://p.privee.world"; // Your production domain
-
-  // Fallback metadata if no video data
+  // If no data, fallback
   if (!videoData) {
     return {
       title: "Privee - Shared Video",
@@ -49,28 +46,36 @@ export async function generateMetadata({ searchParams }) {
     };
   }
 
-  // Extract metadata from the API response
+  // Extract data
   const {
-    visual: { title, captionText } = {},
+    visual: { captionText } = {},
     movie: { name: movieName } = {},
     user: { firstName, lastName, profilePicture } = {},
   } = videoData;
 
-  const metaTitle = title || "Privee - Shared Video";
-  const metaDesc = captionText || "Check out this video on Privee!";
+  // Title uses the movie name
+  const metaTitle = movieName ? `Privee World - ${movieName}` : "Privee - Shared Video";
+
+  // Description: "Watch this visual from John Doe"
+  const userFullName = [firstName, lastName].filter(Boolean).join(" ");
+  const metaDesc = userFullName
+    ? `Watch more from ${userFullName}`
+    : "Check out this video on Privee!";
+
+  // Image fallback
   const metaImage = profilePicture
     ? profilePicture
     : `${domain}/images/priveelogo.png`;
+    
+  // Full URL for "og:url"
   const fullUrl = videoId
     ? `${domain}/share?videoId=${videoId}`
     : `${domain}/share`;
 
   return {
-    // Basic SEO
     title: metaTitle,
     description: metaDesc,
 
-    // Open Graph
     openGraph: {
       title: metaTitle,
       description: metaDesc,
@@ -78,10 +83,8 @@ export async function generateMetadata({ searchParams }) {
       type: "video.other",
       images: [metaImage],
     },
-
-    // Twitter Card
     twitter: {
-      card: "summary_large_image",
+      card: [metaImage],
       title: metaTitle,
       description: metaDesc,
       images: [metaImage],
@@ -89,11 +92,7 @@ export async function generateMetadata({ searchParams }) {
   };
 }
 
-/**
- * The default export is your "Page" component (Server Component),
- * which fetches data on the server and renders a Suspense boundary
- * for your Client Component.
- */
+// 3) Default export (Server Component)
 export default async function ParisPageWrapper({ searchParams }) {
   const videoId = searchParams?.videoId;
   let videoData = null;
