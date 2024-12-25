@@ -50,7 +50,7 @@ export async function generateMetadata({ searchParams }) {
   const {
     visual: {
       captionText,
-      media: { thumbnailImagePath } = {},
+      thumbnailImagePath ,
     } = {},
     movie: { name: movieName } = {},
     user: { firstName, lastName, profilePicture } = {},
