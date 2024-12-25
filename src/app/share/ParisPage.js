@@ -1,3 +1,4 @@
+// src/app/share/ParisPage.js
 "use client";
 
 import { motion } from "framer-motion";
@@ -5,99 +6,67 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
-import { useSearchParams } from "next/navigation";
 import { FaPlay, FaPause } from "react-icons/fa";
 
+/**
+ * Hook to fix 100vh on mobile (your existing code).
+ */
 function useViewportHeightFix() {
   useEffect(() => {
     const setViewportHeight = () => {
-      // Calculate the viewport height in pixels
       const vh = window.innerHeight * 0.01;
-      // Set it as a CSS variable
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    // Initial calculation
     setViewportHeight();
-
-    // Update on resize
     window.addEventListener("resize", setViewportHeight);
-
-    // Cleanup event listener on unmount
     return () => {
       window.removeEventListener("resize", setViewportHeight);
     };
   }, []);
 }
 
-export default function ParisPage() {
+/**
+ * Your existing UI, but now we receive `videoData` as props
+ * from the server. We do NOT fetch again in the client.
+ */
+export default function ParisPage({ videoData }) {
+  // Ensure height fix
   useViewportHeightFix();
 
-  const navLinks = [
-    { title: "Discover Privee", href: "/" },
-    { title: "Privee Story", href: "/priveestory" },
-    { title: "Privacy Policy", href: "/privacypolicy" },
-    { title: "Contact Us", href: "/contact" },
-  ];
+  // If no video data is passed (e.g., not found)
+  if (!videoData) {
+    return (
+      <div className="flex items-center justify-center h-screen text-white">
+        <p>Video not found.</p>
+      </div>
+    );
+  }
 
+  // Extract from videoData
+  const videoPath = videoData?.visual?.videoPath || null;
+  const videoTitle = videoData?.visual?.title || null;
+  const captionName = videoData?.visual?.captionText || null;
+  const movieName = videoData?.movie?.name || null;
+  const firstName = videoData?.user?.firstName || null;
+  const lastName = videoData?.user?.lastName || null;
+  const profilePicture = videoData?.user?.profilePicture || null;
+  const userName =
+    firstName && lastName ? `${firstName} ${lastName}` : (firstName || lastName);
+
+  // State
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
-  const searchParams = useSearchParams();
 
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [videoPath, setVideoPath] = useState(null);
-  const [useFallback, setUseFallback] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false); // State for play/pause
-  const [userName, setUserName] = useState(null);
-  const [movieName, setMovieName] = useState(null);
-  const [videoTitle, setVideoTitle] = useState(null);
-  const [captionName, setCaptionName] = useState(null);
-  const [profilePicture, setProfilePicture] = useState(null);
-
-  useEffect(() => {
-    const fetchVideoData = async () => {
-      const videoId = searchParams.get("videoId");
-      if (!videoId) {
-        setUseFallback(true);
-        return;
-      }
-
-      const apiUrl = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${videoId}`;
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Failed to fetch video data");
-
-        const result = await response.json();
-        const videoData = result?.data?.video;
-
-        const path = videoData?.visual?.videoPath;
-        const title = videoData?.visual?.title || null;
-        const movie = videoData?.movie?.name || null;
-        const firstName = videoData?.user?.firstName || null;
-        const lastName = videoData?.user?.lastName || null;
-        const captionText = videoData?.visual?.captionText || null;
-        const profilePic = videoData?.user?.profilePicture || null;
-
-        if (path) setVideoPath(path);
-        setVideoTitle(title);
-        setMovieName(movie);
-        setUserName(firstName && lastName ? `${firstName} ${lastName}` : null);
-        setCaptionName(captionText);
-        setProfilePicture(profilePic);
-      } catch (error) {
-        console.error("Error fetching video data:", error);
-        setUseFallback(true);
-      }
-    };
-
-    fetchVideoData();
-  }, [searchParams]);
-
+  // Initialize video (HLS or fallback .mp4)
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
-    if (useFallback) {
+    // If no HLS path, fallback
+    if (!videoPath) {
       videoElement.src = "/images/priveeweb.mp4";
       videoElement.addEventListener("loadedmetadata", () => {
         setIsVideoLoaded(true);
@@ -106,41 +75,37 @@ export default function ParisPage() {
       return;
     }
 
-    if (videoPath) {
-      if (Hls.isSupported()) {
-        const hls = new Hls({ startLevel: 0 });
-        hls.loadSource(videoPath);
-        hls.attachMedia(videoElement);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          setIsVideoLoaded(true);
-          videoElement.play().catch(() => console.warn("Autoplay failed."));
-        });
-        hlsRef.current = hls;
-      } else if (videoElement.canPlayType("application/vnd.apple.mpegurl")) {
-        videoElement.src = videoPath;
-        videoElement.addEventListener("loadedmetadata", () => {
-          setIsVideoLoaded(true);
-          videoElement.play().catch(() => console.warn("Autoplay failed."));
-        });
-      }
+    // HLS supported
+    if (Hls.isSupported()) {
+      const hls = new Hls({ startLevel: 0 });
+      hls.loadSource(videoPath);
+      hls.attachMedia(videoElement);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        setIsVideoLoaded(true);
+        videoElement.play().catch(() => console.warn("Autoplay failed."));
+      });
+      hlsRef.current = hls;
+    }
+    // Safari fallback
+    else if (videoElement.canPlayType("application/vnd.apple.mpegurl")) {
+      videoElement.src = videoPath;
+      videoElement.addEventListener("loadedmetadata", () => {
+        setIsVideoLoaded(true);
+        videoElement.play().catch(() => console.warn("Autoplay failed."));
+      });
     }
 
     return () => {
-      if (hlsRef.current) hlsRef.current.destroy();
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+      }
     };
-  }, [videoPath, useFallback]);
+  }, [videoPath]);
 
-  const SkeletonLoader = ({ width, height, className }) => (
-    <div
-      className={`animate-pulse rounded bg-gray-300 ${className}`}
-      style={{ width, height }}
-    />
-  );
-
+  // Play/pause
   const togglePlayPause = () => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
-
     if (isPlaying) {
       videoElement.pause();
     } else {
@@ -149,8 +114,20 @@ export default function ParisPage() {
     setIsPlaying(!isPlaying);
   };
 
+  // A small skeleton loader component (unchanged)
+  const SkeletonLoader = ({ width, height, className }) => (
+    <div
+      className={`animate-pulse rounded bg-gray-300 ${className}`}
+      style={{ width, height }}
+    />
+  );
+
+  // -----------------------------
+  // Render your existing UI below
+  // -----------------------------
   return (
     <div className="relative flex min-h-[calc(var(--vh)_*100)] bg-gradient-to-r from-[#17111F] to-[#0E0914] lg:bg-white lg:bg-none">
+      {/* LEFT SIDE NAV (only on lg) */}
       <motion.aside
         className="hidden h-full w-[300px] flex-col items-start border-r bg-white lg:flex"
         initial={{ x: -300, opacity: 0 }}
@@ -175,7 +152,12 @@ export default function ParisPage() {
         </motion.div>
 
         <motion.div className="flex w-full flex-col">
-          {navLinks.map((link, index) => (
+          {[
+            { title: "Discover Privee", href: "/" },
+            { title: "Privee Story", href: "/priveestory" },
+            { title: "Privacy Policy", href: "/privacypolicy" },
+            { title: "Contact Us", href: "/contact" },
+          ].map((link, index) => (
             <motion.div
               key={index}
               className="group relative w-full text-left"
@@ -199,6 +181,8 @@ export default function ParisPage() {
           ))}
         </motion.div>
       </motion.aside>
+
+      {/* VIDEO CONTENT */}
       <div className="flex flex-1 items-center justify-center">
         <motion.div
           className="relative h-[calc(100vh)] w-full max-w-[500px] overflow-hidden rounded-xl bg-gradient-to-r from-[#17111F] to-[#0E0914] shadow-lg lg:max-h-[850px]"
@@ -212,6 +196,7 @@ export default function ParisPage() {
             </div>
           )}
 
+          {/* Video element */}
           <video
             ref={videoRef}
             crossOrigin="anonymous"
@@ -220,6 +205,7 @@ export default function ParisPage() {
             className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
           />
 
+          {/* Play/Pause overlay button */}
           <button
             onClick={togglePlayPause}
             className="absolute inset-0 z-20 flex items-center justify-center"
@@ -231,8 +217,11 @@ export default function ParisPage() {
             )}
           </button>
 
+          {/* Overlay text */}
           <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800">
             <div className="absolute left-0 top-0 z-[1] h-20 w-full bg-gradient-to-r from-[#17111F] to-[#0E0914]"></div>
+
+            {/* User & Title info */}
             <div>
               <div className="relative z-10 flex items-center gap-2">
                 <Image
@@ -245,11 +234,11 @@ export default function ParisPage() {
                 <motion.div
                   className="relative z-[99999] h-10 w-10 overflow-hidden rounded-full bg-gray-300"
                   initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                   onClick={() => {
                     window.location.href = "https://priveee.onelink.me/AMM3";
                   }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                 >
                   <Image
                     src={profilePicture || "/shareicons/priveeicon.svg"}
@@ -259,22 +248,20 @@ export default function ParisPage() {
                   />
                 </motion.div>
                 <div
+                  className="flex flex-col"
                   onClick={() => {
                     window.location.href = "https://priveee.onelink.me/AMM3";
                   }}
-                  className="flex flex-col"
                 >
+                  {/* Movie Name */}
                   {movieName ? (
                     <p className="text-md font-clash font-medium text-white">
                       {movieName}
                     </p>
                   ) : (
-                    <SkeletonLoader
-                      className="mb-1"
-                      width="100px"
-                      height="16px"
-                    />
+                    <SkeletonLoader width="100px" height="16px" />
                   )}
+                  {/* User Name */}
                   {userName ? (
                     <p className="text-xs text-white">{userName}</p>
                   ) : (
@@ -283,6 +270,7 @@ export default function ParisPage() {
                 </div>
               </div>
 
+              {/* Video Title */}
               <div className="relative z-50 mt-10 rounded-lg">
                 {videoTitle && (
                   <h2 className="text-lg font-bold text-white">{videoTitle}</h2>
@@ -290,6 +278,7 @@ export default function ParisPage() {
               </div>
             </div>
 
+            {/* Caption / CTA */}
             <div className="flex flex-col gap-4">
               {captionName && (
                 <div className="relative z-50 mb-4 flex flex-col justify-center gap-4">
@@ -327,6 +316,7 @@ export default function ParisPage() {
             </div>
           </div>
 
+          {/* Right side share icons */}
           <motion.div
             className="absolute right-4 top-24 z-50 flex flex-col gap-1 rounded-[20px] bg-[#161616]/25 px-2 py-4 backdrop-blur-[3px]"
             variants={{
@@ -341,11 +331,11 @@ export default function ParisPage() {
           >
             {Array.from({ length: 6 }, (_, i) => (
               <motion.button
+                key={i}
+                className="rounded-full p-2"
                 onClick={() => {
                   window.location.href = "https://priveee.onelink.me/AMM3";
                 }}
-                key={i}
-                className="rounded-full p-2"
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },
                   visible: {
