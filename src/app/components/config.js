@@ -1,9 +1,9 @@
 // components/config.js
 export const SECTION_HEADINGS = [
-  ["People"],
-  ["Emotions"],
-  ["Movies"],
-  ["Your life,", "your story"],
+  "People",
+  "Emotions",
+  "Movies",
+  "Your life, your story",
 ];
 
 export const SECTION_SUBHEADINGS = [

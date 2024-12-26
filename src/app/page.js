@@ -9,12 +9,11 @@ import TopNav from "./components/TopNav";
 import SectionIndicator from "./components/SectionIndicator";
 import NavigationButtons from "./components/NavigationButtons";
 import SectionContent from "./components/SectionContent";
+import { SECTION_HEADINGS } from "./components/config";
 
-const SECTION_HEADINGS = ["People", "Emotions", "Movies", "Your life, your story"];
 const SECTIONS_COUNT = 7;
 
 /** 
- * Define segments for the first 4 sections (0 -> 3).
  * Adjust these ranges to match your actual Lottie JSON frames.
  * Example:
  *   Section 0 => frames [0, 20]
@@ -317,3 +316,4 @@ export default function Home() {
     </div>
   );
 }
+

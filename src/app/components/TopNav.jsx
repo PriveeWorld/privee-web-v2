@@ -93,7 +93,7 @@ function TopNav({ onMenuClick, section }) {
             whileHover={{ scale: 1.1 }}
           >
             <FaFacebook />
-        
+          </motion.a>
           <motion.a
             href="https://www.instagram.com/privee.world/"
             target="_blank"
@@ -110,12 +110,11 @@ function TopNav({ onMenuClick, section }) {
           >
             <FaInstagram />
           </motion.a>
-          </motion.a>
           <motion.a
             href="https://www.linkedin.com/company/priveeworld/posts/?feedView=all"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Twitter"
+            aria-label="LinkedIn"
             variants={itemVariants}
             custom={2.0}
             className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${

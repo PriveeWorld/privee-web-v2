@@ -4,15 +4,20 @@ import { Suspense } from "react";
 import ParisPage from "./ParisPage";
 
 // 1) SERVER function to fetch video data
-async function getVideoData(videoId, userWhoShareId ) {
+async function getVideoData(videoId, userWhoShareId) {
   if (!videoId) return null;
   if (!userWhoShareId) return null;
   const apiUrl = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${userWhoShareId}/${videoId}`;
-  const response = await fetch(apiUrl, { cache: "no-store" });
-  if (!response.ok) throw new Error("Failed to fetch video data");
+  try {
+    const response = await fetch(apiUrl, { cache: "no-store" });
+    if (!response.ok) return null;
 
-  const result = await response.json();
-  return result?.data?.video || null;
+    const result = await response.json();
+    return result?.data?.video || null;
+  } catch (error) {
+    console.error("Error fetching video data:", error);
+    return null;
+  }
 }
 
 /**

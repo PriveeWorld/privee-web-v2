@@ -37,8 +37,15 @@ export default function ParisPage({ videoData }) {
   // If no video data is passed (e.g., not found)
   if (!videoData) {
     return (
-      <div className="flex items-center justify-center h-screen text-white">
-        <p>Video not found.</p>
+      <div className="relative flex h-screen w-full">
+        {/* Shimmer background */}
+        <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700" />
+        {/* Message overlay */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/70 text-white">
+          <p className="text-xl font-semibold px-4">
+            This link is expired or invalid. Please try again later.
+          </p>
+        </div>
       </div>
     );
   }
@@ -53,6 +60,10 @@ export default function ParisPage({ videoData }) {
   const profilePicture = videoData?.ownerOfMovie?.profilePicture || null;
   const userName =
     firstName && lastName ? `${firstName} ${lastName}` : (firstName || lastName);
+  const userWhoShare = videoData?.userWhoShare;
+  const userWhoShareName = userWhoShare
+    ? [userWhoShare.firstName, userWhoShare.lastName].filter(Boolean).join(" ")
+    : "";
 
   // State
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -357,6 +368,18 @@ export default function ParisPage({ videoData }) {
             ))}
           </motion.div>
         </motion.div>
+      </div>
+      <div className="absolute bottom-0 left-0 w-full bg-black/50 p-4 text-center text-white z-50 font-clash">
+        <p>{userWhoShareName || "Someone"} invited you to watch this movie.</p>
+        <p>
+          Step into Privee World -{" "}
+          <span
+            className="underline cursor-pointer"
+            onClick={() => (window.location.href = "https://priveee.onelink.me/AMM3")}
+          >
+            Download now for free!
+          </span>
+        </p>
       </div>
     </div>
   );
