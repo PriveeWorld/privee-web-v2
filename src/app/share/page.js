@@ -4,10 +4,10 @@ import { Suspense } from "react";
 import ParisPage from "./ParisPage";
 
 // 1) SERVER function to fetch video data
-async function getVideoData(videoId) {
+async function getVideoData(videoId, userWhoShareId ) {
   if (!videoId) return null;
-
-  const apiUrl = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${videoId}`;
+  if (!userWhoShareId) return null;
+  const apiUrl = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${userWhoShareId}/${videoId}`;
   const response = await fetch(apiUrl, { cache: "no-store" });
   if (!response.ok) throw new Error("Failed to fetch video data");
 
@@ -98,10 +98,11 @@ export async function generateMetadata({ searchParams }) {
 // 3) Default export (Server Component)
 export default async function ParisPageWrapper({ searchParams }) {
   const videoId = searchParams?.videoId;
+  const userWhoShareId = searchParams?.userId;
   let videoData = null;
 
   try {
-    videoData = await getVideoData(videoId);
+    videoData = await getVideoData(videoId, userWhoShareId);
   } catch (err) {
     console.error(err);
   }
