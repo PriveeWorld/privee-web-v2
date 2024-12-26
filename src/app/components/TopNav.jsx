@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { HiMenu } from "react-icons/hi";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -79,7 +79,7 @@ function TopNav({ onMenuClick, section }) {
           custom={1}
         >
           <motion.a
-            href="https://facebook.com"
+            href="https://www.facebook.com/profile.php?id=61570117093621"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
@@ -93,25 +93,9 @@ function TopNav({ onMenuClick, section }) {
             whileHover={{ scale: 1.1 }}
           >
             <FaFacebook />
-          </motion.a>
+        
           <motion.a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            variants={itemVariants}
-            custom={2.0}
-            className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
-              isTransparent
-                ? "border-white/30 hover:bg-white/10"
-                : "border-gray-300 hover:bg-gray-100"
-            }`}
-            whileHover={{ scale: 1.1 }}
-          >
-            <FaTwitter />
-          </motion.a>
-          <motion.a
-            href="https://instagram.com"
+            href="https://www.instagram.com/privee.world/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -125,6 +109,23 @@ function TopNav({ onMenuClick, section }) {
             whileHover={{ scale: 1.1 }}
           >
             <FaInstagram />
+          </motion.a>
+          </motion.a>
+          <motion.a
+            href="https://www.linkedin.com/company/priveeworld/posts/?feedView=all"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter"
+            variants={itemVariants}
+            custom={2.0}
+            className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
+              isTransparent
+                ? "border-white/30 hover:bg-white/10"
+                : "border-gray-300 hover:bg-gray-100"
+            }`}
+            whileHover={{ scale: 1.1 }}
+          >
+            <FaLinkedin />
           </motion.a>
         </motion.div>
 
