@@ -65,6 +65,7 @@ export async function generateMetadata({ searchParams }) {
 
   // Description: "Watch this visual from John Doe"
   const userFullName = [firstName, lastName].filter(Boolean).join(" ");
+  console.log("User full name:", userFullName);
   const metaDesc = userFullName
     ? `Watch more from ${userFullName} on Privee!`
     : "Check out this video on Privee!";

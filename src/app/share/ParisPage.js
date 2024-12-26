@@ -48,9 +48,9 @@ export default function ParisPage({ videoData }) {
   const videoTitle = videoData?.visual?.title || null;
   const captionName = videoData?.visual?.captionText || null;
   const movieName = videoData?.movie?.name || null;
-  const firstName = videoData?.user?.firstName || null;
-  const lastName = videoData?.user?.lastName || null;
-  const profilePicture = videoData?.user?.profilePicture || null;
+  const firstName = videoData?.ownerOfMovie?.firstName || null;
+  const lastName = videoData?.ownerOfMovie?.lastName || null;
+  const profilePicture = videoData?.ownerOfMovie?.profilePicture || null;
   const userName =
     firstName && lastName ? `${firstName} ${lastName}` : (firstName || lastName);
 
