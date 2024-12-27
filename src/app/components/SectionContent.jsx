@@ -4,7 +4,19 @@ import { useState } from "react";
 import CustomSlideOne from "./CustomSlideOne";
 import CustomSlideTwo from "./CustomSlideTwo";
 import CustomSlideThree from "./CustomSlideThree";
-import { SECTION_HEADINGS, SECTION_SUBHEADINGS } from "./config";
+
+const SECTION_HEADINGS = [
+  "People",
+  "Emotions",
+  "Movies",
+  "Your life, your story",
+];
+const SECTION_SUBHEADINGS = [
+  "This is a story about",
+  "This is a story about",
+  "This is a story about",
+  "This is a story about",
+];
 
 const TABS = [
   {

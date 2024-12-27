@@ -9,199 +9,119 @@ import TopNav from "./components/TopNav";
 import SectionIndicator from "./components/SectionIndicator";
 import NavigationButtons from "./components/NavigationButtons";
 import SectionContent from "./components/SectionContent";
-import { SECTION_HEADINGS } from "./components/config";
+import Link from "next/link";
+import { SECTION_HEADINGS, SECTION_SUBHEADINGS } from "./components/config";
 
-const SECTIONS_COUNT = 7;
-
-/** 
- * Adjust these ranges to match your actual Lottie JSON frames.
- * Example:
- *   Section 0 => frames [0, 20]
- *   Section 1 => frames [20, 40]
- *   Section 2 => frames [40, 60]
- *   Section 3 => frames [60, 80]
- */
-const FORWARD_SEGMENTS = {
-  0: [0, 20],
-  1: [20, 40],
-  2: [40, 60],
-  3: [60, 80],
-};
-
-/**
- * Helper to get the correct [startFrame, endFrame] for Lottie 
- * based on the current section and the next section. If we're
- * moving forward (e.g., 0 -> 1), we use the segment for the
- * current section. If moving backward (e.g., 1 -> 0), we flip 
- * that segment to play in reverse.
- */
-function getSegmentRange(currentSection, nextSection) {
-  // We only have explicit segments for sections 0..3 in this example
-  // If nextSection is >= 4, we typically won't animate (or we handle differently).
-  if (nextSection < 0 || nextSection > 3 || currentSection < 0 || currentSection > 3) {
-    return null;
-  }
-
-  // Are we scrolling forward or backward?
-  const goingForward = nextSection > currentSection;
-
-  // Retrieve the segment from the perspective of whichever direction you're going
-  // (Often you use the segment that belongs to the *section you're leaving*, but
-  //  you can also define each segment as belonging to the *target* section. 
-  //  This is purely a matter of preference.)
-  let [start, end] = FORWARD_SEGMENTS[goingForward ? currentSection : nextSection];
-
-  // If going backward, flip it
-  if (!goingForward) {
-    [start, end] = [end, start];
-  }
-  return [start, end];
-}
+// Removed const SECTION_HEADINGS = [ ... ];
 
 export default function Home() {
   const [section, setSection] = useState(0);
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const isTransitioning = useRef(false);
+  const isTransitioning = useRef(false); // Block additional transitions
   const scrollDirection = useRef("down");
   const lottieRef = useRef(null);
   const animationInstance = useRef(null);
   const containerRef = useRef(null);
+  const SECTIONS_COUNT = 7;
+  const SECTION_HEIGHT = typeof window !== "undefined" ? window.innerHeight : 0;
 
-  // We read the window height safely if we're in the browser
-  const SECTION_HEIGHT = 
-    typeof window !== "undefined" ? window.innerHeight : 0;
-
-  /**
-   * 1) Load the Lottie animation if we're in sections 0..3.
-   *    Destroy it if we leave those sections.
-   */
   useEffect(() => {
-    if (section < 4) {
-      // Initialize or re-initialize the animation
-      animationInstance.current = lottie.loadAnimation({
-        container: lottieRef.current,
-        renderer: "canvas",
-        loop: false,
-        autoplay: false,
-        animationData,
-      });
-    }
-
-    return () => {
-      // Clean up old instance to avoid memory leaks
-      animationInstance.current?.destroy();
-      animationInstance.current = null;
+    const preloadLottieAnimation = async () => {
+      if (section < 4) {
+        animationInstance.current = lottie.loadAnimation({
+          container: lottieRef.current,
+          renderer: "canvas",
+          loop: false,
+          autoplay: false,
+          animationData,
+        });
+      }
     };
+
+    preloadLottieAnimation();
+
+    return () => animationInstance.current?.destroy();
   }, [section]);
 
-  /**
-   * 2) Function to animate specific frames, forward or backward,
-   *    using a manual stepping approach or Lottie's built-in 
-   *    playSegments. We'll use a manual stepping approach here 
-   *    (like your original code).
-   */
-  const animateLottieFrames = useCallback((startFrame, endFrame, reverse = false) => {
-    if (!animationInstance.current) return;
+  const animateLottieFrames = useCallback(
+    (startFrame, endFrame, reverse = false) => {
+      let currentFrame = startFrame;
+      const frameIncrement = reverse ? -0.25 : 0.25;
 
-    let currentFrame = startFrame;
-    // Adjust increment for forward vs. reverse
-    const frameIncrement = reverse ? -0.25 : 0.25;
-
-    const step = () => {
-      if (
-        (!reverse && currentFrame < endFrame) ||
-        (reverse && currentFrame > endFrame)
-      ) {
-        currentFrame += frameIncrement;
-        animationInstance.current.goToAndStop(currentFrame, true);
-        requestAnimationFrame(step);
-      } else {
-        // Make sure we end exactly on the endFrame
-        animationInstance.current.goToAndStop(endFrame, true);
-        isTransitioning.current = false;
-      }
-    };
-
-    step();
-  }, []);
-
-  /**
-   * 3) Main navigation function. 
-   *    - Blocks if already transitioning.
-   *    - Updates `section`.
-   *    - Animates the Lottie frames only if we are between sections 0..3.
-   */
-  const scrollToSection = useCallback(
-    (nextSection) => {
-      if (
-        isTransitioning.current ||
-        nextSection === section ||
-        nextSection < 0 ||
-        nextSection >= SECTIONS_COUNT
-      ) {
-        return;
-      }
-
-      isTransitioning.current = true;
-      scrollDirection.current = nextSection > section ? "down" : "up";
-      setSection(nextSection);
-
-      // Only animate if we’re in the first 4 sections
-      if (nextSection < 4 || section < 4) {
-        const segment = getSegmentRange(section, nextSection);
-        if (segment) {
-          const [startFrame, endFrame] = segment;
-          const reverse = nextSection < section;
-          animateLottieFrames(startFrame, endFrame, reverse);
+      const step = () => {
+        if (
+          (!reverse && currentFrame < endFrame) ||
+          (reverse && currentFrame > endFrame)
+        ) {
+          currentFrame += frameIncrement;
+          animationInstance.current?.goToAndStop(currentFrame, true);
+          requestAnimationFrame(step);
         } else {
-          // No segment found => just end transition
+          animationInstance.current?.goToAndStop(endFrame, true);
           isTransitioning.current = false;
         }
-      } else {
-        // If we are going beyond section 3, no Lottie animation is triggered
-        isTransitioning.current = false;
+      };
+
+      step();
+    },
+    [],
+  );
+
+  const scrollToSection = useCallback(
+    (index) => {
+      if (
+        isTransitioning.current ||
+        index === section ||
+        index < 0 ||
+        index >= SECTIONS_COUNT
+      )
+        return;
+
+      isTransitioning.current = true; // Block new transitions
+      scrollDirection.current = index > section ? "down" : "up";
+      setSection(index);
+
+      if (index < 4) {
+        const totalFrames = animationInstance.current?.totalFrames || 0;
+        const framesPerSection = totalFrames / 4;
+        const startFrame = framesPerSection * section;
+        const endFrame = framesPerSection * index;
+        const reverse = index < section;
+
+        animateLottieFrames(startFrame, endFrame, reverse);
       }
 
-      // Smooth scroll to the chosen section
+      // Smooth scroll to the next section
       window.scrollTo({
-        top: SECTION_HEIGHT * nextSection,
+        top: SECTION_HEIGHT * index,
         behavior: "smooth",
       });
 
-      // Let transitions fully finish after a delay
+      // Allow new transitions after a delay
       setTimeout(() => {
         isTransitioning.current = false;
-      }, 1200);
+      }, 1200); // Match this to your animation duration
     },
-    [section, animateLottieFrames]
+    [section, animateLottieFrames],
   );
 
-  /**
-   * 4) Handle wheel scrolling for navigation.
-   */
   const handleWheel = useCallback(
     (event) => {
-      if (isTransitioning.current) return;
+      if (isTransitioning.current) return; // Ignore additional scrolls during transition
 
-      // Threshold to prevent very slight scrolls from triggering
-      const threshold = 50;
+      // Threshold to prevent excessive sensitivity
+      const threshold = 50; // Adjust based on desired sensitivity
       if (Math.abs(event.deltaY) < threshold) return;
 
-      // Scroll down
       if (event.deltaY > 0 && section < SECTIONS_COUNT - 1) {
-        scrollToSection(section + 1);
-      }
-      // Scroll up
-      else if (event.deltaY < 0 && section > 0) {
-        scrollToSection(section - 1);
+        scrollToSection(section + 1); // Scroll down
+      } else if (event.deltaY < 0 && section > 0) {
+        scrollToSection(section - 1); // Scroll up
       }
     },
-    [section, scrollToSection]
+    [section, scrollToSection],
   );
 
-  /**
-   * 5) Keydown navigation
-   */
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (isTransitioning.current) return;
@@ -219,16 +139,17 @@ export default function Home() {
             scrollToSection(section - 1);
           }
           break;
+        default:
+          break;
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [section, scrollToSection]);
 
-  /**
-   * 6) Attach wheel listener to container for controlling transitions
-   */
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -239,34 +160,29 @@ export default function Home() {
     };
   }, [handleWheel]);
 
-  /**
-   * 7) Swipe gestures for mobile/touch
-   */
+  // Use the useDrag hook for swipe gesture handling
   const bind = useDrag(
-    ({ last, direction: [, dy], cancel }) => {
+    ({ last, movement: [, my], direction: [, dy], cancel }) => {
       if (isTransitioning.current) {
         cancel && cancel();
         return;
       }
 
       if (last) {
-        // Swipe up => go to next section
-        if (dy < 0 && section < SECTIONS_COUNT - 1) {
-          scrollToSection(section + 1);
-        }
-        // Swipe down => go to previous section
-        else if (dy > 0 && section > 0) {
-          scrollToSection(section - 1);
+        if (dy > 0 && section > 0) {
+          scrollToSection(section - 1); // Swipe down
+        } else if (dy < 0 && section < SECTIONS_COUNT - 1) {
+          scrollToSection(section + 1); // Swipe up
         }
       }
     },
-    { axis: "y", filterTaps: true }
+    { axis: "y", filterTaps: true },
   );
 
   return (
     <div
-      {...bind()}
-      ref={containerRef}
+      {...bind()} // Attach gesture handling
+      ref={containerRef} // Attach ref for handling wheel events
       className="flex h-screen w-screen touch-none items-center justify-center overflow-hidden"
     >
       <FullscreenNav
@@ -288,10 +204,6 @@ export default function Home() {
           />
         </AnimatePresence>
 
-        {/** 
-         *  Render Lottie container only for sections 0..3 
-         *  (or adjust to your needs).
-         */}
         {section < 4 && (
           <div
             ref={lottieRef}
@@ -306,7 +218,6 @@ export default function Home() {
           onScrollToSection={scrollToSection}
           sectionsCount={SECTIONS_COUNT}
         />
-
         <NavigationButtons
           section={section}
           sectionsCount={SECTIONS_COUNT}
@@ -316,4 +227,3 @@ export default function Home() {
     </div>
   );
 }
-
