@@ -64,7 +64,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="w-screen max-w-4xl overflow-y-auto h-screen">
+    <div className="min-h-screen w-screen max-w-4xl overflow-y-auto py-[100px]">
       <TopNav
         onMenuClick={() => setIsNavOpen(true)}
         section={SECTION_HEADINGS[4]}
@@ -80,13 +80,13 @@ const ContactForm = () => {
         }}
       />
 
-      <div className="flex mt-12 overflow-y-auto h-screen flex-col md:flex-row">
-        <div className="flex-1 flex items-center px-6 justify-center bg-gray-100 p-0 md:p-8">
+      <div className="mt-12 flex h-screen flex-col overflow-y-auto md:flex-row">
+        <div className="flex flex-1 items-center justify-center bg-gray-100 p-0 px-6 md:p-8">
           <div className="max-w-md text-center md:text-left">
-            <h1 className="text-[24px] font-clash mt-12 sm:text-[32px] md:text-[40px] lg:text-[48px] font-semibold mb-4">
+            <h1 className="mb-4 mt-12 font-clash text-[24px] font-semibold sm:text-[32px] md:text-[40px] lg:text-[48px]">
               Contact Us
             </h1>
-            <p className="text-[14px] font-light sm:text-[16px] md:text-[18px] lg:text-[20px] text-gray-700">
+            <p className="text-[14px] font-light text-gray-700 sm:text-[16px] md:text-[18px] lg:text-[20px]">
               {
                 "Thank you for reaching out to Privee! We're here to assist you with any questions, concerns, or feedback you may have. Your input is valuable to us as we strive to provide the best experience for our users."
               }
@@ -94,9 +94,9 @@ const ContactForm = () => {
           </div>
         </div>
 
-        <div className="flex-1 flex items-center justify-center p-6 md:p-8">
+        <div className="flex flex-1 items-center justify-center p-6 md:p-8">
           <form
-            className="space-y-6 sm:space-y-8 w-full max-w-lg"
+            className="w-full max-w-lg space-y-6 sm:space-y-8"
             onSubmit={handleSubmit}
           >
             <motion.div className="relative border-b-2">
@@ -105,7 +105,7 @@ const ContactForm = () => {
                 name="name"
                 id="name"
                 placeholder="Your Name"
-                className="w-full py-2 sm:py-3 text-sm sm:text-base md:text-lg border-none outline-none bg-transparent placeholder-gray-400 focus:ring-0"
+                className="w-full border-none bg-transparent py-2 text-sm placeholder-gray-400 outline-none focus:ring-0 sm:py-3 sm:text-base md:text-lg"
                 value={formData.name}
                 onFocus={() => handleFocus("name")}
                 onBlur={handleBlur}
@@ -129,7 +129,7 @@ const ContactForm = () => {
                 name="email"
                 id="email"
                 placeholder="Your Email"
-                className="w-full py-2 sm:py-3 text-sm sm:text-base md:text-lg border-none outline-none bg-transparent placeholder-gray-400 focus:ring-0"
+                className="w-full border-none bg-transparent py-2 text-sm placeholder-gray-400 outline-none focus:ring-0 sm:py-3 sm:text-base md:text-lg"
                 value={formData.email}
                 onFocus={() => handleFocus("email")}
                 onBlur={handleBlur}
@@ -153,7 +153,7 @@ const ContactForm = () => {
                 id="message"
                 rows={4}
                 placeholder="Your Message"
-                className="w-full py-2 sm:py-3 text-sm sm:text-base md:text-lg border-none outline-none bg-transparent placeholder-gray-400 focus:ring-0"
+                className="w-full border-none bg-transparent py-2 text-sm placeholder-gray-400 outline-none focus:ring-0 sm:py-3 sm:text-base md:text-lg"
                 value={formData.message}
                 onFocus={() => handleFocus("message")}
                 onBlur={handleBlur}
@@ -173,7 +173,7 @@ const ContactForm = () => {
 
             <motion.button
               type="submit"
-              className="w-full py-2 sm:py-3 text-sm sm:text-base md:text-lg font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600 transition-all"
+              className="w-full rounded-md bg-blue-500 py-2 text-sm font-semibold text-white transition-all hover:bg-blue-600 sm:py-3 sm:text-base md:text-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               disabled={loading}
@@ -181,9 +181,9 @@ const ContactForm = () => {
               {loading ? "Sending..." : "Send Message"}
             </motion.button>
 
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-sm text-red-500">{error}</p>}
             {success && (
-              <p className="text-green-500 text-sm">
+              <p className="text-sm text-green-500">
                 Message sent successfully!
               </p>
             )}

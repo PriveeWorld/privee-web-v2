@@ -25,7 +25,7 @@ const PriveeStory = () => {
   };
 
   return (
-    <div className="relative mb-20 flex min-h-screen w-screen items-center justify-center overflow-hidden">
+    <div className="relative mb-20 flex min-h-screen w-screen items-center justify-center overflow-auto">
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
@@ -40,7 +40,7 @@ const PriveeStory = () => {
         section={SECTION_HEADINGS[section]}
       />
 
-      <div className="relative flex min-h-screen w-full max-w-[1600px] flex-col items-start justify-center overflow-y-auto px-4 py-8 sm:px-8 sm:py-16">
+      <div className="relative mt-[300px] flex min-h-screen w-full max-w-[1600px] flex-col items-start justify-center overflow-y-auto px-4 py-8 sm:px-8 sm:py-16 lg:mt-[100px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={section}
