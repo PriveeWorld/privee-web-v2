@@ -97,10 +97,12 @@ const SectionContent = ({ section, scrollDirection }) => {
       return <CustomSlideThree />;
     default:
       return (
-        <div className="flex flex-col items-start">
+        <div className="flex min-h-[300px] flex-col items-start justify-center">
           <motion.div
             key={`subheading-${section}`}
+            initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
             transition={{ duration: 0.5 }}
             className={`${sharedSubheadingStyles}`}
           >
@@ -109,7 +111,9 @@ const SectionContent = ({ section, scrollDirection }) => {
 
           <motion.div
             key={`heading-${section}`}
+            initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className={`${sharedHeadingStyles}`}
           >
