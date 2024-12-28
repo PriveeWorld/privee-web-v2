@@ -40,15 +40,15 @@ const SectionContent = ({ section, scrollDirection }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const renderTabs = () => (
-    <div className="mt-12 border border-gray-300 rounded-lg p-4 md:p-6 font-medium text-center w-full lg:w-[600px]">
+    <div className="mt-12 w-full rounded-lg border border-gray-300 p-4 text-center font-medium md:p-6 lg:w-[600px]">
       <div
-        className="relative flex justify-around mb-4 text-gray-700"
+        className="relative mb-4 flex justify-around text-gray-700"
         style={{ maxWidth: "600px", width: "100%", margin: "0 auto" }}
       >
         {TABS.map((tab, index) => (
           <button
             key={tab.title}
-            className={`relative text-[16px] md:text-[20px] lg:text-[24px] font-medium flex-grow transition-colors duration-300 ${
+            className={`relative flex-grow text-[16px] font-medium transition-colors duration-300 md:text-[20px] lg:text-[24px] ${
               activeTab === index ? "text-black" : "text-gray-500"
             }`}
             style={{
@@ -61,7 +61,7 @@ const SectionContent = ({ section, scrollDirection }) => {
             {activeTab === index && (
               <motion.div
                 layoutId="underline"
-                className="absolute left-0 right-0 bottom-[-2px] h-[2px] bg-black"
+                className="absolute bottom-[-2px] left-0 right-0 h-[2px] bg-black"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
@@ -76,7 +76,7 @@ const SectionContent = ({ section, scrollDirection }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.3 }}
-        className="text-sm md:text-base mt-4 text-gray-600"
+        className="mt-4 text-sm text-gray-600 md:text-base"
       >
         <strong>{TABS[activeTab].title}:</strong> {TABS[activeTab].description}
       </motion.div>
@@ -100,9 +100,7 @@ const SectionContent = ({ section, scrollDirection }) => {
         <div className="flex flex-col items-start">
           <motion.div
             key={`subheading-${section}`}
-            initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
             transition={{ duration: 0.5 }}
             className={`${sharedSubheadingStyles}`}
           >
@@ -111,9 +109,7 @@ const SectionContent = ({ section, scrollDirection }) => {
 
           <motion.div
             key={`heading-${section}`}
-            initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className={`${sharedHeadingStyles}`}
           >
@@ -123,7 +119,7 @@ const SectionContent = ({ section, scrollDirection }) => {
                   <span>Your life,</span>
                   <span>Your story</span>
                 </div>
-                <div className="text-[16px] md:text-[20px] lg:text-[24px] mt-4 md:mt-6 text-gray-700 font-light">
+                <div className="mt-4 text-[16px] font-light text-gray-700 md:mt-6 md:text-[20px] lg:text-[24px]">
                   Turn your most Precious Moments into Cinematic Experiences
                 </div>
                 <div className="flex w-full px-4">{renderTabs()}</div>
