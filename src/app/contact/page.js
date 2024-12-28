@@ -64,7 +64,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen max-w-4xl overflow-y-auto py-[100px]">
+    <div className="min-h-screen w-screen max-w-4xl overflow-y-auto pb-[50px]">
       <TopNav
         onMenuClick={() => setIsNavOpen(true)}
         section={SECTION_HEADINGS[4]}
