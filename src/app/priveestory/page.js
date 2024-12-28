@@ -40,7 +40,7 @@ const PriveeStory = () => {
         section={SECTION_HEADINGS[section]}
       />
 
-      <div className="relative mt-[300px] flex min-h-screen w-full max-w-[1600px] flex-col items-start justify-center overflow-y-auto px-4 py-8 sm:px-8 sm:py-16 lg:mt-[100px]">
+      <div className="relative mb-[100px] mt-[200px] flex min-h-screen w-full max-w-[1600px] flex-col items-start justify-center overflow-y-auto px-4 py-8 sm:px-8 sm:py-16 lg:mb-[0px] lg:mt-[100px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={section}
