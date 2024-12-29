@@ -47,42 +47,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  cursor: none;
-}
-
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.animated-gradient {
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 0, 150, 0.3),
-    rgba(0, 0, 255, 0.3),
-    rgba(255, 255, 255, 0.1)
-  );
-  animation: moveGradient 10s infinite alternate;
-}
-
-@keyframes moveGradient {
-  0% {
-    background-position: center;
-    transform: scale(1);
-  }
-  50% {
-    background-position: 80% 50%;
-    transform: scale(1.1);
-  }
-  100% {
-    background-position: 20% 50%;
-    transform: scale(1);
-  }
-}
-
 .custom-cursor {
   position: fixed;
   width: 20px;
@@ -103,33 +67,14 @@ body {
 
 html,
 body {
+  cursor: none;
   scroll-behavior: smooth;
   overscroll-behavior-y: none;
-  height: 100vh;
   overflow: hidden;
-}
-
-.snap-y {
-  scroll-snap-type: y mandatory;
-}
-
-.snap-start {
-  scroll-snap-align: start;
 }
 
 @media (max-width: 768px) {
   .hidden-on-mobile {
     display: none;
   }
-}
-
-.fullscreen-container {
-  height: calc(var(--vh, 1vh) * 100); /* Use dynamically calculated vh */
-  padding-bottom: 200px;
-  background: linear-gradient(to right, white, white);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative; /* Ensure positioning for overlays */
-  overflow: hidden; /* Prevent any overflow issues */
 }

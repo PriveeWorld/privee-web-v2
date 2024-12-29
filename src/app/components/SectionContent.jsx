@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import classNames from "classnames";
 import CustomSlideOne from "./CustomSlideOne";
 import CustomSlideTwo from "./CustomSlideTwo";
 import CustomSlideThree from "./CustomSlideThree";
@@ -48,9 +49,13 @@ const SectionContent = ({ section, scrollDirection }) => {
         {TABS.map((tab, index) => (
           <button
             key={tab.title}
-            className={`relative flex-grow text-[16px] font-medium transition-colors duration-300 md:text-[20px] lg:text-[24px] ${
-              activeTab === index ? "text-black" : "text-gray-500"
-            }`}
+            className={classNames(
+              "relative flex-grow text-[16px] font-medium transition-colors duration-300 md:text-[20px] lg:text-[24px]",
+              {
+                "text-black": activeTab === index,
+                "text-gray-500": activeTab !== index,
+              },
+            )}
             style={{
               textAlign: "center",
               minWidth: "80px",
@@ -88,6 +93,11 @@ const SectionContent = ({ section, scrollDirection }) => {
   const sharedHeadingStyles =
     "text-[50px] w-full lg:w-fit text-center lg:text-left md:text-[90px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none";
 
+  const containerClasses = classNames(
+    "flex min-h-[300px] flex-col items-start justify-center",
+    { "-mt-[100px]": section === 0 },
+  );
+
   switch (section) {
     case 4:
       return <CustomSlideOne />;
@@ -97,7 +107,7 @@ const SectionContent = ({ section, scrollDirection }) => {
       return <CustomSlideThree />;
     default:
       return (
-        <div className="flex min-h-[300px] flex-col items-start justify-center">
+        <div className={containerClasses}>
           <motion.div
             key={`subheading-${section}`}
             initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
