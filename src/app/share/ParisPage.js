@@ -168,6 +168,7 @@ export default function ParisPage({ videoData }) {
             { title: "Privee Story", href: "/priveestory" },
             { title: "Privacy Policy", href: "/privacypolicy" },
             { title: "Contact Us", href: "/contact" },
+            { title: "Nagradna Igra", href: "/nagradnaigra" },
           ].map((link, index) => (
             <motion.div
               key={index}

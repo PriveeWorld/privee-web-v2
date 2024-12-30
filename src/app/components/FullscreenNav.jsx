@@ -20,6 +20,7 @@ export default function FullscreenNav({ isOpen, onClose }) {
     { title: "Privee Story", href: "/priveestory" },
     { title: "Privacy Policy", href: "/privacypolicy" },
     { title: "Contact Us", href: "/contact" },
+    { title: "Nagradna Igra", href: "/nagradnaigra" },
   ];
 
   return (
