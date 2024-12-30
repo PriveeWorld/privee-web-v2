@@ -110,7 +110,7 @@ const SectionContent = ({ section, scrollDirection }) => {
         <div className={containerClasses}>
           <motion.div
             key={`subheading-${section}`}
-            initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : 20 }}
+            initial={{ opacity: 0, x: scrollDirection === "down" ? -20 : -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: scrollDirection === "down" ? 20 : -20 }}
             transition={{ duration: 0.5 }}
