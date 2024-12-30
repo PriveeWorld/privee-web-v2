@@ -241,9 +241,7 @@ Inspiracija je ključ: Dijeli trenutke koji će pokrenuti emocije kod publike.
                         <iframe
                           width="344px"
                           height="586px"
-                          style={{
-                            marginLeft: "20px",
-                          }}
+                        
                           src="https://www.youtube.com/embed/3lPPig-i2tk"
                           title="YouTube video player"
                           frameBorder="0"
