@@ -197,7 +197,7 @@ Na dnu ekrana možete pronaći ikonicu (krug) koji sadrži vodič za korištenje
         }}
       >
       Prva nagrada:
-      </strong> Potpuno novi iPhone 16 - zabilježi svoje buduće trenutke u vrhunskoj kvaliteti.<br></br> 
+      </strong> Potpuno novi iPhone 16 - zabilježi svoje buduće trenutke u vrhunskoj kvaliteti.<br></br> <br></br>
       <strong
       style={{
         fontFamily: "Inter",
@@ -305,7 +305,7 @@ Savjeti za uspješnu prijavu:
       }}
     >
 Budi kreativan:
-    </strong> Prikaži svoj video na način koji će se izdvojiti od ostalih.
+    </strong> Prikaži svoj video na način koji će se izdvojiti od ostalih.<br></br>
 
     <strong
       style={{
@@ -349,7 +349,7 @@ Inspiracija je ključ:
             textDecorationSkipInk: "none",
           }}
         >
-          FREE DOWNLOAD
+          DOWNLOAD PRIVEE
         </button>
       </div> <br></br></>),
     },
@@ -455,7 +455,7 @@ Inspiracija je ključ:
               height="586px"
               style={{
                 position: "absolute",
-                top: "1200px",
+                top: "1350px",
                 left: "1059px",
                 gap: "0px",
                 opacity: "0px",
@@ -467,7 +467,12 @@ Inspiracija je ključ:
               allowFullScreen
             ></iframe>
           </div>
- 
+          <img
+            src="/images/nagrada.svg"
+            alt="Nagrada"
+            style={{ position: "absolute", top: "2600px" }}
+            className="w-140 h-auto mt-4"
+          />
         </div>
       </div>
     </div>
