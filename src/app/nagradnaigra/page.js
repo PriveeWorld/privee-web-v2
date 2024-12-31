@@ -36,7 +36,7 @@ const NagradnaIgra = () => {
               textDecorationSkipInk: "none",
             }}
           >
-           Možete osvojiti iPhone 16, AirPods, xili upgrade na Privee World
+           Možete osvojiti iPhone 16, AirPods, ili upgrade na Privee World
            platformi.
           </strong>  Vrijeme je da zaviriš u galeriju svog mobitela, izabereš one
           najposebnije trenutke i učestvuješ u ovoj kreativnoj nagradnoj igri.
@@ -44,7 +44,7 @@ const NagradnaIgra = () => {
           Privee World je platforma koja omogućava korisnicima da na kreativan i
           organiziran način zabilježe svoje najvažnije trenutke i transformiraju ih u
           personalne dokumentarce. Revolucija je to u načinu na koji bilježimo, čuvamo i
-          dijelimo svoje uspomene - ruštveni medij budućnosti.{" "}
+          dijelimo svoje uspomene - društveni medij budućnosti.{" "}
           <strong
             style={{
               fontFamily: "Inter",
@@ -119,7 +119,7 @@ Objavi na Privee:          </strong> Postavi svoj video na platformu, pobrini se
           >
 Podijeli objavu:         </strong> Podijeli Privee Giveaway objavu sa našeg Instagrama ili Facebooka na svom Instagram ili Facebook storiju ili profilu, taguj privee.world i pozovi prijatelje da učestvuju!
 <br /><br />    
-Obavezno zapratite naše zvanične Instagram i Facebook profile, kako biste bili blagovremeno informisani o svim novostima.`,
+Obavezno zapratite naše zvanične Instagram i Facebook profile, kako biste bili blagovremeno informisani o svim novostima.
    </>) },
     {
       heading: "Kako kreirati film?",
@@ -211,7 +211,7 @@ Na dnu ekrana možete pronaći ikonicu (krug) koji sadrži vodič za korištenje
       }}
     >
     Druga nagrada:
-    </strong> Apple AirPods - uživaj u omiljenoj muzici uz savršeni zvuk. Neograničen broj objava za osam korsnika Privee World platforme.</>),
+    </strong> Apple AirPods - uživaj u omiljenoj muzici uz savršeni zvuk. Neograničen broj objava za osam korisnika Privee World platforme.</>),
     },
     {
       heading: "Važne informacije",
@@ -260,14 +260,67 @@ Naš stručni žiri procjenjivat će sve prijave prema sljedećim kriterijima: k
    Pobjednici će biti objavljeni 3. februara 2025. godine.
     </strong>
 <br></br> <br></br>
-Pravila i uslovi: <br></br>
+<strong
+      style={{
+        fontFamily: "Inter",
+        fontSize: "20px",
+        fontWeight: 700,
+        lineHeight: "30px",
+        letterSpacing: "0.01em",
+        textAlign: "justify",
+        textUnderlinePosition: "from-font",
+        textDecorationSkipInk: "none",
+      }}
+    >
+   Pravila i uslovi:
+    </strong> <br></br>
 Video mora biti originalan i autentičan.
  Učesnici moraju pratiti sve korake za prijavu kako bi bili kvalifikovani. <br></br> <br></br>
 
-Savjeti za uspješnu prijavu: <br></br> <br></br>
+ <strong
+      style={{
+        fontFamily: "Inter",
+        fontSize: "20px",
+        fontWeight: 700,
+        lineHeight: "30px",
+        letterSpacing: "0.01em",
+        textAlign: "justify",
+        textUnderlinePosition: "from-font",
+        textDecorationSkipInk: "none",
+      }}
+    >
+Savjeti za uspješnu prijavu:
+    </strong>  <br></br> <br></br>
 
-Budi kreativan: Prikaži svoj video na način koji će se izdvojiti od ostalih.
-Inspiracija je ključ: Dijeli trenutke koji će pokrenuti emocije kod publike.
+    <strong
+      style={{
+        fontFamily: "Inter",
+        fontSize: "20px",
+        fontWeight: 700,
+        lineHeight: "30px",
+        letterSpacing: "0.01em",
+        textAlign: "justify",
+        textUnderlinePosition: "from-font",
+        textDecorationSkipInk: "none",
+      }}
+    >
+Budi kreativan:
+    </strong> Prikaži svoj video na način koji će se izdvojiti od ostalih.
+
+    <strong
+      style={{
+        fontFamily: "Inter",
+        fontSize: "20px",
+        fontWeight: 700,
+        lineHeight: "30px",
+        letterSpacing: "0.01em",
+        textAlign: "justify",
+        textUnderlinePosition: "from-font",
+        textDecorationSkipInk: "none",
+      }}
+    >
+Inspiracija je ključ:
+    </strong> Dijeli trenutke koji će pokrenuti emocije kod publike.
    </>) },
     {
       heading: "Zašto učestvovati?",
@@ -337,7 +390,7 @@ Inspiracija je ključ: Dijeli trenutke koji će pokrenuti emocije kod publike.
                     >
                       {section.heading}
                     </h2>
-                    <p
+                    <div
                       className="text-sm font-light text-white sm:text-base md:text-lg"
                       style={{
                         fontFamily: "Inter",
@@ -351,7 +404,7 @@ Inspiracija je ključ: Dijeli trenutke koji će pokrenuti emocije kod publike.
                       }}
                     >
                       {section.text}
-                    </p>
+                    </div>
                     {section.heading === "Kako kreirati film?" && (
                       <div className="mt-4 block lg:hidden">
                         <iframe
