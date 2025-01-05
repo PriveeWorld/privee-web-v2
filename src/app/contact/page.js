@@ -11,7 +11,7 @@ const SECTION_HEADINGS = [
   "Privee Hub",
   "Privacy Policy",
   "Contact Us",
-  "Nagradna Igra"
+  "Nagradna Igra",
 ];
 
 const ContactForm = () => {
@@ -41,12 +41,27 @@ const ContactForm = () => {
     setSuccess(false);
 
     try {
+      // Build the email payload the route.js expects
+      // You can customize 'subject' as needed
+      const subject = "Contact Form Submission from Privee";
+      const text = `
+        Name: ${formData.name}
+        Email: ${formData.email}
+        Message: ${formData.message}
+      `;
+      const html = `
+        <h3>You have new email:</h3>
+        <p><strong>Name:</strong> ${formData.name}</p>
+        <p><strong>Email:</strong> ${formData.email}</p>
+        <p><strong>Message:</strong> ${formData.message}</p>
+      `;
+
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ subject, text, html }),
       });
 
       const result = await response.json();
@@ -55,7 +70,7 @@ const ContactForm = () => {
         setSuccess(true);
         setFormData({ name: "", email: "", message: "" });
       } else {
-        throw new Error(result.message || "Something went wrong");
+        throw new Error(result.error || "Something went wrong");
       }
     } catch (err) {
       setError(err.message || "Something went wrong");
@@ -65,7 +80,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen max-w-4xl overflow-y-auto pb-[100px]">
+    <div className="min-h-screen w-screen max-w-4xl overflow-hidden pb-[100px]">
       <TopNav
         onMenuClick={() => setIsNavOpen(true)}
         section={SECTION_HEADINGS[4]}
