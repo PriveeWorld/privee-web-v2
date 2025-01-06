@@ -23,6 +23,53 @@ const NagradnaIgra = () => {
           >
             Podijeli svoje najbolje momente!
           </h3>
+          <h3
+            className="font-clashDisplay text-[30px] sm:text-[30px] font-normal leading-[35.2px] tracking-[0.01em] text-left text-white mb-6"
+            style={{
+              textUnderlinePosition: "from-font",
+              textDecorationSkipInk: "none",
+            }}
+          >
+            Objavi svoj kratki video na Priveeu i osvoji <br></br> <strong
+            style={{
+              fontFamily: "ClashDisplay",
+              fontSize: "28px",
+              fontWeight: 500,
+              lineHeight: "30px",
+              letterSpacing: "0.01em",
+              textAlign: "justify",
+              textUnderlinePosition: "from-font",
+              textDecorationSkipInk: "none",
+            }}
+          >
+         iPhone 16,  Apple AirBuds 
+          </strong> i druge vrijedne nagrade!<br></br><br></br> 
+             Download aplikacije na ovom linku: <br></br><br></br>
+             <div style={{ textAlign: "left" }}>
+            <button
+              onClick={() => window.open("https://priveee.onelink.me/AMM3/1313DJ", "_blank")}
+              style={{
+                border: "3px solid",
+                borderImageSource: "linear-gradient(56.05deg, #CD1B70 8.3%, #F9772E 81.59%)",
+                borderImageSlice: 1,
+                padding: "8px 16px",
+                color: "#fff",
+                background: "transparent",
+                borderRadius: "10px",
+                fontFamily: "Inter",
+                fontSize: "20px",
+                fontWeight: 500,
+                lineHeight: "30px",
+                letterSpacing: "0.15em",
+                textAlign: "left",
+                textUnderlinePosition: "from-font",
+                textDecorationSkipInk: "none",
+              }}
+            >
+              FREE DOWNLOAD
+            </button>
+          </div>
+          </h3>
           Tvoji najbolji trenuci iz 2024. godine zaslužuju pažnju i priliku da budu
           nagrađeni!   <strong
             style={{
@@ -60,30 +107,7 @@ const NagradnaIgra = () => {
             Download je besplatan.
           </strong>
           <br /><br />
-          <div style={{ textAlign: "center" }}>
-            <button
-              onClick={() => window.open("https://priveee.onelink.me/AMM3/1313DJ", "_blank")}
-              style={{
-                border: "3px solid",
-                borderImageSource: "linear-gradient(56.05deg, #CD1B70 8.3%, #F9772E 81.59%)",
-                borderImageSlice: 1,
-                padding: "8px 16px",
-                color: "#fff",
-                background: "transparent",
-                borderRadius: "10px",
-                fontFamily: "Inter",
-                fontSize: "20px",
-                fontWeight: 500,
-                lineHeight: "30px",
-                letterSpacing: "0.15em",
-                textAlign: "left",
-                textUnderlinePosition: "from-font",
-                textDecorationSkipInk: "none",
-              }}
-            >
-              FREE DOWNLOAD
-            </button>
-          </div>
+        
         </>
       ),
     },
