@@ -15,7 +15,7 @@ const NagradnaIgra = () => {
       text: (
         <>
           <h3
-            className="font-clashDisplay text-[22px] sm:text-[40px] font-normal leading-[49.2px] tracking-[0.01em] text-left text-white mb-6"
+            className="font-clashDisplay text-[25px] sm:text-[40px] font-normal leading-[49.2px] tracking-[0.01em] text-left text-white mb-6"
             style={{
               textUnderlinePosition: "from-font",
               textDecorationSkipInk: "none",
@@ -24,7 +24,7 @@ const NagradnaIgra = () => {
             Podijeli svoje najbolje momente!
           </h3>
           <h3
-            className="font-clashDisplay text-[30px] sm:text-[30px] font-normal leading-[35.2px] tracking-[0.01em] text-left text-white mb-6"
+            className="font-clashDisplay text-[25px] sm:text-[30px] font-normal leading-[35.2px] tracking-[0.01em] text-left text-white mb-6"
             style={{
               textUnderlinePosition: "from-font",
               textDecorationSkipInk: "none",
