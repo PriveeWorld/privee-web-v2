@@ -192,7 +192,7 @@ const ContactForm = () => {
               className="w-full rounded-md bg-blue-500 py-2 text-sm font-semibold text-white transition-all hover:bg-blue-600 sm:py-3 sm:text-base md:text-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              disabled={loading}
+              disabled={loading || !formData.name || !formData.email || !formData.message}
             >
               {loading ? "Sending..." : "Send Message"}
             </motion.button>

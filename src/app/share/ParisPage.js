@@ -165,8 +165,8 @@ export default function ParisPage({ videoData }) {
         <motion.div className="flex w-full flex-col">
           {[
             { title: "Discover Privee", href: "/" },
-            { title: "Privee Story", href: "/priveestory" },
-            { title: "Privacy Policy", href: "/privacypolicy" },
+            { title: "Privee Story", href: "/about-us" },
+            { title: "Privacy Policy", href: "/privacy" },
             { title: "Contact Us", href: "/contact-us" },
             { title: "Nagradna Igra", href: "/nagradnaigra" },
           ].map((link, index) => (
