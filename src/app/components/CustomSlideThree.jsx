@@ -72,7 +72,7 @@ const CustomSlideThree = () => {
       >
         For more information, please{" "}
         <Link
-          href="/contact"
+          href="/contact-us"
           className="text-purple-300 underline transition-colors hover:text-purple-200"
         >
           contact us

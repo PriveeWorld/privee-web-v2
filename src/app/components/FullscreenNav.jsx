@@ -19,7 +19,7 @@ export default function FullscreenNav({ isOpen, onClose }) {
     { title: "Discover Privee", href: "/" },
     { title: "Privee Story", href: "/priveestory" },
     { title: "Privacy Policy", href: "/privacypolicy" },
-    { title: "Contact Us", href: "/contact" },
+    { title: "Contact Us", href: "/contact-us" },
     { title: "Nagradna Igra", href: "/nagradnaigra" },
   ];
 
