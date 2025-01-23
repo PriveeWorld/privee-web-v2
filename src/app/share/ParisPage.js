@@ -1,4 +1,3 @@
-// src/app/share/ParisPage.js
 "use client";
 
 import { motion } from "framer-motion";
@@ -26,15 +25,25 @@ function useViewportHeightFix() {
   }, []);
 }
 
+// Helpers to detect file types
+function isImageFile(url = "") {
+  return /\.(jpg|jpeg|png|gif|webp)$/i.test(url);
+}
+function isHlsFile(url = "") {
+  return /\.m3u8$/i.test(url);
+}
+function isMp4File(url = "") {
+  return /\.(mp4|m4v|mov)$/i.test(url);
+}
+
 /**
- * Your existing UI, but now we receive `videoData` as props
- * from the server. We do NOT fetch again in the client.
+ * Your ParisPage component
  */
 export default function ParisPage({ videoData }) {
-  // Ensure height fix
+  // 1) Ensure height fix
   useViewportHeightFix();
 
-  // If no video data is passed (e.g., not found)
+  // 2) If no data
   if (!videoData) {
     return (
       <div className="relative flex h-screen w-full">
@@ -50,7 +59,7 @@ export default function ParisPage({ videoData }) {
     );
   }
 
-  // Extract from videoData
+  // 3) Extract from videoData
   const videoPath = videoData?.visual?.videoPath || null;
   const videoTitle = videoData?.visual?.title || null;
   const captionName = videoData?.visual?.captionText || null;
@@ -59,50 +68,86 @@ export default function ParisPage({ videoData }) {
   const lastName = videoData?.ownerOfMovie?.lastName || null;
   const profilePicture = videoData?.ownerOfMovie?.profilePicture || null;
   const userName =
-    firstName && lastName ? `${firstName} ${lastName}` : (firstName || lastName);
+    firstName && lastName ? `${firstName} ${lastName}` : firstName || lastName;
   const userWhoShare = videoData?.userWhoShare;
   const userWhoShareName = userWhoShare
     ? [userWhoShare.firstName, userWhoShare.lastName].filter(Boolean).join(" ")
     : "";
 
-  // State
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  // 4) Local states
+  const [isImage, setIsImage] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showControls, setShowControls] = useState(true); // for overlay button
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [progress, setProgress] = useState(0); // New state for progress
+
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
+  const hideControlsTimeout = useRef(null);
 
-  // Initialize video (HLS or fallback .mp4)
+  // 5) Check file type (image vs video)
   useEffect(() => {
+    if (!videoPath) return;
+    if (isImageFile(videoPath)) {
+      setIsImage(true);
+    }
+  }, [videoPath]);
+
+  // 6) Initialize video if NOT an image
+  useEffect(() => {
+    if (!videoPath || isImage) return;
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
-    // If no HLS path, fallback
-    if (!videoPath) {
-      videoElement.src = "/images/priveeweb.mp4";
-      videoElement.addEventListener("loadedmetadata", () => {
-        setIsVideoLoaded(true);
-        videoElement.play().catch(() => console.warn("Autoplay failed."));
-      });
-      return;
-    }
+    // Attach play/pause listeners so our icon state is always correct
+    const handlePlay = () => {
+      setIsPlaying(true);
+      // Hide controls after 2s if playing
+      hideControlsAfterDelay();
+    };
+    const handlePause = () => {
+      setIsPlaying(false);
+      // If paused, show controls
+      setShowControls(true);
+      clearTimeout(hideControlsTimeout.current);
+    };
+    videoElement.addEventListener("play", handlePlay);
+    videoElement.addEventListener("pause", handlePause);
 
-    // HLS supported
-    if (Hls.isSupported()) {
+    // If HLS
+    if (isHlsFile(videoPath) && Hls.isSupported()) {
       const hls = new Hls({ startLevel: 0 });
       hls.loadSource(videoPath);
       hls.attachMedia(videoElement);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         setIsVideoLoaded(true);
-        videoElement.play().catch(() => console.warn("Autoplay failed."));
+        // We DO NOT auto-play here. Start paused on load.
+        // If you wanted to auto-play, you could call videoElement.play() here.
       });
       hlsRef.current = hls;
     }
-    // Safari fallback
-    else if (videoElement.canPlayType("application/vnd.apple.mpegurl")) {
+    // If Safari and can handle HLS natively
+    else if (
+      isHlsFile(videoPath) &&
+      videoElement.canPlayType("application/vnd.apple.mpegurl")
+    ) {
       videoElement.src = videoPath;
       videoElement.addEventListener("loadedmetadata", () => {
         setIsVideoLoaded(true);
-        videoElement.play().catch(() => console.warn("Autoplay failed."));
+      });
+    }
+    // If .mp4
+    else if (isMp4File(videoPath)) {
+      videoElement.src = videoPath;
+      videoElement.addEventListener("loadedmetadata", () => {
+        setIsVideoLoaded(true);
+      });
+    }
+    // Otherwise fallback
+    else {
+      videoElement.src = "/images/priveeweb.mp4";
+      videoElement.addEventListener("loadedmetadata", () => {
+        setIsVideoLoaded(true);
       });
     }
 
@@ -110,22 +155,95 @@ export default function ParisPage({ videoData }) {
       if (hlsRef.current) {
         hlsRef.current.destroy();
       }
+      videoElement.removeEventListener("play", handlePlay);
+      videoElement.removeEventListener("pause", handlePause);
     };
-  }, [videoPath]);
+  }, [videoPath, isImage]);
 
-  // Play/pause
-  const togglePlayPause = () => {
-    const videoElement = videoRef.current;
-    if (!videoElement) return;
-    if (isPlaying) {
-      videoElement.pause();
+  // Add event listener for updating progress
+  useEffect(() => {
+    if (!videoRef.current && !isImage) return;
+
+    if (isImage) {
+      // For images, set a fixed duration of 6 seconds
+      const duration = 6;
+      let startTime = Date.now();
+
+      const updateProgress = () => {
+        const elapsedTime = (Date.now() - startTime) / 1000;
+        const newProgress = (elapsedTime / duration) * 100;
+        setProgress(newProgress);
+
+        if (elapsedTime < duration) {
+          requestAnimationFrame(updateProgress);
+        } else {
+          setProgress(100);
+        }
+      };
+
+      updateProgress();
     } else {
-      videoElement.play();
+      const videoElement = videoRef.current;
+
+      const handleLoadedMetadata = () => {
+        // Initialize progress
+        setProgress((videoElement.currentTime / videoElement.duration) * 100);
+      };
+
+      const handleTimeUpdate = () => {
+        if (videoElement.duration) {
+          setProgress((videoElement.currentTime / videoElement.duration) * 100);
+        }
+      };
+
+      videoElement.addEventListener("loadedmetadata", handleLoadedMetadata);
+      videoElement.addEventListener("timeupdate", handleTimeUpdate);
+
+      return () => {
+        videoElement.removeEventListener("loadedmetadata", handleLoadedMetadata);
+        videoElement.removeEventListener("timeupdate", handleTimeUpdate);
+      };
     }
-    setIsPlaying(!isPlaying);
+  }, [isImage]);
+
+  // 7) Hide controls after 2s of playing
+  const hideControlsAfterDelay = () => {
+    clearTimeout(hideControlsTimeout.current);
+    hideControlsTimeout.current = setTimeout(() => {
+      setShowControls(false);
+    }, 2000);
   };
 
-  // A small skeleton loader component (unchanged)
+  // 8) Toggle play/pause
+  const togglePlayPause = () => {
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play().catch(() => console.warn("Autoplay blocked"));
+    }
+  };
+
+  // 9) On mouse move or click, show controls if it's playing
+  const handleUserActivity = () => {
+    // if we're in the middle of something (like we just hovered), show them again
+    if (isPlaying) {
+      setShowControls(true);
+      hideControlsAfterDelay();
+    }
+  };
+
+  // Listen for mouse/touch events to show controls again
+  useEffect(() => {
+    window.addEventListener("mousemove", handleUserActivity);
+    window.addEventListener("touchstart", handleUserActivity);
+    return () => {
+      window.removeEventListener("mousemove", handleUserActivity);
+      window.removeEventListener("touchstart", handleUserActivity);
+    };
+  }, [isPlaying]);
+
+  // Small skeleton loader
   const SkeletonLoader = ({ width, height, className }) => (
     <div
       className={`animate-pulse rounded bg-gray-300 ${className}`}
@@ -133,9 +251,6 @@ export default function ParisPage({ videoData }) {
     />
   );
 
-  // -----------------------------
-  // Render your existing UI below
-  // -----------------------------
   return (
     <div className="relative flex min-h-[calc(var(--vh)_*100)] bg-gradient-to-r from-[#17111F] to-[#0E0914] lg:bg-white lg:bg-none">
       {/* LEFT SIDE NAV (only on lg) */}
@@ -194,7 +309,7 @@ export default function ParisPage({ videoData }) {
         </motion.div>
       </motion.aside>
 
-      {/* VIDEO CONTENT */}
+      {/* MAIN CONTENT (Video or Image) */}
       <div className="flex flex-1 items-center justify-center">
         <motion.div
           className="relative h-[calc(100vh)] w-full max-w-[500px] overflow-hidden rounded-xl bg-gradient-to-r from-[#17111F] to-[#0E0914] shadow-lg lg:max-h-[850px]"
@@ -202,40 +317,57 @@ export default function ParisPage({ videoData }) {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          {!isVideoLoaded && (
+          {/* LOADING SPINNER (only for video while loading) */}
+          {!isImage && !isVideoLoaded && (
             <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50">
               <div className="spinner-border inline-block h-8 w-8 animate-spin rounded-full border-4 border-gray-500 border-t-gray-200"></div>
             </div>
           )}
 
-          {/* Video element */}
-          <video
-            ref={videoRef}
-            crossOrigin="anonymous"
-            preload="auto"
-            playsInline
-            className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
-          />
+          {/* --- IF IMAGE, SHOW IMAGE --- */}
+          {isImage && videoPath && (
+            <img
+              src={videoPath}
+              alt="Shared Visual"
+              className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
+              onLoad={() => setIsVideoLoaded(true)}
+            />
+          )}
 
-          {/* Play/Pause overlay button */}
-          <button
-            onClick={togglePlayPause}
-            className="absolute inset-0 z-20 flex items-center justify-center"
-          >
-            {isPlaying ? (
-              <FaPause size={40} color="white" />
-            ) : (
-              <FaPlay size={40} color="white" />
-            )}
-          </button>
+          {/* --- IF NOT IMAGE, SHOW VIDEO --- */}
+          {!isImage && (
+            <video
+              ref={videoRef}
+              crossOrigin="anonymous"
+              preload="auto"
+              playsInline
+              className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
+            />
+          )}
+
+          {/* Play/Pause overlay button (show only when showControls = true) */}
+          {!isImage && showControls && (
+            <button
+              onClick={togglePlayPause}
+              className="absolute inset-0 z-20 flex items-center justify-center"
+            >
+              {isPlaying ? (
+                <FaPause size={50} color="white" />
+              ) : (
+                <FaPlay size={50} color="white" />
+              )}
+            </button>
+          )}
 
           {/* Overlay text */}
-          <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800">
-            <div className="absolute left-0 top-0 z-[1] h-20 w-full bg-gradient-to-r from-[#17111F] to-[#0E0914]"></div>
+          <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800 pointer-events-none">
+            <div className="absolute left-0 top-0 z-[1] h-20 w-full bg-gradient-to-r from-[#17111F] to-[#0E0914]" />
 
             {/* User & Title info */}
-            <div>
+            <div className="pointer-events-auto">
               <div className="relative z-10 flex items-center gap-2">
+                {/* Remove the Privee Logo */}
+                {/* 
                 <Image
                   className="absolute right-4 lg:hidden"
                   src="/images/priveewhite.png"
@@ -243,6 +375,16 @@ export default function ParisPage({ videoData }) {
                   height={100}
                   alt=""
                 />
+                */}
+
+                {/* Insert Smaller Vertical Progress Bar */}
+                <div className="absolute right-4 w-1.5 h-10 bg-[#B6B4B8] rounded-full flex flex-col-reverse shadow-lg">
+                  <div
+                    className="bg-white w-full rounded-full transition-height duration-500"
+                    style={{ height: `${progress}%` }}
+                  ></div>
+                </div>
+
                 <motion.div
                   className="relative z-[99999] h-10 w-10 overflow-hidden rounded-full bg-gray-300"
                   initial={{ scale: 0 }}
@@ -282,16 +424,25 @@ export default function ParisPage({ videoData }) {
                 </div>
               </div>
 
-              {/* Video Title */}
+              {/* Title */}
               <div className="relative z-50 mt-10 rounded-lg">
-                {videoTitle && (
-                  <h2 className="text-lg font-bold text-white">{videoTitle}</h2>
-                )}
+                <div className="flex flex-col items-start gap-1">
+                  <Image
+                    src="/images/priveewhite.png"
+                    alt="Privee Logo"
+                    width={80}
+                    height={80}
+                  />
+                  {videoTitle && (
+                    <h2 className="text-lg text-white">{videoTitle}</h2>
+                  )}
+                </div>
               </div>
+              
             </div>
 
             {/* Caption / CTA */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 pointer-events-auto">
               {captionName && (
                 <div className="relative z-50 mb-4 flex flex-col justify-center gap-4">
                   <motion.div
@@ -328,9 +479,9 @@ export default function ParisPage({ videoData }) {
             </div>
           </div>
 
-          {/* Right side share icons */}
+          {/* Right side share icons (always show them) */}
           <motion.div
-            className="absolute right-4 top-24 z-50 flex flex-col gap-1 rounded-[20px] bg-[#161616]/25 px-2 py-4 backdrop-blur-[3px]"
+            className="absolute right-4 top-24 z-50 flex flex-col gap-1 rounded-[20px] bg-[#161616]/25 px-2 py-4 backdrop-blur-[3px] pointer-events-auto"
             variants={{
               hidden: { opacity: 0 },
               visible: {
@@ -370,13 +521,19 @@ export default function ParisPage({ videoData }) {
           </motion.div>
         </motion.div>
       </div>
-      <div className="absolute bottom-0 left-0 w-full bg-black/50 p-4 text-center text-white z-50 font-clash">
+
+
+
+      {/* Bottom banner */}
+      <div className="absolute bottom-0 left-0 w-full bg-black/50 p-4 text-center text-white z-50 font-clash pointer-events-none">
         <p>{userWhoShareName || "Someone"} invited you to watch this movie.</p>
         <p>
           Step into Privee World -{" "}
           <span
-            className="underline cursor-pointer"
-            onClick={() => (window.location.href = "https://priveee.onelink.me/AMM3")}
+            className="underline cursor-pointer pointer-events-auto"
+            onClick={() =>
+              (window.location.href = "https://priveee.onelink.me/AMM3")
+            }
           >
             Download now for free!
           </span>

@@ -32,7 +32,7 @@ export async function generateMetadata({ searchParams }) {
   let videoData = await getVideoData(videoId, userWhoShareId);
 
   // Log the user who shares
-  console.log("User who share:", videoData?.userWhoShare);
+
 
   // If no data, fallback
   if (!videoData) {
@@ -60,6 +60,7 @@ export async function generateMetadata({ searchParams }) {
     visual: {
       captionText,
       thumbnailImagePath ,
+      duration,
     } = {},
     movie: { name: movieName } = {},
     ownerOfMovie: { firstName, lastName, profilePicture } = {},
@@ -70,7 +71,7 @@ export async function generateMetadata({ searchParams }) {
 
   // Description: "Watch this visual from John Doe"
   const userFullName = [firstName, lastName].filter(Boolean).join(" ");
-  console.log("User full name:", userFullName);
+
   const metaDesc = userFullName
     ? `Watch more from ${userFullName} on Privee!`
     : "Check out this video on Privee!";
@@ -113,8 +114,7 @@ export default async function ParisPageWrapper({ searchParams }) {
 
   try {
     videoData = await getVideoData(videoId, userWhoShareId);
-    // Also console log here if desired
-    console.log("User who share:", videoData?.userWhoShare);
+
   } catch (err) {
     console.error(err);
   }
