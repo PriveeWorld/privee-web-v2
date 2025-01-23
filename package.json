@@ -15,6 +15,7 @@
     "fullpage.js": "^4.0.30",
     "hls.js": "^1.5.17",
     "lottie-web": "^5.12.2",
+    "lucide-react": "^0.263.1",
     "next": "15.0.3",
     "nodemailer": "^6.9.16",
     "react": "19.0.0-rc-66855b96-20241106",

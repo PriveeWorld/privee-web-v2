@@ -1,0 +1,99 @@
+{
+    "popularArticles": [
+      {
+        "id": "creating-an-account",
+        "title": "Creating an account"
+      },
+      {
+        "id": "for-you",
+        "title": "Cinema"
+      },
+      {
+        "id": "setting-up-your-profile",
+        "title": "Setting up your profile"
+      },
+      {
+        "id": "reset-password",
+        "title": "Reset password"
+      }
+    ],
+    "topics": [
+      {
+        "title": "Getting started",
+        "subtopics": [
+          {
+            "id": "creating-an-account",
+            "title": "Creating an account"
+          },
+          {
+            "id": "setting-up-your-profile",
+            "title": "Setting up your profile"
+          },
+          {
+            "id": "adding-profile-photo",
+            "title": "Adding a profile photo"
+          },
+          {
+            "id": "changing-nickname",
+            "title": "Changing your nickname"
+          }
+        ]
+      },
+      {
+        "title": "Using the platform",
+        "subtopics": [
+          {
+            "id": "creating-videos",
+            "title": "Creating videos"
+          },
+          {
+            "id": "exploring-videos",
+            "title": "Exploring videos"
+          },
+          {
+            "id": "sharing-content",
+            "title": "Sharing content"
+          }
+        ]
+      },
+          {
+        "title": "Using the platform",
+        "subtopics": [
+          {
+            "id": "creating-videos",
+            "title": "Creating videos"
+          },
+          {
+            "id": "exploring-videos",
+            "title": "Exploring videos"
+          },
+          {
+            "id": "sharing-content",
+            "title": "Sharing content"
+          }
+        ]
+      }
+    ],
+    "articles": [
+      {
+        "id": "creating-an-account",
+        "title": "Creating an account",
+        "steps": [
+          "Download the app from the App Store or Google Play",
+          "Open the app",
+          "Choose a sign-up method and follow the steps"
+        ],
+        "note": "Make sure your email and phone number are valid as they're needed for log in and password recovery.",
+        "relatedLinks": [
+          {
+            "id": "setting-up-your-profile",
+            "title": "Setting up your profile"
+          },
+          {
+            "id": "adding-profile-photo",
+            "title": "Adding a profile photo"
+          }
+        ]
+      }
+    ]
+  }
