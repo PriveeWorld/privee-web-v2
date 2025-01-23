@@ -197,7 +197,7 @@ export default function Tutorials() {
                 {!isSearching && (
                   <>
                     {/* Popular Articles Section */}
-                    <section className="mb-12 mx-20">
+                    <section className="mb-12 mx-4 md:mx-20">
                       <h2 className="mb-8 font-clash text-[28px] font-semibold text-gray-900">
                         Popular articles
                       </h2>
@@ -219,7 +219,7 @@ export default function Tutorials() {
                     </section>
 
                     {/* Topics Section */}
-                    <section className="mx-20">
+                    <section className="mx-4 md:mx-20">
                       <h2 className="mb-8 font-clash text-[28px] font-semibold text-gray-900">
                         Topics
                       </h2>
@@ -257,134 +257,167 @@ export default function Tutorials() {
                 )}
               </div>
             ) : (
-              // Article Detail Page
-              <div className="flex gap-12">
-                {/* Left Navigation */}
-                <nav className="hidden w-72 flex-shrink-0 lg:block">
-                  <div className="sticky top-8">
-                    {helpData.topics.map((topic, index) => (
-                      <motion.div
-                        key={index}
-                        className="mb-8"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                      >
-                        <h3 className="mb-4 font-clash text-lg font-medium text-gray-900">
-                          {topic.title}
-                        </h3>
-                        <ul className="space-y-3">
-                          {topic.subtopics.map((subtopic) => (
-                            <li key={subtopic.id}>
-                              <button
-                                onClick={() => setSelectedArticle(subtopic.id)}
-                                className={`text-base transition-colors ${
-                                  selectedArticle === subtopic.id
-                                    ? "font-medium text-[#CD1A70]"
-                                    : "text-gray-600 hover:text-[#CD1A70]"
-                                }`}
-                              >
-                                {subtopic.title}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    ))}
-                  </div>
-                </nav>
+   // Article Detail Page
+<div>
+  {/* MOBILE-ONLY DROPDOWN - place it at the top */}
+  <div className="block w-full lg:hidden mb-8">
+    <label htmlFor="mobileTopics" className="sr-only">
+      Select Topic
+    </label>
+    <select
+      id="mobileTopics"
+      className="w-full rounded border border-gray-300 bg-white py-2 px-4 text-gray-900 focus:border-[#CD1A70] focus:outline-none focus:ring-2 focus:ring-[#CD1A70]/20"
+      value={selectedArticle || ""}
+      onChange={(e) => {
+        const value = e.target.value;
+        if (value) {
+          setSelectedArticle(value);
+        }
+      }}
+    >
+      <option value="" disabled>
+        -- Select a Topic --
+      </option>
+      {helpData.topics.map((topic) => (
+        <optgroup key={topic.title} label={topic.title}>
+          {topic.subtopics.map((subtopic) => (
+            <option key={subtopic.id} value={subtopic.id}>
+              {subtopic.title}
+            </option>
+          ))}
+        </optgroup>
+      ))}
+    </select>
+  </div>
 
-                {/* Main Content */}
-                <main className="flex-1">
-                  <motion.button
-                    onClick={() => {
-                      setSelectedArticle(null);
-                      setSearchQuery("");
-                      setIsSearching(false);
-                    }}
-                    className="mb-8 flex items-center text-base text-gray-600 hover:text-[#CD1A70]"
-                    whileHover={{ x: -5 }}
-                    transition={{ duration: 0.2 }}
+  {/* Rest of the detail page layout */}
+  <div className="flex gap-12">
+    {/* LEFT NAVIGATION (DESKTOP ONLY) */}
+    <nav className="hidden w-72 flex-shrink-0 lg:block">
+      <div className="sticky top-8">
+        {helpData.topics.map((topic, index) => (
+          <motion.div
+            key={index}
+            className="mb-8"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <h3 className="mb-4 font-clash text-lg font-medium text-gray-900">
+              {topic.title}
+            </h3>
+            <ul className="space-y-3">
+              {topic.subtopics.map((subtopic) => (
+                <li key={subtopic.id}>
+                  <button
+                    onClick={() => setSelectedArticle(subtopic.id)}
+                    className={`text-base transition-colors ${
+                      selectedArticle === subtopic.id
+                        ? "font-medium text-[#CD1A70]"
+                        : "text-gray-600 hover:text-[#CD1A70]"
+                    }`}
                   >
-                    ← Back to Help Center
-                  </motion.button>
+                    {subtopic.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
+      </div>
+    </nav>
 
-                  {articleContent && (
-                    <article>
-                      <h1 className="mb-8 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[32px] font-semibold leading-tight tracking-tight text-transparent sm:text-[40px]">
-                        {articleContent.title}
-                      </h1>
+    {/* MAIN CONTENT */}
+    <main className="flex-1">
+      <motion.button
+        onClick={() => {
+          setSelectedArticle(null);
+          setSearchQuery("");
+          setIsSearching(false);
+        }}
+        className="mb-8 flex items-center text-base text-gray-600 hover:text-[#CD1A70]"
+        whileHover={{ x: -5 }}
+        transition={{ duration: 0.2 }}
+      >
+        ← Back to Help Center
+      </motion.button>
 
-                      {/* Steps */}
-                      <div className="mb-8">
-                        <ol className="list-decimal space-y-4 pl-6">
-                          {articleContent.steps.map((step, index) => (
-                            <li key={index} className="text-lg text-gray-700">
-                              {step}
-                            </li>
-                          ))}
-                        </ol>
-                      </div>
+      {articleContent && (
+        <article>
+          <h1 className="mb-8 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[32px] font-semibold leading-tight tracking-tight text-transparent sm:text-[40px]">
+            {articleContent.title}
+          </h1>
+          {/* Steps */}
+          <div className="mb-8">
+            <ol className="list-decimal space-y-4 pl-6">
+              {articleContent.steps.map((step, index) => (
+                <li key={index} className="text-lg text-gray-700">
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </div>
+          {/* Note */}
+          {articleContent.note && (
+            <div className="mb-12 rounded-lg bg-gradient-to-r from-[#3A1772]/5 to-[#CD1A70]/5 p-6 text-base text-gray-700">
+              <p>{articleContent.note}</p>
+            </div>
+          )}
+          {/* Was this helpful */}
+          <div className="mb-12 border-t border-gray-200 pt-8">
+            <p className="mb-4 text-base text-gray-600">
+              Was this article helpful?
+            </p>
+            <div className="flex gap-4">
+              <motion.button
+                className="rounded-md bg-gradient-to-r from-[#3A1772] to-[#CD1A70] px-6 py-2 text-base font-medium text-white"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                Yes
+              </motion.button>
+              <motion.button
+                className="rounded-md border border-gray-200 bg-white px-6 py-2 text-base font-medium text-gray-700 hover:border-gray-300"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                No
+              </motion.button>
+            </div>
+          </div>
+          {/* Related Links */}
+          {articleContent.relatedLinks && (
+            <div className="rounded-lg border border-gray-200 bg-white p-8">
+              <h2 className="mb-6 font-clash text-xl font-medium text-gray-900">
+                Helpful links
+              </h2>
+              <ul className="space-y-3">
+                {articleContent.relatedLinks.map((link) => (
+                  <li key={link.id}>
+                    <motion.button
+                      onClick={() => setSelectedArticle(link.id)}
+                      className="text-[#CD1A70] hover:text-[#3A1772]"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {link.title}
+                    </motion.button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </article>
+      )}
+    </main>
+  </div>
+</div>
 
-                      {/* Note */}
-                      {articleContent.note && (
-                        <div className="mb-12 rounded-lg bg-gradient-to-r from-[#3A1772]/5 to-[#CD1A70]/5 p-6 text-base text-gray-700">
-                          <p>{articleContent.note}</p>
-                        </div>
-                      )}
 
-                      {/* Was this helpful */}
-                      <div className="mb-12 border-t border-gray-200 pt-8">
-                        <p className="mb-4 text-base text-gray-600">
-                          Was this article helpful?
-                        </p>
-                        <div className="flex gap-4">
-                          <motion.button
-                            className="rounded-md bg-gradient-to-r from-[#3A1772] to-[#CD1A70] px-6 py-2 text-base font-medium text-white"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            Yes
-                          </motion.button>
-                          <motion.button
-                            className="rounded-md border border-gray-200 bg-white px-6 py-2 text-base font-medium text-gray-700 hover:border-gray-300"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            No
-                          </motion.button>
-                        </div>
-                      </div>
-
-                      {/* Related Links */}
-                      {articleContent.relatedLinks && (
-                        <div className="rounded-lg border border-gray-200 bg-white p-8">
-                          <h2 className="mb-6 font-clash text-xl font-medium text-gray-900">
-                            Helpful links
-                          </h2>
-                          <ul className="space-y-3">
-                            {articleContent.relatedLinks.map((link) => (
-                              <li key={link.id}>
-                                <motion.button
-                                  onClick={() => setSelectedArticle(link.id)}
-                                  className="text-[#CD1A70] hover:text-[#3A1772]"
-                                  whileHover={{ x: 5 }}
-                                  transition={{ duration: 0.2 }}
-                                >
-                                  {link.title}
-                                </motion.button>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </article>
-                  )}
-                </main>
-              </div>
             )}
           </motion.div>
         </AnimatePresence>
+        <div className="blank-spacer h-20"></div>
       </div>
     </div>
   );
