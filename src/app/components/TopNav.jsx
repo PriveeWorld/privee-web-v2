@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { HiMenu } from "react-icons/hi";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -79,7 +79,7 @@ function TopNav({ onMenuClick, section }) {
           custom={1}
         >
           <motion.a
-            href="https://facebook.com"
+            href="https://www.facebook.com/people/PriveeWorld/61570117093621/?mibextid=wwXIfr&rdid=D8EwJQ7LJdxco6wf&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1YxVGXv7h8%2F%3Fmibextid%3DwwXIfr"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
@@ -95,10 +95,10 @@ function TopNav({ onMenuClick, section }) {
             <FaFacebook />
           </motion.a>
           <motion.a
-            href="https://twitter.com"
+            href="https://www.linkedin.com/company/priveeworld/posts/?feedView=all"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Twitter"
+            aria-label="Linkedin"
             variants={itemVariants}
             custom={2.0}
             className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
@@ -108,10 +108,10 @@ function TopNav({ onMenuClick, section }) {
             }`}
             whileHover={{ scale: 1.1 }}
           >
-            <FaTwitter />
+            <FaLinkedin />
           </motion.a>
           <motion.a
-            href="https://instagram.com"
+            href="https://www.instagram.com/privee.world/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
