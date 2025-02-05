@@ -378,7 +378,7 @@ export default function ParisPage({ videoData }) {
                 */}
 
                 {/* Insert Smaller Vertical Progress Bar */}
-                <div className="absolute right-4 w-1.5 h-10 bg-[#B6B4B8] rounded-full flex flex-col-reverse shadow-lg">
+                <div className="absolute right-4 w-1 h-8 bg-[#B6B4B8] rounded-full flex flex-col-reverse shadow-lg">
                   <div
                     className="bg-white w-full rounded-full transition-height duration-500"
                     style={{ height: `${progress}%` }}
