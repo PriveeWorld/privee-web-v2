@@ -11,7 +11,6 @@ const SECTION_HEADINGS = [
   "Privee Hub",
   "Privacy Policy",
   "Contact Us",
-  "Nagradna Igra",
 ];
 
 const ContactUs = () => {

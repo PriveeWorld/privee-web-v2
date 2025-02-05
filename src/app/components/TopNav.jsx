@@ -1,24 +1,15 @@
+"use client";
 import { motion } from "framer-motion";
 import { FaFacebook, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { HiMenu } from "react-icons/hi";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function TopNav({ onMenuClick, section }) {
-  let router;
-
-  try {
-    router = useRouter(); // Use try-catch to safely access useRouter
-  } catch (error) {
-    router = null; // Fallback for non-router contexts
-  }
+  const router = useRouter();
 
   const handleLogoClick = () => {
-    if (router) {
-      router.reload("/");
-    } else {
-      window.location.href = "/"; // Fallback for cases where router is unavailable
-    }
+    router.push("/");
   };
 
   const navVariants = {

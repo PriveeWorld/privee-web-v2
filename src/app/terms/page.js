@@ -1,4 +1,4 @@
-
+"use client";
 import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -10,8 +10,7 @@ const SECTION_HEADINGS = [
   "Privee Story",
   "Privee Hub",
   "Privacy Policy",
-  "Contact Us",
-  "Nagradna Igra"
+  "Contact Us"
 ];
 
 const Section = ({ children }) => {

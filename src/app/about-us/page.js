@@ -12,8 +12,7 @@ const SECTION_HEADINGS = [
   "Privee Story",
   "Privee Hub",
   "Privacy Policy",
-  "Contact Us",
-  "Nagradna Igra"
+  "Contact Us"
 ];
 
 const PriveeStory = () => {
