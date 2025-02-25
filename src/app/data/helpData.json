@@ -1,99 +1,337 @@
 {
-    "popularArticles": [
-      {
-        "id": "creating-an-account",
-        "title": "Creating an account"
-      },
-      {
-        "id": "for-you",
-        "title": "Cinema"
-      },
-      {
-        "id": "setting-up-your-profile",
-        "title": "Setting up your profile"
-      },
-      {
-        "id": "reset-password",
-        "title": "Reset password"
-      }
-    ],
-    "topics": [
-      {
-        "title": "Getting started",
-        "subtopics": [
-          {
-            "id": "creating-an-account",
-            "title": "Creating an account"
-          },
-          {
-            "id": "setting-up-your-profile",
-            "title": "Setting up your profile"
-          },
-          {
-            "id": "adding-profile-photo",
-            "title": "Adding a profile photo"
-          },
-          {
-            "id": "changing-nickname",
-            "title": "Changing your nickname"
-          }
-        ]
-      },
-      {
-        "title": "Using the platform",
-        "subtopics": [
-          {
-            "id": "creating-videos",
-            "title": "Creating videos"
-          },
-          {
-            "id": "exploring-videos",
-            "title": "Exploring videos"
-          },
-          {
-            "id": "sharing-content",
-            "title": "Sharing content"
-          }
-        ]
-      },
-          {
-        "title": "Using the platform",
-        "subtopics": [
-          {
-            "id": "creating-videos",
-            "title": "Creating videos"
-          },
-          {
-            "id": "exploring-videos",
-            "title": "Exploring videos"
-          },
-          {
-            "id": "sharing-content",
-            "title": "Sharing content"
-          }
-        ]
-      }
-    ],
-    "articles": [
-      {
-        "id": "creating-an-account",
-        "title": "Creating an account",
-        "steps": [
-          "Download the app from the App Store or Google Play",
-          "Open the app",
-          "Choose a sign-up method and follow the steps"
-        ],
-        "note": "Make sure your email and phone number are valid as they're needed for log in and password recovery.",
-        "relatedLinks": [
-          {
-            "id": "setting-up-your-profile",
-            "title": "Setting up your profile"
-          },
-          {
-            "id": "adding-profile-photo",
-            "title": "Adding a profile photo"
-          }
-        ]
-      }
-    ]
-  }
+  "popularArticles": [
+    {
+      "id": "creating-an-account",
+      "title": "Creating an account"
+    },
+    {
+      "id": "for-you",
+      "title": "Cinema"
+    },
+    {
+      "id": "setting-up-your-profile",
+      "title": "Setting up your profile"
+    },
+    {
+      "id": "reset-password",
+      "title": "Reset password"
+    }
+  ],
+  "topics": [
+    {
+      "title": "Getting started",
+      "subtopics": [
+        {
+          "id": "creating-an-account",
+          "title": "Creating an account"
+        },
+        {
+          "id": "setting-up-your-profile",
+          "title": "Setting up your profile"
+        },
+        {
+          "id": "adding-profile-photo",
+          "title": "Adding a profile photo"
+        },
+        {
+          "id": "changing-nickname",
+          "title": "Changing your nickname"
+        }
+      ]
+    },
+    {
+      "title": "Using the platform",
+      "subtopics": [
+        {
+          "id": "creating-videos",
+          "title": "Creating videos"
+        },
+        {
+          "id": "exploring-videos",
+          "title": "Exploring videos"
+        },
+        {
+          "id": "sharing-content",
+          "title": "Sharing content"
+        }
+      ]
+    },
+    {
+      "title": "Using the platform",
+      "subtopics": [
+        {
+          "id": "creating-videos",
+          "title": "Creating videos"
+        },
+        {
+          "id": "exploring-videos",
+          "title": "Exploring videos"
+        },
+        {
+          "id": "sharing-content",
+          "title": "Sharing content"
+        }
+      ]
+    },
+    {
+      "title": "Everything",
+      "subtopics": [
+        {
+          "id": "what-is-cinema-screen",
+          "title": "What is Cinema Screen?"
+        },
+        {
+          "id": "what-is-a-visual",
+          "title": "What is a Visual?"
+        },
+        {
+          "id": "what-is-a-movie",
+          "title": "What is a Movie?"
+        },
+        {
+          "id": "what-is-camera-mode",
+          "title": "What is Camera Mode?"
+        },
+        {
+          "id": "private-movie-collection",
+          "title": "Private Movie Collection"
+        },
+        {
+          "id": "networks",
+          "title": "Networks"
+        },
+        {
+          "id": "navigating-privee-world",
+          "title": "Navigating Privee World"
+        },
+        {
+          "id": "cinema-screen",
+          "title": "Cinema Screen"
+        },
+        {
+          "id": "camera-mode",
+          "title": "Camera Mode"
+        },
+        {
+          "id": "private-movie-collection-2",
+          "title": "Private Movie Collection"
+        },
+        {
+          "id": "right-menu-in-cinema-mode",
+          "title": "Right Menu in Cinema Mode"
+        },
+        {
+          "id": "how-to-customize-your-video",
+          "title": "How to Customize Your Video with Captions, Filters, and More"
+        },
+        {
+          "id": "how-to-publish-a-video",
+          "title": "How to Publish a Video"
+        },
+        {
+          "id": "adding-a-new-visual",
+          "title": "Adding a New Visual to an Existing Movie"
+        },
+        {
+          "id": "viewing-public-movies",
+          "title": "Viewing Public Movies in Your Private Profile"
+        },
+        {
+          "id": "managing-visuals",
+          "title": "Managing Visuals in Your Private Movies"
+        },
+        {
+          "id": "how-to-search",
+          "title": "How to Search for Videos or People"
+        },
+        {
+          "id": "groups",
+          "title": "Groups"
+        }
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "id": "creating-an-account",
+      "title": "Creating an account",
+      "steps": [
+        "Download the app from the App Store or Google Play",
+        "Open the app",
+        "Choose a sign-up method and follow the steps"
+      ],
+      "note": "Make sure your email and phone number are valid as they're needed for log in and password recovery.",
+      "relatedLinks": [
+        {
+          "id": "setting-up-your-profile",
+          "title": "Setting up your profile"
+        },
+        {
+          "id": "adding-profile-photo",
+          "title": "Adding a profile photo"
+        }
+      ]
+    },
+
+
+
+    {
+      "id": "what-is-cinema-screen",
+      "title": "What is Cinema Screen?",
+      "note": "The Cinema Screen is the heart of Privee and the first screen you’ll encounter when you open the app. This is where you can explore and enjoy movies created by various content creators. Here’s how it works:"
+    },
+    {
+      "id": "what-is-a-visual",
+      "title": "What is a Visual?",
+      "note": "A visual is an individual video that can be published on its own lasting between 3-12 seconds. A visual is a standalone piece of content that can be a 12-second video, a photo, or a slideshow of photos. It is designed to be published on its own."
+    },
+    {
+      "id": "what-is-a-movie",
+      "title": "What is a Movie?",
+      "note": "In Privee, a movie is a collection of visuals (12-second videos or photos) grouped together under a common theme or project. Think of it as a curated playlist of visuals."
+    },
+    {
+      "id": "what-is-camera-mode",
+      "title": "What is Camera Mode?",
+      "note": "The Camera Mode is where your creativity comes to life. Swipe left from the Cinema Screen to access this feature. Here’s what you can do in Camera Mode:",
+      "steps": [
+        "Record a New Movie: Use your device’s camera to capture a new visual.",
+        "Upload Content: Import videos or photos from your device to create a visual."
+      ]
+    },
+    {
+      "id": "private-movie-collection",
+      "title": "Private Movie Collection",
+      "note": "Your personal library of uploaded movies. Swipe right from the Cinema Screen to access this section. Here’s what you need to know:",
+      "steps": [
+        "What’s Stored Here? This is where all your uploaded movies are stored. They remain private until you choose to publish them.",
+        "Toggle Between Private and Public: Use the toggle in the top-left corner to switch between your private collection and the movies you’ve published publicly.",
+        "Why Use the Private Collection? The Private Movie Collection allows you to organize, edit, and prepare your content before sharing it with the world. It’s your space to curate and perfect your movies."
+      ]
+    },
+    {
+      "id": "networks",
+      "title": "Networks",
+      "note": "When you first download the Privee World you will be asked to join one of the existing networks or the network of the person who invited you. This means you will be in their network, and all the posts they make will be considered a priority in your feed."
+    },
+    {
+      "id": "navigating-privee-world",
+      "title": "Navigating Privee World",
+      "note": "Privee features three main screens, each offering a unique experience:",
+      "steps": [
+        "Cinema Screen: This is the first screen you’ll land on. Here, you can explore movies created by various content creators. Tap left or right to browse different visuals within the same movie, and swipe up or down to switch between movies.",
+        "Camera Mode: Swipe left from the cinema screen to enter camera mode. In this section, you can record a new movie or upload one from your device.",
+        "Private Movie Collection: Swipe right from the cinema screen to access your private movie collection. Here, you’ll find the movies you’ve uploaded. Use the toggle in the top-left corner to switch between your private collection and the movies you’ve published publicly."
+      ]
+    },
+    {
+      "id": "cinema-screen",
+      "title": "Cinema Screen",
+      "note": "This is the first screen you’ll land on. Here, you can explore movies created by various content creators.",
+      "steps": [
+        "Tap left or right to browse through different visuals within the same movie.",
+        "Swipe up or down to switch between movies."
+      ]
+    },
+    {
+      "id": "camera-mode",
+      "title": "Camera Mode",
+      "note": "Swipe left from the cinema screen to enter camera mode. In this section, you can record a new movie or upload one from your device."
+    },
+    {
+      "id": "private-movie-collection-2",
+      "title": "Private Movie Collection",
+      "note": "Swipe right from the cinema screen to access your private movie collection. Here, you’ll find the movies you’ve uploaded.",
+      "steps": [
+        "Use the toggle in the top-left corner to switch between your private collection and your public collection of published movies."
+      ]
+    },
+    {
+      "id": "right-menu-in-cinema-mode",
+      "title": "Right Menu in Cinema Mode",
+      "note": "The left menu in cinema mode provides several interactive options and information about the video:",
+      "steps": [
+        "Mute/Unmute Video: Toggle the sound on or off for the video.",
+        "Like Button: Show your appreciation by liking the video.",
+        "Comment Button: Comments are private and not visible to the public. When someone comments on your video, it opens a private chat between you and the person who commented, visible only to both of you.",
+        "Play/Pause Option: Start or pause the video playback as needed.",
+        "Connect with the Creator: Connect with the video creator directly through this option.",
+        "Share Option: Share the video with others via the available sharing options."
+      ]
+    },
+    {
+      "id": "how-to-customize-your-video",
+      "title": "How to Customize Your Video with Captions, Filters, and More",
+      "note": "Follow these steps to personalize your video on Privee by adding captions, filters, and other enhancements:",
+      "steps": [
+        "Open Camera Mode: Start by navigating to the camera mode.",
+        "Record or Upload Your Video: Capture a new video or upload one from your device.",
+        "Finalize Your Video: Once your video is ready, tap Done.",
+        "Access the Customization Menu: At the bottom of the screen, you’ll find a menu with the following options:",
+        "Add a Title: Enter a title that will appear in the top-left corner of your video once it’s uploaded.",
+        "Apply a Filter: Choose from a selection of vibrant filters to enhance the visual appeal of your video.",
+        "Add Captions: Include text captions, which will be displayed directly on your video.",
+        "Set a Date: Add a date to your video, allowing you to showcase a 'throwback' visual as today’s latest addition to your movie.",
+        "Add Music: Select background music from Privee’s curated library to complement your video.",
+        "Once you’ve customized your video, it’s ready to be uploaded and shared!"
+      ]
+    },
+    {
+      "id": "how-to-publish-a-video",
+      "title": "How to Publish a Video",
+      "steps": [
+        "Go to your private profile and select the video you want to publish.",
+        "Open the video and tap the play button at the bottom of your screen.",
+        "Choose 'Prepare to Publish,' then tap 'Publish.'",
+        "Your video will now appear under your Public Videos."
+      ]
+    },
+    {
+      "id": "adding-a-new-visual",
+      "title": "Adding a New Visual to an Existing Movie",
+      "steps": [
+        "Navigate to the camera screen.",
+        "Record a new video or upload one from your device.",
+        "Once the video is ready, tap 'Choose' and then click 'Done.'",
+        "From the list of your movies displayed, select the one you’d like to add the new visual to.",
+        "Finally, tap 'Done' in the top-right corner and wait for your video to upload."
+      ]
+    },
+    {
+      "id": "viewing-public-movies",
+      "title": "Viewing Public Movies in Your Private Profile",
+      "note": "When viewing Privee in public mode on your private profile, the most recently uploaded visual in a movie will be displayed first. To explore all visuals within that movie, simply tap left on the screen to navigate through the published visuals."
+    },
+    {
+      "id": "managing-visuals",
+      "title": "Managing Visuals in Your Private Movies",
+      "note": "To edit and organize your private movies, follow these steps:",
+      "steps": [
+        "Go to your private profile.",
+        "Select a movie and tap the play button at the bottom of the screen.",
+        "Choose from the following options:",
+        "Edit Movie – Modify details of the entire movie.",
+        "Delete Movie – Permanently remove the movie from your collection.",
+        "Edit Visual – Make changes to an individual visual within the movie.",
+        "Reorder – Rearrange the sequence of visuals in your movie.",
+        "Delete Visual – Remove a specific visual from the movie.",
+        "Camera – Open the camera to record or upload a new visual to this movie.",
+        "These same options are also available for your public movies, allowing you to manage them in the same way."
+      ]
+    },
+    {
+      "id": "how-to-search",
+      "title": "How to Search for Videos or People",
+      "steps": [
+        "Go to your private profile.",
+        "Tap the play button at the bottom of your screen.",
+        "Select the search option to look for videos or people."
+      ]
+    },
+    {
+      "id": "groups",
+      "title": "Groups",
+      "note": "Privee allows you to create private groups, providing a shared space for you and your friends. You can create a group, invite friends, and share videos that are visible and interactive only within that group."
+    }
+  ]
+}

@@ -30,6 +30,8 @@ export default function Tutorials() {
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [expandedTopic, setExpandedTopic] = useState(null);
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
 
   // Rotate search suggestions
   useEffect(() => {
@@ -261,33 +263,43 @@ export default function Tutorials() {
 <div>
   {/* MOBILE-ONLY DROPDOWN - place it at the top */}
   <div className="block w-full lg:hidden mb-8">
-    <label htmlFor="mobileTopics" className="sr-only">
-      Select Topic
-    </label>
-    <select
-      id="mobileTopics"
-      className="w-full rounded border border-gray-300 bg-white py-2 px-4 text-gray-900 focus:border-[#CD1A70] focus:outline-none focus:ring-2 focus:ring-[#CD1A70]/20"
-      value={selectedArticle || ""}
-      onChange={(e) => {
-        const value = e.target.value;
-        if (value) {
-          setSelectedArticle(value);
-        }
-      }}
+    <button
+      onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
+      className="w-full rounded border border-gray-300 bg-white py-2 px-4 text-gray-900 text-left focus:outline-none focus:ring-2 focus:ring-[#CD1A70]/20"
     >
-      <option value="" disabled>
-        -- Select a Topic --
-      </option>
-      {helpData.topics.map((topic) => (
-        <optgroup key={topic.title} label={topic.title}>
-          {topic.subtopics.map((subtopic) => (
-            <option key={subtopic.id} value={subtopic.id}>
-              {subtopic.title}
-            </option>
-          ))}
-        </optgroup>
-      ))}
-    </select>
+      {selectedArticle ? articleContent?.title : "Select a Topic"}
+    </button>
+    {isMobileDropdownOpen && (
+      <div className="mt-2 rounded border border-gray-200 bg-white">
+        {helpData.topics.map((topic, i) => (
+          <div key={i} className="py-2 px-4">
+            <button
+              onClick={() => setExpandedTopic(expandedTopic === i ? null : i)}
+              className="w-full text-left font-medium text-gray-900 hover:text-[#CD1A70]"
+            >
+              {topic.title}
+            </button>
+            {expandedTopic === i && (
+              <ul className="mt-2 ml-4 space-y-2">
+                {topic.subtopics.map((subtopic) => (
+                  <li key={subtopic.id}>
+                    <button
+                      onClick={() => {
+                        setSelectedArticle(subtopic.id);
+                        setIsMobileDropdownOpen(false);
+                      }}
+                      className="text-gray-600 hover:text-[#CD1A70]"
+                    >
+                      {subtopic.title}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
   </div>
 
   {/* Rest of the detail page layout */}
@@ -303,25 +315,30 @@ export default function Tutorials() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <h3 className="mb-4 font-clash text-lg font-medium text-gray-900">
+            <button
+              onClick={() => setExpandedTopic(expandedTopic === index ? null : index)}
+              className="mb-2 w-full text-left font-clash text-lg font-medium text-gray-900 transition-colors hover:text-[#CD1A70]"
+            >
               {topic.title}
-            </h3>
-            <ul className="space-y-3">
-              {topic.subtopics.map((subtopic) => (
-                <li key={subtopic.id}>
-                  <button
-                    onClick={() => setSelectedArticle(subtopic.id)}
-                    className={`text-base transition-colors ${
-                      selectedArticle === subtopic.id
-                        ? "font-medium text-[#CD1A70]"
-                        : "text-gray-600 hover:text-[#CD1A70]"
-                    }`}
-                  >
-                    {subtopic.title}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            </button>
+            {expandedTopic === index && (
+              <ul className="mt-2 ml-4 space-y-3">
+                {topic.subtopics.map((subtopic) => (
+                  <li key={subtopic.id}>
+                    <button
+                      onClick={() => setSelectedArticle(subtopic.id)}
+                      className={`text-base transition-colors ${
+                        selectedArticle === subtopic.id
+                          ? "font-medium text-[#CD1A70]"
+                          : "text-gray-600 hover:text-[#CD1A70]"
+                      }`}
+                    >
+                      {subtopic.title}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </motion.div>
         ))}
       </div>
@@ -348,15 +365,17 @@ export default function Tutorials() {
             {articleContent.title}
           </h1>
           {/* Steps */}
-          <div className="mb-8">
-            <ol className="list-decimal space-y-4 pl-6">
-              {articleContent.steps.map((step, index) => (
-                <li key={index} className="text-lg text-gray-700">
-                  {step}
-                </li>
-              ))}
-            </ol>
-          </div>
+          {articleContent.steps && (
+            <div className="mb-8">
+              <ol className="list-decimal space-y-4 pl-6">
+                {articleContent.steps.map((step, index) => (
+                  <li key={index} className="text-lg text-gray-700">
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
           {/* Note */}
           {articleContent.note && (
             <div className="mb-12 rounded-lg bg-gradient-to-r from-[#3A1772]/5 to-[#CD1A70]/5 p-6 text-base text-gray-700">
