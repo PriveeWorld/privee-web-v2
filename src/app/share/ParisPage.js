@@ -529,20 +529,22 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
 
 
       {/* Bottom banner */}
-      <div className="absolute bottom-0 left-0 w-full bg-black/50 p-4 text-center text-white z-50 font-clash pointer-events-none">
-        <p>{userWhoShareName || "Someone"} invited you to watch this movie.</p>
-        <p>
-          Step into Privee World -{" "}
-          <span
-            className="underline cursor-pointer pointer-events-auto"
-            onClick={() =>
-              (window.location.href = "https://priveee.onelink.me/AMM3")
-            }
-          >
-            Download now for free!
-          </span>
-        </p>
-      </div>
+      {!isEmbedded && (
+        <div className="absolute bottom-0 left-0 w-full bg-black/50 p-4 text-center text-white z-50 font-clash pointer-events-none">
+          <p>{userWhoShareName || "Someone"} invited you to watch this movie.</p>
+          <p>
+            Step into Privee World -{" "}
+            <span
+              className="underline cursor-pointer pointer-events-auto"
+              onClick={() =>
+                (window.location.href = "https://priveee.onelink.me/AMM3")
+              }
+            >
+              Download now for free!
+            </span>
+          </p>
+        </div>
+      )}
     </div>
   );
 }
