@@ -2,6 +2,7 @@
 
 import { Suspense } from "react";
 import ParisPage from "./ParisPage";
+import EmbedCode from "./EmbedCode";
 
 // 1) SERVER function to fetch video data
 async function getVideoData(videoId, userWhoShareId) {
@@ -114,14 +115,22 @@ export default async function ParisPageWrapper({ searchParams }) {
 
   try {
     videoData = await getVideoData(videoId, userWhoShareId);
-
   } catch (err) {
     console.error(err);
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ParisPage videoData={videoData} />
-    </Suspense>
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ParisPage videoData={videoData} />
+      </Suspense>
+      
+      {/* Add embed code option if video data exists */}
+      {videoData && videoId && userWhoShareId && (
+        <div className="fixed bottom-20 right-4 z-50">
+          <EmbedCode videoId={videoId} userId={userWhoShareId} />
+        </div>
+      )}
+    </>
   );
 }
