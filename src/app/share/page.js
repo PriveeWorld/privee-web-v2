@@ -126,11 +126,7 @@ export default async function ParisPageWrapper({ searchParams }) {
       </Suspense>
       
       {/* Add embed code option if video data exists */}
-      {videoData && videoId && userWhoShareId && (
-        <div className="fixed bottom-20 right-4 z-50">
-          <EmbedCode videoId={videoId} userId={userWhoShareId} />
-        </div>
-      )}
+ 
     </>
   );
 }

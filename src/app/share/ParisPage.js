@@ -298,40 +298,85 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
             </button>
           )}
 
-          {/* Super minimal overlay - just a tiny branding and caption if needed */}
+          {/* Overlay with essential elements */}
           <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
-            {/* Minimal progress bar at the bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-800 z-10">
-              <div 
-                className="h-full bg-white transition-all duration-300 ease-linear"
-                style={{ width: `${progress}%` }}
-              ></div>
+            {/* Top gradient for title visibility */}
+            <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/80 to-transparent z-10"></div>
+            
+            {/* Bottom gradient for controls/caption visibility */}
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+            
+            {/* Top title area */}
+            <div className="relative z-20 p-2">
+              {/* Title */}
+              {videoTitle && (
+                <h2 className="text-sm md:text-base text-white font-semibold">{videoTitle}</h2>
+              )}
+              {/* Movie name if available */}
+              {movieName && (
+                <p className="text-xs text-white/80">{movieName}</p>
+              )}
             </div>
             
-            {/* Tiny branding in corner */}
-            <div className="absolute bottom-2 right-2 z-50 opacity-70 hover:opacity-100 transition-opacity pointer-events-auto">
-              <a 
-                href="https://priveee.onelink.me/AMM3" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/shareicons/priveeicon.svg"
-                  alt="Privee"
-                  width={24}
-                  height={24}
-                />
-              </a>
-            </div>
+            {/* Center area remains empty to focus on content */}
+            <div className="flex-grow"></div>
             
-            {/* Caption if exists - show only when paused or on hover */}
-            {captionName && (showControls || !isPlaying) && (
-              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-                <span className="bg-black/70 px-2 py-1 text-sm text-white rounded">
+            {/* Bottom area with caption and controls */}
+            <div className="relative z-20 p-2 flex flex-col items-center">
+              {/* Caption - always visible in embed mode */}
+              {captionName && (
+                <div className="mb-2 px-2 py-1 bg-black/70 rounded text-white text-sm max-w-[80%] text-center">
                   {captionName}
-                </span>
+                </div>
+              )}
+              
+              {/* Controls row with share buttons */}
+              <div className="w-full flex justify-between items-center px-2 mb-1">
+                {/* Progress bar */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-800 z-10">
+                  <div 
+                    className="h-full bg-white transition-all duration-300 ease-linear"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+                
+                {/* Simplified action buttons (right side) */}
+                <div className="flex gap-2 ml-auto pointer-events-auto">
+                  {/* Just show 2 primary action buttons */}
+                  {[1, 2].map((i) => (
+                    <a
+                      key={i}
+                      href="https://priveee.onelink.me/AMM3"
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="rounded-full bg-black/50 backdrop-blur-sm p-1 hover:bg-black/70 transition-colors"
+                    >
+                      <Image
+                        src={`/shareicons/${i}.svg`}
+                        alt={`Action ${i}`}
+                        width={20}
+                        height={20}
+                      />
+                    </a>
+                  ))}
+                  
+                  {/* Privee branding */}
+                  <a 
+                    href="https://priveee.onelink.me/AMM3" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="rounded-full bg-black/50 backdrop-blur-sm p-1 hover:bg-black/70 transition-colors"
+                  >
+                    <Image
+                      src="/shareicons/priveeicon.svg"
+                      alt="Privee"
+                      width={20}
+                      height={20}
+                    />
+                  </a>
+                </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
