@@ -1,4 +1,3 @@
-
 import { Suspense } from "react";
 import ParisPage from "../share/ParisPage";
 
@@ -62,8 +61,12 @@ export default async function EmbedPageWrapper({ searchParams }) {
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ParisPage videoData={videoData} isEmbedded={true} />
-    </Suspense>
+    <div className="w-full h-full" style={{ height: '100vh', width: '100%' }}>
+      <Suspense fallback={<div className="w-full h-full flex items-center justify-center bg-black">
+        <div className="spinner-border inline-block h-8 w-8 animate-spin rounded-full border-4 border-gray-500 border-t-gray-200"></div>
+      </div>}>
+        <ParisPage videoData={videoData} isEmbedded={true} />
+      </Suspense>
+    </div>
   );
 }

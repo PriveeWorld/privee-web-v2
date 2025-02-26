@@ -254,118 +254,85 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
   // Create an embed style that's more compact
   if (isEmbedded) {
     return (
-      <div className="relative flex min-h-[calc(var(--vh)_*100)] bg-gradient-to-r from-[#17111F] to-[#0E0914]">
-        <div className="flex flex-1 items-center justify-center">
-          <motion.div
-            className="relative h-full w-full overflow-hidden bg-gradient-to-r from-[#17111F] to-[#0E0914]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            {/* LOADING SPINNER (only for video while loading) */}
-            {!isImage && !isVideoLoaded && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50">
-                <div className="spinner-border inline-block h-8 w-8 animate-spin rounded-full border-4 border-gray-500 border-t-gray-200"></div>
-              </div>
-            )}
-
-            {/* --- IF IMAGE, SHOW IMAGE --- */}
-            {isImage && videoPath && (
-              <img
-                src={videoPath}
-                alt="Shared Visual"
-                className="absolute inset-0 z-[0] h-full w-full object-cover"
-                onLoad={() => setIsVideoLoaded(true)}
-              />
-            )}
-
-            {/* --- IF NOT IMAGE, SHOW VIDEO --- */}
-            {!isImage && (
-              <video
-                ref={videoRef}
-                crossOrigin="anonymous"
-                preload="auto"
-                playsInline
-                className="absolute inset-0 z-[0] h-full w-full object-cover"
-              />
-            )}
-
-            {/* Play/Pause overlay button (show only when showControls = true) */}
-            {!isImage && showControls && (
-              <button
-                onClick={togglePlayPause}
-                className="absolute inset-0 z-20 flex items-center justify-center"
-              >
-                {isPlaying ? (
-                  <FaPause size={50} color="white" />
-                ) : (
-                  <FaPlay size={50} color="white" />
-                )}
-              </button>
-            )}
-
-            {/* Simplified overlay for embedded view */}
-            <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800 pointer-events-none">
-              {/* Minimal header */}
-              <div className="absolute left-0 top-0 z-[1] h-12 w-full bg-gradient-to-b from-black to-transparent" />
-              <div className="pointer-events-auto">
-                <div className="relative z-10 flex items-center gap-2">
-                  {/* Progress bar */}
-                  <div className="absolute right-4 w-1 h-8 bg-[#B6B4B8] rounded-full flex flex-col-reverse shadow-lg">
-                    <div
-                      className="bg-white w-full rounded-full transition-height duration-500"
-                      style={{ height: `${progress}%` }}
-                    ></div>
-                  </div>
-                  
-                  {/* Logo + Title */}
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/images/priveewhite.png"
-                      alt="Privee Logo"
-                      width={40}
-                      height={40}
-                    />
-                    {videoTitle && (
-                      <h2 className="text-sm text-white">{videoTitle}</h2>
-                    )}
-                  </div>
-                </div>
-              </div>
-              
-              {/* Footer with caption and logo */}
-              <div className="flex flex-col gap-4 pointer-events-auto">
-                {captionName && (
-                  <motion.div
-                    className="flex justify-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                  >
-                    <p className="rounded-0 bg-black/90 px-1 py-1 text-sm font-semibold text-white shadow-md">
-                      {captionName}
-                    </p>
-                  </motion.div>
-                )}
-                
-                {/* Small Privee logo at bottom */}
-                <div 
-                  className="absolute bottom-4 right-4 z-50"
-                  onClick={() => {
-                    window.open("https://priveee.onelink.me/AMM3", "_blank");
-                  }}
-                >
-                  <Image
-                    src="/shareicons/priveeicon.svg"
-                    alt="Privee"
-                    width={40}
-                    height={40}
-                    className="cursor-pointer pointer-events-auto"
-                  />
-                </div>
-              </div>
+      <div className="relative h-full w-full bg-black">
+        <div className="relative h-full w-full overflow-hidden">
+          {/* LOADING SPINNER (only for video while loading) */}
+          {!isImage && !isVideoLoaded && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50">
+              <div className="spinner-border inline-block h-8 w-8 animate-spin rounded-full border-4 border-gray-500 border-t-gray-200"></div>
             </div>
-          </motion.div>
+          )}
+
+          {/* --- IF IMAGE, SHOW IMAGE --- */}
+          {isImage && videoPath && (
+            <img
+              src={videoPath}
+              alt="Shared Visual"
+              className="absolute inset-0 z-[0] h-full w-full object-contain"
+              onLoad={() => setIsVideoLoaded(true)}
+            />
+          )}
+
+          {/* --- IF NOT IMAGE, SHOW VIDEO --- */}
+          {!isImage && (
+            <video
+              ref={videoRef}
+              crossOrigin="anonymous"
+              preload="auto"
+              playsInline
+              className="absolute inset-0 z-[0] h-full w-full object-contain"
+            />
+          )}
+
+          {/* Play/Pause overlay button (show only when showControls = true) */}
+          {!isImage && showControls && (
+            <button
+              onClick={togglePlayPause}
+              className="absolute inset-0 z-20 flex items-center justify-center"
+            >
+              {isPlaying ? (
+                <FaPause size={40} color="white" />
+              ) : (
+                <FaPlay size={40} color="white" />
+              )}
+            </button>
+          )}
+
+          {/* Super minimal overlay - just a tiny branding and caption if needed */}
+          <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
+            {/* Minimal progress bar at the bottom */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-800 z-10">
+              <div 
+                className="h-full bg-white transition-all duration-300 ease-linear"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            
+            {/* Tiny branding in corner */}
+            <div className="absolute bottom-2 right-2 z-50 opacity-70 hover:opacity-100 transition-opacity pointer-events-auto">
+              <a 
+                href="https://priveee.onelink.me/AMM3" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/shareicons/priveeicon.svg"
+                  alt="Privee"
+                  width={24}
+                  height={24}
+                />
+              </a>
+            </div>
+            
+            {/* Caption if exists - show only when paused or on hover */}
+            {captionName && (showControls || !isPlaying) && (
+              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+                <span className="bg-black/70 px-2 py-1 text-sm text-white rounded">
+                  {captionName}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
