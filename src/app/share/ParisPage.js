@@ -251,197 +251,68 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     />
   );
 
-  // Create an embed style that's more compact
-  if (isEmbedded) {
-    return (
-      <div className="relative h-full w-full bg-black">
-        <div className="relative h-full w-full overflow-hidden">
-          {/* LOADING SPINNER (only for video while loading) */}
-          {!isImage && !isVideoLoaded && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50">
-              <div className="spinner-border inline-block h-8 w-8 animate-spin rounded-full border-4 border-gray-500 border-t-gray-200"></div>
-            </div>
-          )}
-
-          {/* --- IF IMAGE, SHOW IMAGE --- */}
-          {isImage && videoPath && (
-            <img
-              src={videoPath}
-              alt="Shared Visual"
-              className="absolute inset-0 z-[0] h-full w-full object-contain"
-              onLoad={() => setIsVideoLoaded(true)}
-            />
-          )}
-
-          {/* --- IF NOT IMAGE, SHOW VIDEO --- */}
-          {!isImage && (
-            <video
-              ref={videoRef}
-              crossOrigin="anonymous"
-              preload="auto"
-              playsInline
-              className="absolute inset-0 z-[0] h-full w-full object-contain"
-            />
-          )}
-
-          {/* Play/Pause overlay button (show only when showControls = true) */}
-          {!isImage && showControls && (
-            <button
-              onClick={togglePlayPause}
-              className="absolute inset-0 z-20 flex items-center justify-center"
-            >
-              {isPlaying ? (
-                <FaPause size={40} color="white" />
-              ) : (
-                <FaPlay size={40} color="white" />
-              )}
-            </button>
-          )}
-
-          {/* Overlay with essential elements */}
-          <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
-            {/* Top gradient for title visibility */}
-            <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/80 to-transparent z-10"></div>
-            
-            {/* Bottom gradient for controls/caption visibility */}
-            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-            
-            {/* Top title area */}
-            <div className="relative z-20 p-2">
-              {/* Title */}
-              {videoTitle && (
-                <h2 className="text-sm md:text-base text-white font-semibold">{videoTitle}</h2>
-              )}
-              {/* Movie name if available */}
-              {movieName && (
-                <p className="text-xs text-white/80">{movieName}</p>
-              )}
-            </div>
-            
-            {/* Center area remains empty to focus on content */}
-            <div className="flex-grow"></div>
-            
-            {/* Bottom area with caption and controls */}
-            <div className="relative z-20 p-2 flex flex-col items-center">
-              {/* Caption - always visible in embed mode */}
-              {captionName && (
-                <div className="mb-2 px-2 py-1 bg-black/70 rounded text-white text-sm max-w-[80%] text-center">
-                  {captionName}
-                </div>
-              )}
-              
-              {/* Controls row with share buttons */}
-              <div className="w-full flex justify-between items-center px-2 mb-1">
-                {/* Progress bar */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-800 z-10">
-                  <div 
-                    className="h-full bg-white transition-all duration-300 ease-linear"
-                    style={{ width: `${progress}%` }}
-                  ></div>
-                </div>
-                
-                {/* Simplified action buttons (right side) */}
-                <div className="flex gap-2 ml-auto pointer-events-auto">
-                  {/* Just show 2 primary action buttons */}
-                  {[1, 2].map((i) => (
-                    <a
-                      key={i}
-                      href="https://priveee.onelink.me/AMM3"
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="rounded-full bg-black/50 backdrop-blur-sm p-1 hover:bg-black/70 transition-colors"
-                    >
-                      <Image
-                        src={`/shareicons/${i}.svg`}
-                        alt={`Action ${i}`}
-                        width={20}
-                        height={20}
-                      />
-                    </a>
-                  ))}
-                  
-                  {/* Privee branding */}
-                  <a 
-                    href="https://priveee.onelink.me/AMM3" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="rounded-full bg-black/50 backdrop-blur-sm p-1 hover:bg-black/70 transition-colors"
-                  >
-                    <Image
-                      src="/shareicons/priveeicon.svg"
-                      alt="Privee"
-                      width={20}
-                      height={20}
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   // Regular non-embedded view (original layout)
   return (
     <div className="relative flex min-h-[calc(var(--vh)_*100)] bg-gradient-to-r from-[#17111F] to-[#0E0914] lg:bg-white lg:bg-none">
-      {/* LEFT SIDE NAV (only on lg) */}
-      <motion.aside
-        className="hidden h-full w-[300px] flex-col items-start border-r bg-white lg:flex"
-        initial={{ x: -300, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-      >
-        <motion.div
-          className="my-10 flex w-full items-center justify-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+      
+      {/* Left navbar: Render only if NOT embedded */}
+      {!isEmbedded && (
+        <motion.aside
+          className="hidden h-full w-[300px] flex-col items-start border-r bg-white lg:flex"
+          initial={{ x: -300, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          <Link href="/">
-            <Image
-              src="/images/priveelogo.png"
-              alt="Privee Logo"
-              width={150}
-              height={75}
-              className="transition-opacity hover:opacity-80"
-            />
-          </Link>
-        </motion.div>
+          <motion.div
+            className="my-10 flex w-full items-center justify-center"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            <Link href="/">
+              <Image
+                src="/images/priveelogo.png"
+                alt="Privee Logo"
+                width={150}
+                height={75}
+                className="transition-opacity hover:opacity-80"
+              />
+            </Link>
+          </motion.div>
 
-        <motion.div className="flex w-full flex-col">
-          {[
-            { title: "Discover Privee", href: "/" },
-            { title: "Privee Story", href: "/about-us" },
-            { title: "Privacy Policy", href: "/privacy" },
-            { title: "Contact Us", href: "/contact-us" },
-   
-          ].map((link, index) => (
-            <motion.div
-              key={index}
-              className="group relative w-full text-left"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: index * 0.2 + 0.5,
-                duration: 0.5,
-                ease: "easeOut",
-              }}
-            >
-              <div className="absolute inset-0 z-0 h-full w-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] transition-all duration-300 ease-in-out group-hover:w-full"></div>
-
-              <Link
-                className="font-regular relative z-10 block w-full border-b border-gray-300 px-4 py-6 font-clash text-lg text-gray-800 transition-colors duration-300 group-hover:text-white"
-                href={link.href}
+          <motion.div className="flex w-full flex-col">
+            {[
+              { title: "Discover Privee", href: "/" },
+              { title: "Privee Story", href: "/about-us" },
+              { title: "Privacy Policy", href: "/privacy" },
+              { title: "Contact Us", href: "/contact-us" },
+     
+            ].map((link, index) => (
+              <motion.div
+                key={index}
+                className="group relative w-full text-left"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: index * 0.2 + 0.5,
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
               >
-                {link.title}
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.aside>
+                <div className="absolute inset-0 z-0 h-full w-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] transition-all duration-300 ease-in-out group-hover:w-full"></div>
 
+                <Link
+                  className="font-regular relative z-10 block w-full border-b border-gray-300 px-4 py-6 font-clash text-lg text-gray-800 transition-colors duration-300 group-hover:text-white"
+                  href={link.href}
+                >
+                  {link.title}
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.aside>
+      )}
+      
       {/* MAIN CONTENT (Video or Image) */}
       <div className="flex flex-1 items-center justify-center">
         <motion.div
