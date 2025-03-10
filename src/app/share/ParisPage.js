@@ -8,7 +8,7 @@ import Hls from "hls.js";
 import { FaPlay, FaPause } from "react-icons/fa";
 
 /**
- * Hook to fix 100vh on mobile (your existing code).
+ * Hook to fix 100vh on mobile.
  */
 function useViewportHeightFix() {
   useEffect(() => {
@@ -16,7 +16,6 @@ function useViewportHeightFix() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
-
     setViewportHeight();
     window.addEventListener("resize", setViewportHeight);
     return () => {
@@ -79,13 +78,13 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showControls, setShowControls] = useState(true); // for overlay button
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [progress, setProgress] = useState(0); // New state for progress
+  const [progress, setProgress] = useState(0); // For progress bar
 
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
   const hideControlsTimeout = useRef(null);
 
-  // 5) Check file type (image vs video)
+  // 5) Check file type
   useEffect(() => {
     if (!videoPath) return;
     if (isImageFile(videoPath)) {
@@ -99,34 +98,30 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
-    // Attach play/pause listeners so our icon state is always correct
+    // Attach play/pause listeners
     const handlePlay = () => {
       setIsPlaying(true);
-      // Hide controls after 2s if playing
       hideControlsAfterDelay();
     };
     const handlePause = () => {
       setIsPlaying(false);
-      // If paused, show controls
       setShowControls(true);
       clearTimeout(hideControlsTimeout.current);
     };
     videoElement.addEventListener("play", handlePlay);
     videoElement.addEventListener("pause", handlePause);
 
-    // If HLS
+    // HLS logic
     if (isHlsFile(videoPath) && Hls.isSupported()) {
       const hls = new Hls({ startLevel: 0 });
       hls.loadSource(videoPath);
       hls.attachMedia(videoElement);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         setIsVideoLoaded(true);
-        // We DO NOT auto-play here. Start paused on load.
-        // If you wanted to auto-play, you could call videoElement.play() here.
       });
       hlsRef.current = hls;
     }
-    // If Safari and can handle HLS natively
+    // If Safari (HLS natively)
     else if (
       isHlsFile(videoPath) &&
       videoElement.canPlayType("application/vnd.apple.mpegurl")
@@ -136,15 +131,14 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
         setIsVideoLoaded(true);
       });
     }
-    // If .mp4
+    // If MP4
     else if (isMp4File(videoPath)) {
       videoElement.src = videoPath;
       videoElement.addEventListener("loadedmetadata", () => {
         setIsVideoLoaded(true);
       });
-    }
-    // Otherwise fallback
-    else {
+    } else {
+      // Fallback
       videoElement.src = "/images/priveeweb.mp4";
       videoElement.addEventListener("loadedmetadata", () => {
         setIsVideoLoaded(true);
@@ -160,12 +154,12 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     };
   }, [videoPath, isImage]);
 
-  // Add event listener for updating progress
+  // 7) Update progress for both image and video
   useEffect(() => {
     if (!videoRef.current && !isImage) return;
 
     if (isImage) {
-      // For images, set a fixed duration of 6 seconds
+      // For images, simulate a 6-second 'play'
       const duration = 6;
       let startTime = Date.now();
 
@@ -173,29 +167,23 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
         const elapsedTime = (Date.now() - startTime) / 1000;
         const newProgress = (elapsedTime / duration) * 100;
         setProgress(newProgress);
-
         if (elapsedTime < duration) {
           requestAnimationFrame(updateProgress);
         } else {
           setProgress(100);
         }
       };
-
       updateProgress();
     } else {
       const videoElement = videoRef.current;
-
       const handleLoadedMetadata = () => {
-        // Initialize progress
         setProgress((videoElement.currentTime / videoElement.duration) * 100);
       };
-
       const handleTimeUpdate = () => {
         if (videoElement.duration) {
           setProgress((videoElement.currentTime / videoElement.duration) * 100);
         }
       };
-
       videoElement.addEventListener("loadedmetadata", handleLoadedMetadata);
       videoElement.addEventListener("timeupdate", handleTimeUpdate);
 
@@ -206,7 +194,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     }
   }, [isImage]);
 
-  // 7) Hide controls after 2s of playing
+  // 8) Hide controls after 2s of playing
   const hideControlsAfterDelay = () => {
     clearTimeout(hideControlsTimeout.current);
     hideControlsTimeout.current = setTimeout(() => {
@@ -214,7 +202,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     }, 2000);
   };
 
-  // 8) Toggle play/pause
+  // 9) Toggle play/pause
   const togglePlayPause = () => {
     if (!videoRef.current) return;
     if (isPlaying) {
@@ -224,16 +212,13 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     }
   };
 
-  // 9) On mouse move or click, show controls if it's playing
+  // 10) Show controls on mouse/touch
   const handleUserActivity = () => {
-    // if we're in the middle of something (like we just hovered), show them again
     if (isPlaying) {
       setShowControls(true);
       hideControlsAfterDelay();
     }
   };
-
-  // Listen for mouse/touch events to show controls again
   useEffect(() => {
     window.addEventListener("mousemove", handleUserActivity);
     window.addEventListener("touchstart", handleUserActivity);
@@ -251,10 +236,9 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     />
   );
 
-  // Regular non-embedded view (original layout)
+  // Regular non-embedded view
   return (
     <div className="relative flex min-h-[calc(var(--vh)_*100)] bg-gradient-to-r from-[#17111F] to-[#0E0914] lg:bg-white lg:bg-none">
-      
       {/* Left navbar: Render only if NOT embedded */}
       {!isEmbedded && (
         <motion.aside
@@ -286,7 +270,6 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
               { title: "Privee Story", href: "/about-us" },
               { title: "Privacy Policy", href: "/privacy" },
               { title: "Contact Us", href: "/contact-us" },
-     
             ].map((link, index) => (
               <motion.div
                 key={index}
@@ -300,7 +283,6 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 }}
               >
                 <div className="absolute inset-0 z-0 h-full w-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] transition-all duration-300 ease-in-out group-hover:w-full"></div>
-
                 <Link
                   className="font-regular relative z-10 block w-full border-b border-gray-300 px-4 py-6 font-clash text-lg text-gray-800 transition-colors duration-300 group-hover:text-white"
                   href={link.href}
@@ -312,8 +294,8 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
           </motion.div>
         </motion.aside>
       )}
-      
-      {/* MAIN CONTENT (Video or Image) */}
+
+      {/* MAIN CONTENT */}
       <div className="flex flex-1 items-center justify-center">
         <motion.div
           className="relative h-[calc(100vh)] w-full max-w-[500px] overflow-hidden rounded-xl bg-gradient-to-r from-[#17111F] to-[#0E0914] shadow-lg lg:max-h-[850px]"
@@ -328,7 +310,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
             </div>
           )}
 
-          {/* --- IF IMAGE, SHOW IMAGE --- */}
+          {/* IF IMAGE */}
           {isImage && videoPath && (
             <img
               src={videoPath}
@@ -338,7 +320,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
             />
           )}
 
-          {/* --- IF NOT IMAGE, SHOW VIDEO --- */}
+          {/* IF VIDEO */}
           {!isImage && (
             <video
               ref={videoRef}
@@ -349,7 +331,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
             />
           )}
 
-          {/* Play/Pause overlay button (show only when showControls = true) */}
+          {/* Play/Pause overlay button */}
           {!isImage && showControls && (
             <button
               onClick={togglePlayPause}
@@ -363,32 +345,23 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
             </button>
           )}
 
-          {/* Overlay text */}
+          {/* OVERLAY TEXT */}
           <div className="absolute inset-0 flex flex-col justify-between p-4 text-gray-800 pointer-events-none">
+            {/* Top gradient strip */}
             <div className="absolute left-0 top-0 z-[1] h-20 w-full bg-gradient-to-r from-[#17111F] to-[#0E0914]" />
 
             {/* User & Title info */}
             <div className="pointer-events-auto">
               <div className="relative z-10 flex items-center gap-2">
-                {/* Remove the Privee Logo */}
-                {/* 
-                <Image
-                  className="absolute right-4 lg:hidden"
-                  src="/images/priveewhite.png"
-                  width={120}
-                  height={100}
-                  alt=""
-                />
-                */}
-
-                {/* Insert Smaller Vertical Progress Bar */}
+                {/* Progress Bar on the right */}
                 <div className="absolute right-4 w-1 h-8 bg-[#B6B4B8] rounded-full flex flex-col-reverse shadow-lg">
                   <div
-                    className="bg-white w-full rounded-full transition-height duration-500"
+                    className="bg-white w-full rounded-full transition-all duration-500"
                     style={{ height: `${progress}%` }}
                   ></div>
                 </div>
 
+                {/* User avatar */}
                 <motion.div
                   className="relative z-[99999] h-10 w-10 overflow-hidden rounded-full bg-gray-300"
                   initial={{ scale: 0 }}
@@ -405,13 +378,14 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                     height={40}
                   />
                 </motion.div>
+
+                {/* Movie & User */}
                 <div
                   className="flex flex-col"
                   onClick={() => {
                     window.location.href = "https://priveee.onelink.me/AMM3";
                   }}
                 >
-                  {/* Movie Name */}
                   {movieName ? (
                     <p className="text-md font-clash font-medium text-white">
                       {movieName}
@@ -419,7 +393,6 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                   ) : (
                     <SkeletonLoader width="100px" height="16px" />
                   )}
-                  {/* User Name */}
                   {userName ? (
                     <p className="text-xs text-white">{userName}</p>
                   ) : (
@@ -428,7 +401,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 </div>
               </div>
 
-              {/* Title */}
+              {/* Video Title */}
               <div className="relative z-50 mt-10 rounded-lg">
                 <div className="flex flex-col items-start gap-1">
                   <Image
@@ -442,11 +415,11 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                   )}
                 </div>
               </div>
-              
             </div>
 
             {/* Caption / CTA */}
             <div className="flex flex-col gap-4 pointer-events-auto">
+              {/* Caption if exists */}
               {captionName && (
                 <div className="relative z-50 mb-4 flex flex-col justify-center gap-4">
                   <motion.div
@@ -462,6 +435,25 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 </div>
               )}
 
+              {/* Invitation message (moved from the bottom banner) */}
+              {!isEmbedded && (
+                <div className="relative z-50 flex flex-col items-center gap-2 rounded-md bg-black/50 p-2 text-center text-white">
+                  <p>{userWhoShareName || "Someone"} invited you to watch this movie.</p>
+                  <p>
+                    Step into Privee World –{" "}
+                    <span
+                      className="underline cursor-pointer pointer-events-auto"
+                      onClick={() =>
+                        (window.location.href = "https://priveee.onelink.me/AMM3")
+                      }
+                    >
+                      Download now for free!
+                    </span>
+                  </p>
+                </div>
+              )}
+
+              {/* Center Icon */}
               <motion.div
                 className="mb-20 flex justify-center"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -483,7 +475,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
             </div>
           </div>
 
-          {/* Right side share icons (always show them) */}
+          {/* Right side share icons */}
           <motion.div
             className="absolute right-4 top-24 z-50 flex flex-col gap-1 rounded-[20px] bg-[#161616]/25 px-2 py-4 backdrop-blur-[3px] pointer-events-auto"
             variants={{
@@ -525,26 +517,6 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
           </motion.div>
         </motion.div>
       </div>
-
-
-
-      {/* Bottom banner */}
-      {!isEmbedded && (
-        <div className="absolute bottom-0 left-0 w-full bg-black/50 p-4 text-center text-white z-50 font-clash pointer-events-none">
-          <p>{userWhoShareName || "Someone"} invited you to watch this movie.</p>
-          <p>
-            Step into Privee World -{" "}
-            <span
-              className="underline cursor-pointer pointer-events-auto"
-              onClick={() =>
-                (window.location.href = "https://priveee.onelink.me/AMM3")
-              }
-            >
-              Download now for free!
-            </span>
-          </p>
-        </div>
-      )}
     </div>
   );
 }
