@@ -437,7 +437,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
 
               {/* Invitation message (moved from the bottom banner) */}
               {!isEmbedded && (
-                <div className="relative z-50 flex flex-col items-center gap-2 rounded-md bg-black/50 p-2 text-center text-white">
+                <div className="bottom-20 relative z-50 flex flex-col items-center gap-2 rounded-md bg-black/50 p-2 text-center text-white">
                   <p>{userWhoShareName || "Someone"} invited you to watch this movie.</p>
                   <p>
                     Step into Privee World –{" "}
@@ -454,24 +454,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
               )}
 
               {/* Center Icon */}
-              <motion.div
-                className="mb-20 flex justify-center"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6, duration: 0.4, ease: "easeOut" }}
-                onClick={() => {
-                  window.location.href = "https://priveee.onelink.me/AMM3";
-                }}
-              >
-                <div className="z-50 flex h-24 w-24 items-center justify-center rounded-full">
-                  <Image
-                    src="/shareicons/priveeicon.svg"
-                    alt="Center Icon"
-                    width={120}
-                    height={120}
-                  />
-                </div>
-              </motion.div>
+      
             </div>
           </div>
 
