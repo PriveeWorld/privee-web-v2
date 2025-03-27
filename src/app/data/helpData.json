@@ -1,80 +1,18 @@
 {
   "popularArticles": [
+
     {
-      "id": "creating-an-account",
-      "title": "Creating an account"
+      "id": "navigating-privee-world",
+      "title": "Navigating Privee World"
     },
     {
-      "id": "for-you",
-      "title": "Cinema"
-    },
-    {
-      "id": "setting-up-your-profile",
-      "title": "Setting up your profile"
-    },
-    {
-      "id": "reset-password",
-      "title": "Reset password"
+      "id": "what-is-cinema-screen",
+      "title": "What is Cinema Screen"
     }
   ],
   "topics": [
     {
       "title": "Getting started",
-      "subtopics": [
-        {
-          "id": "creating-an-account",
-          "title": "Creating an account"
-        },
-        {
-          "id": "setting-up-your-profile",
-          "title": "Setting up your profile"
-        },
-        {
-          "id": "adding-profile-photo",
-          "title": "Adding a profile photo"
-        },
-        {
-          "id": "changing-nickname",
-          "title": "Changing your nickname"
-        }
-      ]
-    },
-    {
-      "title": "Using the platform",
-      "subtopics": [
-        {
-          "id": "creating-videos",
-          "title": "Creating videos"
-        },
-        {
-          "id": "exploring-videos",
-          "title": "Exploring videos"
-        },
-        {
-          "id": "sharing-content",
-          "title": "Sharing content"
-        }
-      ]
-    },
-    {
-      "title": "Using the platform",
-      "subtopics": [
-        {
-          "id": "creating-videos",
-          "title": "Creating videos"
-        },
-        {
-          "id": "exploring-videos",
-          "title": "Exploring videos"
-        },
-        {
-          "id": "sharing-content",
-          "title": "Sharing content"
-        }
-      ]
-    },
-    {
-      "title": "Everything",
       "subtopics": [
         {
           "id": "what-is-cinema-screen",
