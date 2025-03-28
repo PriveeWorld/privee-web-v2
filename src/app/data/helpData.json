@@ -1,6 +1,5 @@
 {
   "popularArticles": [
-
     {
       "id": "navigating-privee-world",
       "title": "Navigating Privee World"
@@ -27,20 +26,25 @@
           "title": "What is a Movie?"
         },
         {
-          "id": "what-is-camera-mode",
-          "title": "What is Camera Mode?"
-        },
-        {
-          "id": "private-movie-collection",
-          "title": "Private Movie Collection"
-        },
-        {
           "id": "networks",
           "title": "Networks"
         },
         {
           "id": "navigating-privee-world",
           "title": "Navigating Privee World"
+        }
+      ]
+    },
+    {
+      "title": "Using Privee",
+      "subtopics": [
+        {
+          "id": "what-is-camera-mode",
+          "title": "What is Camera Mode?"
+        },
+        {
+          "id": "private-movie-collection",
+          "title": "Private Movie Collection"
         },
         {
           "id": "cinema-screen",
