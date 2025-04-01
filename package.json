@@ -22,7 +22,8 @@
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-icons": "^5.4.0",
     "react-scrollama": "^2.3.3",
-    "swiper": "^11.1.14"
+    "swiper": "^11.1.14",
+    "react-intersection-observer": "^9.16.0"
   },
   "devDependencies": {
     "eslint": "^8",
