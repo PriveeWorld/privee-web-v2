@@ -46,18 +46,7 @@
           "id": "private-movie-collection",
           "title": "Private Movie Collection"
         },
-        {
-          "id": "cinema-screen",
-          "title": "Cinema Screen"
-        },
-        {
-          "id": "camera-mode",
-          "title": "Camera Mode"
-        },
-        {
-          "id": "private-movie-collection-2",
-          "title": "Private Movie Collection"
-        },
+
         {
           "id": "right-menu-in-cinema-mode",
           "title": "Right Menu in Cinema Mode"
@@ -114,23 +103,23 @@
         }
       ]
     },
-
-
-
     {
       "id": "what-is-cinema-screen",
       "title": "What is Cinema Screen?",
-      "note": "The Cinema Screen is the heart of Privee and the first screen you’ll encounter when you open the app. This is where you can explore and enjoy movies created by various content creators. Here’s how it works:"
+      "note": "The Cinema Screen is the heart of Privee and the first screen you’ll encounter when you open the app. This is where you can explore and enjoy movies created by various content creators. Here’s how it works:",
+      "image": "/images/support/what_is_cinema.jpg"
     },
     {
       "id": "what-is-a-visual",
       "title": "What is a Visual?",
-      "note": "A visual is an individual video that can be published on its own lasting between 3-12 seconds. A visual is a standalone piece of content that can be a 12-second video, a photo, or a slideshow of photos. It is designed to be published on its own."
+      "note": "A visual is an individual video that can be published on its own lasting between 3-12 seconds. A visual is a standalone piece of content that can be a 12-second video, a photo, or a slideshow of photos. It is designed to be published on its own.",
+      "image": "/images/support/what_is_visual.jpg"
     },
     {
       "id": "what-is-a-movie",
       "title": "What is a Movie?",
-      "note": "In Privee, a movie is a collection of visuals (12-second videos or photos) grouped together under a common theme or project. Think of it as a curated playlist of visuals."
+      "note": "In Privee, a movie is a collection of visuals (12-second videos or photos) grouped together under a common theme or project. Think of it as a curated playlist of visuals.",
+      "image": "/images/support/what_is_movie.jpg"
     },
     {
       "id": "what-is-camera-mode",
@@ -139,7 +128,8 @@
       "steps": [
         "Record a New Movie: Use your device’s camera to capture a new visual.",
         "Upload Content: Import videos or photos from your device to create a visual."
-      ]
+      ],
+      "image": "/images/support/what_is_camera_mode.jpg"
     },
     {
       "id": "private-movie-collection",
@@ -149,7 +139,8 @@
         "What’s Stored Here? This is where all your uploaded movies are stored. They remain private until you choose to publish them.",
         "Toggle Between Private and Public: Use the toggle in the top-left corner to switch between your private collection and the movies you’ve published publicly.",
         "Why Use the Private Collection? The Private Movie Collection allows you to organize, edit, and prepare your content before sharing it with the world. It’s your space to curate and perfect your movies."
-      ]
+      ],
+      "image": "/images/support/private_movie_collection.jpg"
     },
     {
       "id": "networks",
@@ -164,7 +155,8 @@
         "Cinema Screen: This is the first screen you’ll land on. Here, you can explore movies created by various content creators. Tap left or right to browse different visuals within the same movie, and swipe up or down to switch between movies.",
         "Camera Mode: Swipe left from the cinema screen to enter camera mode. In this section, you can record a new movie or upload one from your device.",
         "Private Movie Collection: Swipe right from the cinema screen to access your private movie collection. Here, you’ll find the movies you’ve uploaded. Use the toggle in the top-left corner to switch between your private collection and the movies you’ve published publicly."
-      ]
+      ],
+      "image": "/images/support/navigating_privee.jpg"
     },
     {
       "id": "cinema-screen",
@@ -199,7 +191,8 @@
         "Play/Pause Option: Start or pause the video playback as needed.",
         "Connect with the Creator: Connect with the video creator directly through this option.",
         "Share Option: Share the video with others via the available sharing options."
-      ]
+      ],
+      "image": "/images/support/right_menu.jpg"
     },
     {
       "id": "how-to-customize-your-video",
@@ -216,7 +209,8 @@
         "Set a Date: Add a date to your video, allowing you to showcase a 'throwback' visual as today’s latest addition to your movie.",
         "Add Music: Select background music from Privee’s curated library to complement your video.",
         "Once you’ve customized your video, it’s ready to be uploaded and shared!"
-      ]
+      ],
+      "image": "/images/support/how_to_customize.jpg"
     },
     {
       "id": "how-to-publish-a-video",
@@ -226,7 +220,8 @@
         "Open the video and tap the play button at the bottom of your screen.",
         "Choose 'Prepare to Publish,' then tap 'Publish.'",
         "Your video will now appear under your Public Videos."
-      ]
+      ],
+      "image": "/images/support/how_to_publish_video.jpg"
     },
     {
       "id": "adding-a-new-visual",
@@ -242,7 +237,8 @@
     {
       "id": "viewing-public-movies",
       "title": "Viewing Public Movies in Your Private Profile",
-      "note": "When viewing Privee in public mode on your private profile, the most recently uploaded visual in a movie will be displayed first. To explore all visuals within that movie, simply tap left on the screen to navigate through the published visuals."
+      "note": "When viewing Privee in public mode on your private profile, the most recently uploaded visual in a movie will be displayed first. To explore all visuals within that movie, simply tap left on the screen to navigate through the published visuals.",
+      "image": "/images/support/viewing_public_movies.jpg"
     },
     {
       "id": "managing-visuals",
@@ -259,7 +255,8 @@
         "Delete Visual – Remove a specific visual from the movie.",
         "Camera – Open the camera to record or upload a new visual to this movie.",
         "These same options are also available for your public movies, allowing you to manage them in the same way."
-      ]
+      ],
+      "image": "/images/support/managing_visuals.jpg"
     },
     {
       "id": "how-to-search",
@@ -268,12 +265,14 @@
         "Go to your private profile.",
         "Tap the play button at the bottom of your screen.",
         "Select the search option to look for videos or people."
-      ]
+      ],
+      "image": "/images/support/how_to_search_videos.jpg"
     },
     {
       "id": "groups",
       "title": "Groups",
-      "note": "Privee allows you to create private groups, providing a shared space for you and your friends. You can create a group, invite friends, and share videos that are visible and interactive only within that group."
+      "note": "Privee allows you to create private groups, providing a shared space for you and your friends. You can create a group, invite friends, and share videos that are visible and interactive only within that group.",
+      "image": "/images/support/groups.jpg"
     }
   ]
 }

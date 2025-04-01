@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What is a visual in Privee?",
+    "answer": "A visual is a standalone piece of content that can be a 12-second video, a photo, or a slideshow of photos. It is designed to be published on its own."
+  },
+  {
+    "question": "What is a movie in Privee?",
+    "answer": "A movie is a collection of visuals grouped together under the same project or theme."
+  },
+  {
+    "question": "What are networks, and how do they work?",
+    "answer": "When you join Privee, you can either join an existing network or the network of the person who invited you. Being in a network means their posts will be prioritized in your feed."
+  },
+  {
+    "question": "What are the main screens in Privee, and how do I use them?",
+    "answer": "Privee has three main screens:\n• Cinema Screen: Browse movies and visuals by swiping left/right (to switch visuals) or up/down (to switch movies).\n• Camera Mode: Swipe left from the cinema screen to record or upload videos.\n• Private Movie Collection: Swipe right from the cinema screen to access your private movies. Use the toggle in the top-left corner to switch between private and public collections."
+  },
+  {
+    "question": "How can I add captions, filters, and music to my videos?",
+    "answer": "Open Camera Mode → Record/upload a video → Tap Done → Use bottom menu to add title, filters, captions, date, or music from Privee’s library."
+  },
+  {
+    "question": "How do I make a video public?",
+    "answer": "Go to your private profile → Select video → Tap play → Choose 'Prepare to Publish' → Tap 'Publish'. Now it will appear under Public Videos."
+  },
+  {
+    "question": "Can I add a new visual to a movie I’ve already published?",
+    "answer": "Yes! Go to camera → Record/upload → Tap Choose → Tap Done → Select movie → Tap Done to upload."
+  },
+  {
+    "question": "How can I edit or organize my private movies?",
+    "answer": "Go to private profile → Tap play on a movie → Choose options: Edit Movie, Delete Movie, Edit/Reorder/Delete Visuals, or Add new visual via Camera."
+  },
+  {
+    "question": "How can I find friends or explore content on Privee?",
+    "answer": "Go to private profile → Tap play → Use search option to find videos or people."
+  },
+  {
+    "question": "Can I create private groups on Privee?",
+    "answer": "Yes! You can create private groups to invite friends and share videos that are only visible and interactive within the group."
+  }
+]
