@@ -29,6 +29,7 @@
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-icons": "^5.4.0",
     "react-intersection-observer": "^9.16.0",
+    "react-is": "^19.1.0",
     "react-scrollama": "^2.3.3",
     "sanity": "^3.85.1",
     "styled-components": "^6.1.17",
