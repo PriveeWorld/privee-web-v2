@@ -1,5 +1,6 @@
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
+import Footer from "./components/Footer";
 
 export const metadata = {
   title: "Privee World",
@@ -28,9 +29,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex flex-col">
+      <body className="min-h-screen bg-white">
         <CustomCursor />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["media-input132134-dev.s3.amazonaws.com"], // Add your image domain here
+    domains: [
+      "media-input132134-dev.s3.amazonaws.com",
+      "cdn.sanity.io"
+    ],
   },
   webpack(config) {
     config.module.rules.push({
