@@ -12,24 +12,27 @@ export default function Footer() {
           {/* App Store Badges */}
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             {/* App Store Badge */}
-            <Link 
-              href="https://apps.apple.com/app/privee"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+            <div className="flex flex-col items-center">
+              <p className="text-gray-700 font-medium mb-2">Get Privee Now:</p>
+              <Link 
+                href="https://apps.apple.com/app/privee"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Image
-                  src="/images/appstore.svg"
-                  alt="Download on the App Store"
-                  width={120}
-                  height={37}
-                  className="h-auto"
-                />
-              </motion.div>
-            </Link>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Image
+                    src="/images/appstore.svg"
+                    alt="Download on the App Store"
+                    width={120}
+                    height={37}
+                    className="h-auto"
+                  />
+                </motion.div>
+              </Link>
+            </div>
             
             {/* Google Play Badge */}
             <Link 
