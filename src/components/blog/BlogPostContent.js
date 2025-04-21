@@ -24,19 +24,17 @@ const portableTextComponents = {
     image: ({ value }) => {
       if (!value?.asset) return null;
       const imageUrl = urlForImage(value)
-        .width(1200)
-        .height(800)
-        .fit('max')
         .auto('format')
         .url();
       
       return (
-        <div className="relative my-8 h-[300px] w-full overflow-hidden rounded-xl sm:h-[400px] md:h-[500px]">
+        <div className="relative my-8 mx-auto w-full max-w-[400px] overflow-hidden rounded-xl">
           <Image
             src={imageUrl}
             alt={value.alt || ''}
-            fill
-            className="object-cover"
+            width={300}
+            height={600}
+            className="w-full h-auto"
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
@@ -179,29 +177,7 @@ export default function BlogPostContent({ post }) {
                 </div>
               </div>
 
-              {/* Featured Image */}
-              {post?.featuredImage && (
-                <motion.div 
-                  className="relative mb-8 h-[250px] w-full overflow-hidden rounded-xl sm:h-[350px] md:h-[400px] lg:h-[500px]"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <Image
-                    src={urlForImage(post.featuredImage)
-                      .width(1600)
-                      .height(900)
-                      .fit('max')
-                      .auto('format')
-                      .url()}
-                    alt={post.title || ''}
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </motion.div>
-              )}
+     
 
               {/* Content */}
               <motion.div 
