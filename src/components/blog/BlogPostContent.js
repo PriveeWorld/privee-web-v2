@@ -19,6 +19,52 @@ const SECTION_HEADINGS = [
   "Contact Us",
 ];
 
+const EmbedComponent = ({ value }) => {
+  if (!value?.url) return null;
+
+  const getEmbedUrl = (url, type) => {
+    switch (type) {
+      case 'privee':
+        return url;
+      case 'youtube':
+        const youtubeId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/)?.[1];
+        return youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : url;
+      case 'vimeo':
+        const vimeoId = url.match(/vimeo\.com\/(\d+)/)?.[1];
+        return vimeoId ? `https://player.vimeo.com/video/${vimeoId}` : url;
+      default:
+        return url;
+    }
+  };
+
+  const embedUrl = getEmbedUrl(value.url, value.type);
+  const isPriveeVideo = value.type === 'privee';
+
+  return (
+    <div className="relative my-8 mx-auto w-full overflow-hidden rounded-xl">
+      <div className={`relative ${isPriveeVideo ? 'aspect-[9/16] max-w-[400px]' : 'aspect-video'} mx-auto`}>
+        {isPriveeVideo ? (
+          <iframe
+            src={embedUrl}
+            className="absolute top-0 left-0 w-full h-full"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowFullScreen
+          />
+        ) : (
+          <iframe
+            src={embedUrl}
+            className="absolute top-0 left-0 w-full h-full"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowFullScreen
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
 const portableTextComponents = {
   types: {
     image: ({ value }) => {
@@ -28,19 +74,39 @@ const portableTextComponents = {
         .url();
       
       return (
-        <div className="relative my-8 mx-auto w-full max-w-[400px] overflow-hidden rounded-xl">
-          <Image
-            src={imageUrl}
-            alt={value.alt || ''}
-            width={300}
-            height={600}
-            className="w-full h-auto"
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+        <div className="relative my-12 mx-auto w-full max-w-[900px] overflow-hidden rounded-xl">
+          <div className="aspect-[16/9] relative">
+            <Image
+              src={imageUrl}
+              alt={value.alt || ''}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 900px"
+            />
+          </div>
+          {value.alt && (
+            <p className="mt-2 text-center text-sm text-gray-500 italic">{value.alt}</p>
+          )}
         </div>
       );
     },
+    embed: EmbedComponent,
+  },
+  block: {
+    normal: ({children}) => <p className="mb-6 text-left text-gray-700 leading-relaxed max-w-[800px] mx-auto">{children}</p>,
+    h1: ({children}) => <h1 className="mb-8 text-4xl md:text-5xl font-clash font-bold text-left text-gray-900">{children}</h1>,
+    h2: ({children}) => <h2 className="mb-6 text-3xl md:text-4xl font-clash font-bold text-left text-gray-900">{children}</h2>,
+    h3: ({children}) => <h3 className="mb-4 text-2xl md:text-3xl font-clash font-semibold text-left text-gray-900">{children}</h3>,
+    blockquote: ({children}) => (
+      <blockquote className="my-8 border-l-4 border-[#CD1A70] bg-gradient-to-r from-[#3A1772]/5 to-[#CD1A70]/5 py-4 px-6 text-left italic text-gray-700">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({children}) => <ul className="mb-6 list-disc pl-6 space-y-2 max-w-[800px] mx-auto text-left">{children}</ul>,
+    number: ({children}) => <ol className="mb-6 list-decimal pl-6 space-y-2 max-w-[800px] mx-auto text-left">{children}</ol>,
   },
 };
 
@@ -177,11 +243,9 @@ export default function BlogPostContent({ post }) {
                 </div>
               </div>
 
-     
-
               {/* Content */}
               <motion.div 
-                className="prose prose-lg max-w-none prose-headings:font-clash prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#CD1A70] prose-a:no-underline hover:prose-a:text-[#3A1772] prose-img:rounded-xl prose-hr:border-gray-200"
+                className="prose prose-lg max-w-none prose-headings:font-clash prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#CD1A70] prose-a:no-underline hover:prose-a:text-[#3A1772] prose-img:rounded-xl prose-hr:border-gray-200 mx-auto"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}

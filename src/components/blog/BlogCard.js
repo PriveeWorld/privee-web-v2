@@ -32,7 +32,7 @@ export default function BlogCard({ post, index }) {
       className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-300 hover:border-[#CD1A70]/30 hover:shadow-xl sm:p-6"
     >
       <Link href={`/blog/${post.slug.current}`} className="block">
-        <div className="relative mb-4 h-48 overflow-hidden rounded-xl sm:h-56">
+        <div className="relative mb-6 h-[225px] sm:h-[280px] overflow-hidden rounded-xl">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -46,16 +46,16 @@ export default function BlogCard({ post, index }) {
               <span className="text-lg text-gray-400">No image available</span>
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
-        <div>
-          <h3 className="mb-2 font-clash text-lg font-semibold text-gray-900 transition-colors duration-300 group-hover:bg-gradient-to-r group-hover:from-[#3A1772] group-hover:to-[#CD1A70] group-hover:bg-clip-text group-hover:text-transparent sm:text-xl">
+        <div className="text-left">
+          <h3 className="mb-3 font-clash text-xl font-semibold text-gray-900 transition-colors duration-300 group-hover:bg-gradient-to-r group-hover:from-[#3A1772] group-hover:to-[#CD1A70] group-hover:bg-clip-text group-hover:text-transparent sm:text-2xl">
             {post.title}
           </h3>
-          <p className="mb-4 text-sm text-gray-600 line-clamp-2 sm:text-base">
+          <p className="mb-4 text-sm text-gray-600 line-clamp-3 sm:text-base">
             {post.excerpt}
           </p>
-          <div className="flex items-center justify-between text-xs text-gray-500 sm:text-sm">
+          <div className="flex items-center space-x-4 text-sm text-gray-500 sm:text-base">
             <span>{formatDate(post.publishedAt)}</span>
             {post.author && (
               <span className="bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-medium text-transparent">

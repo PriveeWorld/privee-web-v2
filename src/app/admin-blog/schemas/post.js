@@ -65,6 +65,33 @@ export default {
               }
             }
           ]
+        },
+        {
+          type: 'object',
+          name: 'embed',
+          title: 'Embed',
+          fields: [
+            {
+              name: 'url',
+              type: 'url',
+              title: 'URL',
+              description: 'Paste the full embed URL (e.g., Privee video embed URL, YouTube URL, etc.)'
+            },
+            {
+              name: 'type',
+              type: 'string',
+              title: 'Type',
+              options: {
+                list: [
+                  { title: 'Privee Video', value: 'privee' },
+                  { title: 'YouTube', value: 'youtube' },
+                  { title: 'Vimeo', value: 'vimeo' },
+                  { title: 'Twitter', value: 'twitter' },
+                  { title: 'Instagram', value: 'instagram' }
+                ]
+              }
+            }
+          ]
         }
       ]
     }
