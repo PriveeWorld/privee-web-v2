@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Hls from "hls.js";
 import { FaPlay, FaPause } from "react-icons/fa";
 import AnimatedCTA from "../embed/AnimatedCTA";
+import { debounce } from 'lodash';
 /**
  * Hook to fix 100vh on mobile.
  */
@@ -92,13 +93,33 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     }
   }, [videoPath]);
 
-  // 6) Initialize video if NOT an image
+  // Optimize user activity handler with debounce
+  const debouncedHandleUserActivity = useCallback(
+    debounce(() => {
+      if (isPlaying) {
+        setShowControls(true);
+        hideControlsAfterDelay();
+      }
+    }, 150),
+    [isPlaying, hideControlsAfterDelay]
+  );
+
+  useEffect(() => {
+    window.addEventListener("mousemove", debouncedHandleUserActivity);
+    window.addEventListener("touchstart", debouncedHandleUserActivity);
+    return () => {
+      window.removeEventListener("mousemove", debouncedHandleUserActivity);
+      window.removeEventListener("touchstart", debouncedHandleUserActivity);
+      debouncedHandleUserActivity.cancel();
+    };
+  }, [debouncedHandleUserActivity]);
+
+  // Optimize video initialization
   useEffect(() => {
     if (!videoPath || isImage) return;
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
-    // Attach play/pause listeners
     const handlePlay = () => {
       setIsPlaying(true);
       hideControlsAfterDelay();
@@ -108,42 +129,42 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
       setShowControls(true);
       clearTimeout(hideControlsTimeout.current);
     };
+
+    const initVideo = async () => {
+      try {
+        if (isHlsFile(videoPath) && Hls.isSupported()) {
+          const hls = new Hls({ 
+            startLevel: 0,
+            enableWorker: true,
+            lowLatencyMode: true
+          });
+          await hls.loadSource(videoPath);
+          await hls.attachMedia(videoElement);
+          hlsRef.current = hls;
+          
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            setIsVideoLoaded(true);
+          });
+        } else if (isHlsFile(videoPath) && videoElement.canPlayType("application/vnd.apple.mpegurl")) {
+          videoElement.src = videoPath;
+          videoElement.addEventListener("loadedmetadata", () => {
+            setIsVideoLoaded(true);
+          });
+        } else if (isMp4File(videoPath)) {
+          videoElement.src = videoPath;
+          videoElement.addEventListener("loadedmetadata", () => {
+            setIsVideoLoaded(true);
+          });
+        }
+      } catch (error) {
+        console.error("Error initializing video:", error);
+        videoElement.src = "/images/priveeweb.mp4";
+      }
+    };
+
     videoElement.addEventListener("play", handlePlay);
     videoElement.addEventListener("pause", handlePause);
-
-    // HLS logic
-    if (isHlsFile(videoPath) && Hls.isSupported()) {
-      const hls = new Hls({ startLevel: 0 });
-      hls.loadSource(videoPath);
-      hls.attachMedia(videoElement);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        setIsVideoLoaded(true);
-      });
-      hlsRef.current = hls;
-    }
-    // If Safari (HLS natively)
-    else if (
-      isHlsFile(videoPath) &&
-      videoElement.canPlayType("application/vnd.apple.mpegurl")
-    ) {
-      videoElement.src = videoPath;
-      videoElement.addEventListener("loadedmetadata", () => {
-        setIsVideoLoaded(true);
-      });
-    }
-    // If MP4
-    else if (isMp4File(videoPath)) {
-      videoElement.src = videoPath;
-      videoElement.addEventListener("loadedmetadata", () => {
-        setIsVideoLoaded(true);
-      });
-    } else {
-      // Fallback
-      videoElement.src = "/images/priveeweb.mp4";
-      videoElement.addEventListener("loadedmetadata", () => {
-        setIsVideoLoaded(true);
-      });
-    }
+    initVideo();
 
     return () => {
       if (hlsRef.current) {
@@ -152,7 +173,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
       videoElement.removeEventListener("play", handlePlay);
       videoElement.removeEventListener("pause", handlePause);
     };
-  }, [videoPath, isImage]);
+  }, [videoPath, isImage, hideControlsAfterDelay]);
 
   // 7) Update progress for both image and video
   useEffect(() => {
@@ -212,21 +233,38 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     }
   };
 
-  // 10) Show controls on mouse/touch
-  const handleUserActivity = () => {
-    if (isPlaying) {
-      setShowControls(true);
-      hideControlsAfterDelay();
+  // Replace img with Next.js Image component for better optimization
+  const renderMedia = () => {
+    if (isImage && videoPath) {
+      return (
+        <div className="relative w-full h-full">
+          <Image
+            src={videoPath}
+            alt="Shared Visual"
+            fill
+            className="mt-[80px] rounded-tl-xl rounded-tr-xl object-cover"
+            priority={true}
+            onLoadingComplete={() => setIsVideoLoaded(true)}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      );
     }
+
+    if (!isImage) {
+      return (
+        <video
+          ref={videoRef}
+          crossOrigin="anonymous"
+          preload="auto"
+          playsInline
+          className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover pointer-events-none"
+        />
+      );
+    }
+
+    return null;
   };
-  useEffect(() => {
-    window.addEventListener("mousemove", handleUserActivity);
-    window.addEventListener("touchstart", handleUserActivity);
-    return () => {
-      window.removeEventListener("mousemove", handleUserActivity);
-      window.removeEventListener("touchstart", handleUserActivity);
-    };
-  }, [isPlaying]);
 
   // Small skeleton loader
   const SkeletonLoader = ({ width, height, className }) => (
@@ -310,26 +348,8 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
             </div>
           )}
 
-          {/* IF IMAGE */}
-          {isImage && videoPath && (
-            <img
-              src={videoPath}
-              alt="Shared Visual"
-              className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
-              onLoad={() => setIsVideoLoaded(true)}
-            />
-          )}
-
-          {/* IF VIDEO */}
-          {!isImage && (
-            <video
-              ref={videoRef}
-              crossOrigin="anonymous"
-              preload="auto"
-              playsInline
-              className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover pointer-events-none"
-            />
-          )}
+          {/* Replace the media rendering with optimized version */}
+          {renderMedia()}
 
           {/* Play/Pause overlay button */}
           {!isImage && showControls && (

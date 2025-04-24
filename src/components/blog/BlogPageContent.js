@@ -1,13 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import BlogGrid from './BlogGrid';
+import { motion } from "framer-motion";
+import dynamic from 'next/dynamic';
 import TopNav from "../../app/components/TopNav";
 import FullscreenNav from "../../app/components/FullscreenNav";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from 'next/link';
-import BlogCard from './BlogCard';
+
+// Lazy load components
+const BlogGrid = dynamic(() => import('./BlogGrid'), {
+  loading: () => <div className="animate-pulse bg-gray-200 h-96 w-full rounded-lg"></div>
+});
+
+const BlogCard = dynamic(() => import('./BlogCard'), {
+  loading: () => <div className="animate-pulse bg-gray-200 h-64 w-full rounded-lg"></div>
+});
 
 const SECTION_HEADINGS = [
   "Discover Privee",
@@ -22,12 +30,37 @@ export default function BlogPageContent({ posts, currentTag }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [section, setSection] = useState(3); // Blog index in SECTION_HEADINGS
 
+  // Optimize animations by reducing complexity
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { duration: 0.3 }
+    }
+  };
+
+  const gridVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        duration: 0.3,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   const scrollToSection = (index) => {
     setSection(index);
   };
 
   return (
-    <main className="relative w-screen bg-white">
+    <motion.main
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="relative min-h-screen w-screen overflow-x-hidden bg-white pt-24"
+    >
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
@@ -42,10 +75,12 @@ export default function BlogPageContent({ posts, currentTag }) {
         section={SECTION_HEADINGS[section]}
       />
 
-      <div className="relative mt-[80px] w-full max-w-[1600px] mx-auto px-6 py-6 sm:px-8 lg:mt-[100px] min-h-screen overflow-x-hidden">
-        <AnimatePresence mode="wait">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          variants={gridVariants}
+          className="w-full"
+        >
           <motion.div
-            key={section}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
@@ -59,45 +94,47 @@ export default function BlogPageContent({ posts, currentTag }) {
               Discover stories, insights, and updates from the Privee community. Stay informed about the latest trends, features, and success stories.
             </p>
           </motion.div>
-        </AnimatePresence>
-        <div className="mb-12"></div>
+          <div className="mb-12"></div>
 
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-clash font-bold text-gray-900 mb-4">
-            {currentTag ? `Posts tagged with #${currentTag}` : 'Latest Blog Posts'}
-          </h1>
-          {currentTag && (
-            <Link
-              href="/blog"
-              className="inline-flex items-center text-sm font-medium text-[#CD1A70] hover:text-[#3A1772] transition-colors duration-300"
-            >
-              <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              Clear tag filter
-            </Link>
-          )}
-        </div>
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl font-clash font-bold text-gray-900 mb-4">
+              {currentTag ? `Posts tagged with #${currentTag}` : 'Latest Blog Posts'}
+            </h1>
+            {currentTag && (
+              <Link
+                href="/blog"
+                className="inline-flex items-center text-sm font-medium text-[#CD1A70] hover:text-[#3A1772] transition-colors duration-300"
+              >
+                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Clear tag filter
+              </Link>
+            )}
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="w-full"
-        >
           <BlogGrid>
-            {posts.map((post) => (
-              <BlogCard key={post._id} post={post} />
+            {posts.map((post, index) => (
+              <motion.div
+                key={post._id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.3 }}
+              >
+                <BlogCard post={post} />
+              </motion.div>
             ))}
           </BlogGrid>
           
           {posts.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-600">No posts found {currentTag && `with tag #${currentTag}`}</p>
+            <div className="py-12 text-center">
+              <p className="text-gray-600">
+                No posts found {currentTag && `with tag #${currentTag}`}
+              </p>
             </div>
           )}
         </motion.div>
       </div>
-    </main>
+    </motion.main>
   );
 } 

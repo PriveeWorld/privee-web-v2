@@ -1,14 +1,20 @@
 import { Suspense } from "react";
 import ParisPage from "../share/ParisPage";
 
-
-// Reuse the same data fetching logic
+// Reuse the same data fetching logic with caching
 async function getVideoData(videoId, userWhoShareId) {
   if (!videoId) return null;
   if (!userWhoShareId) return null;
+  
   const apiUrl = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${userWhoShareId}/${videoId}`;
+  
   try {
-    const response = await fetch(apiUrl, { cache: "no-store" });
+    const response = await fetch(apiUrl, {
+      next: {
+        revalidate: 60 // Cache for 60 seconds
+      }
+    });
+    
     if (!response.ok) return null;
 
     const result = await response.json();
@@ -67,20 +73,19 @@ export default async function EmbedPageWrapper({ searchParams: { videoId, userId
   }
 
   return (
-    <div className="w-full h-full relative" style={{ 
+    <div className="relative h-full w-full" style={{ 
       aspectRatio: '16/9',
       maxWidth: '100%',
       maxHeight: '100%',
       background: '#000'
     }}>
       <Suspense fallback={
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="spinner-border inline-block h-8 w-8 animate-spin rounded-full border-4 border-gray-500 border-t-gray-200"></div>
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="h-16 w-16 animate-spin rounded-full border-b-2 border-t-2 border-gray-900"></div>
         </div>
       }>
         <ParisPage videoData={videoData} isEmbedded={true} />
       </Suspense>
-
     </div>
   );
 }

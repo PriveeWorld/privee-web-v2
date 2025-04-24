@@ -4,13 +4,20 @@ import { Suspense } from "react";
 import ParisPage from "./ParisPage";
 import EmbedCode from "./EmbedCode";
 
-// 1) SERVER function to fetch video data
+// 1) SERVER function to fetch video data with caching
 async function getVideoData(videoId, userWhoShareId) {
   if (!videoId) return null;
   if (!userWhoShareId) return null;
+  
   const apiUrl = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${userWhoShareId}/${videoId}`;
+  
   try {
-    const response = await fetch(apiUrl, { cache: "no-store" });
+    const response = await fetch(apiUrl, {
+      next: {
+        revalidate: 60 // Cache for 60 seconds
+      }
+    });
+    
     if (!response.ok) return null;
 
     const result = await response.json();
@@ -121,12 +128,16 @@ export default async function ParisPageWrapper({ searchParams }) {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={
+        <div className="flex h-screen w-full items-center justify-center">
+          <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-900"></div>
+        </div>
+      }>
         <ParisPage videoData={videoData} />
       </Suspense>
       
       {/* Add embed code option if video data exists */}
- 
+      {videoData && <EmbedCode videoId={videoId} userId={userWhoShareId} />}
     </>
   );
 }
