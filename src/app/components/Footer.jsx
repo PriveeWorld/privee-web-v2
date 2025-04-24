@@ -12,7 +12,7 @@ export default function Footer() {
           {/* App Store Badges */}
           <div className="flex flex-col items-center">
             <p className="text-gray-700 font-medium mb-2">Get Privee Now:</p>
-            <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="flex flex-row flex-wrap items-center gap-4">
               {/* App Store Badge */}
               <Link 
                 href="https://apps.apple.com/pl/app/privee-world/id1629866639"

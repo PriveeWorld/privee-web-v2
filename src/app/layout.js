@@ -1,37 +1,16 @@
+import { metadata } from './metadata';
+import ClientLayoutWrapper from "./components/ClientLayoutWrapper";
 import "./globals.css";
-import ClientLayout from "./components/ClientLayout";
 
-export const metadata = {
-  title: "Privee World",
-  description: "Check out this amazing movie..",
-  openGraph: {
-    title: "Privee World",
-    description: "Check out this amazing movie.",
-    url: "https://privee.world",
-    images: [
-      {
-        url: "https://i.ibb.co/3syf0cx/Privee.png",
-        width: 800,
-        height: 600,
-        alt: "Privee World",
-      },
-    ],
-    type: "website",
-    locale: "en_US",
-  },
-  viewport: "width=device-width, initial-scale=1",
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
+export { metadata };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ClientLayout>
+        <ClientLayoutWrapper>
           {children}
-        </ClientLayout>
+        </ClientLayoutWrapper>
       </body>
     </html>
   );

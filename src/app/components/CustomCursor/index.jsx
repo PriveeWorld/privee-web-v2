@@ -14,8 +14,8 @@ export default function CustomCursor() {
   const springY = useSpring(cursorY, { stiffness: 300, damping: 25 });
 
   useEffect(() => {
-    if (pathname === "/share") {
-      // Restore default cursor for /share route
+    if (pathname === "/share" || pathname.startsWith('/embed')) {
+      // Restore default cursor for /share and /embed routes
       document.body.style.cursor = "auto";
       return;
     }
@@ -38,7 +38,7 @@ export default function CustomCursor() {
   const handleMouseUp = () => setIsClicking(false);
 
   useEffect(() => {
-    if (pathname === "/share") return;
+    if (pathname === "/share" || pathname.startsWith('/embed')) return;
 
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
@@ -49,8 +49,8 @@ export default function CustomCursor() {
     };
   }, [pathname]);
 
-  // Do not render the custom cursor if the current pathname is /share
-  if (pathname === "/share") {
+  // Do not render the custom cursor if the current pathname is /share or starts with /embed
+  if (pathname === "/share" || pathname.startsWith('/embed')) {
     return null;
   }
 

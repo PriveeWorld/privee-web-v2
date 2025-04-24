@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
-  const showFooter = !pathname?.startsWith('/embed');
+const showFooter = !pathname?.startsWith('/embed') && pathname !== '/';
+  
 
   return (
     <div className="min-h-screen bg-white">

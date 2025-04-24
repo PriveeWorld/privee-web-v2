@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import ParisPage from "../share/ParisPage";
-import AnimatedCTA from "./AnimatedCTA";
+
 
 // Reuse the same data fetching logic
 async function getVideoData(videoId, userWhoShareId) {
@@ -80,7 +80,7 @@ export default async function EmbedPageWrapper({ searchParams: { videoId, userId
       }>
         <ParisPage videoData={videoData} isEmbedded={true} />
       </Suspense>
-      <AnimatedCTA />
+
     </div>
   );
 }

@@ -50,7 +50,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* Only hide cursor on non-embed and non-share pages */
+body:not([data-route^="/embed"]):not([data-route="/share"]) {
   cursor: none;
 }
 

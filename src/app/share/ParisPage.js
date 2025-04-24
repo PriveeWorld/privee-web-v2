@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import { FaPlay, FaPause } from "react-icons/fa";
-
+import AnimatedCTA from "../embed/AnimatedCTA";
 /**
  * Hook to fix 100vh on mobile.
  */
@@ -327,7 +327,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
               crossOrigin="anonymous"
               preload="auto"
               playsInline
-              className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
+              className="absolute inset-0 z-[0] mt-[80px] h-full w-full rounded-tl-xl rounded-tr-xl object-cover pointer-events-none"
             />
           )}
 
@@ -500,6 +500,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
           </motion.div>
         </motion.div>
       </div>
+      <AnimatedCTA />
     </div>
   );
 }

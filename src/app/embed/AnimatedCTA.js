@@ -2,10 +2,15 @@
 
 // Animated Call to Action Banner component
 export default function AnimatedCTA() {
+  const handleClick = () => {
+    window.location.href = "https://priveee.onelink.me/AMM3";
+  };
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-10 w-full">
+    <div className="fixed bottom-0 left-0 right-0 z-[9999] w-full">
       <div 
-        className="block w-full bg-gradient-to-r from-black/80 via-black/60 to-black/80 py-2 px-3 cursor-pointer group overflow-hidden relative"
+        onClick={handleClick}
+        className="block w-full bg-gradient-to-r from-black/80 via-black/60 to-black/80 py-2 px-3 cursor-pointer group overflow-hidden relative touch-manipulation"
         style={{ backdropFilter: 'blur(8px)' }}
       >
         <div className="animate-marquee whitespace-nowrap flex items-center justify-center gap-4 text-sm">
@@ -20,9 +25,7 @@ export default function AnimatedCTA() {
         </div>
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
           <button
-            onClick={() => {
-              window.location.href = "https://priveee.onelink.me/AMM3";
-            }}
+            onClick={handleClick}
             className="bg-gradient-to-r from-[#3A1772] to-[#CD1A70] px-4 py-1.5 rounded-full text-sm font-semibold text-white hover:opacity-90 transition-opacity"
           >
             Download Now

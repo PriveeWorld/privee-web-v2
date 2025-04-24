@@ -22,29 +22,58 @@ const SECTION_HEADINGS = [
 const EmbedComponent = ({ value }) => {
   if (!value?.url) return null;
 
+  const extractUrl = (input) => {
+    // Try to extract URL from iframe code first
+    const srcMatch = input.match(/src="([^"]+)"/);
+    return srcMatch ? srcMatch[1] : input;
+  };
+
   const getEmbedUrl = (url, type) => {
+    // First extract the actual URL if it's an iframe code
+    const cleanUrl = extractUrl(url);
+    
     switch (type) {
       case 'privee':
-        return url;
+        return cleanUrl;
       case 'youtube':
-        const youtubeId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/)?.[1];
-        return youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : url;
+        const youtubeId = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/)?.[1];
+        return youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : cleanUrl;
       case 'vimeo':
-        const vimeoId = url.match(/vimeo\.com\/(\d+)/)?.[1];
-        return vimeoId ? `https://player.vimeo.com/video/${vimeoId}` : url;
+        const vimeoId = cleanUrl.match(/vimeo\.com\/(\d+)/)?.[1];
+        return vimeoId ? `https://player.vimeo.com/video/${vimeoId}` : cleanUrl;
+      case 'instagram':
+        // Handle both post and reel URLs
+        const instaMatch = cleanUrl.match(/instagram\.com\/(?:p|reel)\/([^/?]+)/);
+        return instaMatch ? `https://www.instagram.com/embed/p/${instaMatch[1]}/` : cleanUrl;
+      case 'facebook':
+        // Handle Facebook video, post, and other content
+        if (cleanUrl.includes('facebook.com')) {
+          return `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(cleanUrl)}&show_text=true`;
+        }
+        return cleanUrl;
+      case 'twitter':
+        // Handle Twitter/X embed
+        const tweetUrl = cleanUrl.replace(/twitter\.com/, 'platform.twitter.com/embed');
+        return tweetUrl.includes('platform.twitter.com/embed') ? tweetUrl : cleanUrl;
       default:
-        return url;
+        return cleanUrl;
     }
   };
 
   const embedUrl = getEmbedUrl(value.url, value.type);
   const isPriveeVideo = value.type === 'privee';
+  const isInstagramEmbed = value.type === 'instagram';
+  const isFacebookEmbed = value.type === 'facebook';
 
   return (
     <div className="relative my-8 mx-auto w-full max-w-screen-lg">
       <div className={`relative mx-auto ${
         isPriveeVideo 
-          ? 'md:max-w-[400px] aspect-[9/16] md:aspect-[9/16]' 
+          ? 'md:max-w-[400px] aspect-[9/16] md:aspect-[9/16]'
+          : isInstagramEmbed
+          ? 'md:max-w-[400px] aspect-[5/6]'
+          : isFacebookEmbed
+          ? 'md:max-w-[500px] aspect-[1/1]'
           : 'aspect-video'
       }`}>
         <iframe
@@ -191,21 +220,6 @@ export default function BlogPostContent({ post }) {
                 <span className="text-xs text-gray-600">{formatDate(post?.publishedAt)}</span>
               </div>
 
-              {/* Tags */}
-              {post?.tags && post.tags.length > 0 && (
-                <div className="mb-4 flex flex-wrap gap-2">
-                  {post.tags.map((tag, index) => (
-                    <Link
-                      key={index}
-                      href={`/blog?tag=${encodeURIComponent(tag)}`}
-                      className="rounded-full bg-[#CD1A70]/10 px-3 py-1 text-sm font-medium text-[#CD1A70] hover:bg-[#CD1A70]/20 transition-colors duration-300"
-                    >
-                      #{tag}
-                    </Link>
-                  ))}
-                </div>
-              )}
-
               {/* Title */}
               <h1 className="mb-4 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[28px] font-bold leading-[1.2] tracking-normal text-transparent sm:text-[36px] md:text-[42px] lg:text-[48px] lg:leading-[1.1] [word-spacing:0.1em]">
                 {post?.title}
@@ -258,18 +272,28 @@ export default function BlogPostContent({ post }) {
                 </div>
               </div>
 
-              {/* Content */}
-              <motion.div 
-                className="prose prose-lg max-w-none prose-headings:font-clash prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#CD1A70] prose-a:no-underline hover:prose-a:text-[#3A1772] prose-img:rounded-xl prose-hr:border-gray-200 mx-auto"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <PortableText 
-                  value={post?.content} 
+              {/* Main Content */}
+              <div className="prose prose-lg max-w-none">
+                <PortableText
+                  value={post?.content}
                   components={portableTextComponents}
                 />
-              </motion.div>
+              </div>
+
+              {/* Tags - Moved to bottom */}
+              {post?.tags && post.tags.length > 0 && (
+                <div className="mt-8 mb-4 flex flex-wrap gap-2">
+                  {post.tags.map((tag, index) => (
+                    <Link
+                      key={index}
+                      href={`/blog?tag=${encodeURIComponent(tag)}`}
+                      className="rounded-full bg-[#CD1A70]/10 px-3 py-1 text-sm font-medium text-[#CD1A70] hover:bg-[#CD1A70]/20 transition-colors duration-300"
+                    >
+                      #{tag}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </motion.article>
           </div>
         </main>
