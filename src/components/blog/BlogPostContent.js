@@ -41,25 +41,18 @@ const EmbedComponent = ({ value }) => {
   const isPriveeVideo = value.type === 'privee';
 
   return (
-    <div className="relative my-8 mx-auto w-full overflow-hidden rounded-xl">
-      <div className={`relative ${isPriveeVideo ? 'aspect-[9/16] max-w-[400px]' : 'aspect-video'} mx-auto`}>
-        {isPriveeVideo ? (
+    <div className="relative my-8 mx-auto w-full max-w-screen-lg overflow-hidden rounded-xl">
+      <div className={`relative ${isPriveeVideo ? 'sm:aspect-[9/16] aspect-video sm:max-w-[400px]' : 'aspect-video'} mx-auto`}>
+        <div className="absolute inset-0 w-full h-full pointer-events-none">
           <iframe
             src={embedUrl}
-            className="absolute top-0 left-0 w-full h-full"
-            frameBorder="0"
+            className="w-full h-full pointer-events-auto"
+            style={{ border: 'none' }}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
             allowFullScreen
+            loading="lazy"
           />
-        ) : (
-          <iframe
-            src={embedUrl}
-            className="absolute top-0 left-0 w-full h-full"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-            allowFullScreen
-          />
-        )}
+        </div>
       </div>
     </div>
   );
