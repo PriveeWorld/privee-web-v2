@@ -1,7 +1,9 @@
 import { getClient } from '../../../lib/sanity/client';
 import BlogPostContent from '../../../components/blog/BlogPostContent';
 
-export const revalidate = 60; // Revalidate every minute
+// Force dynamic rendering and disable cache
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 async function getPost(slug) {
   const client = getClient();
@@ -11,6 +13,7 @@ async function getPost(slug) {
       title,
       slug,
       content,
+      tags,
       featuredImage,
       publishedAt,
       author->{

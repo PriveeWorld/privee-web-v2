@@ -84,6 +84,11 @@ const portableTextComponents = {
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 900px"
             />
+            {value.photoCredit && (
+              <div className="absolute bottom-4 left-4 bg-black/50 px-3 py-1 rounded-md">
+                <p className="text-white text-sm">{value.photoCredit}</p>
+              </div>
+            )}
           </div>
           {value.alt && (
             <p className="mt-2 text-center text-sm text-gray-500 italic">{value.alt}</p>
@@ -190,6 +195,21 @@ export default function BlogPostContent({ post }) {
                 </span>
                 <span className="text-xs text-gray-600">{formatDate(post?.publishedAt)}</span>
               </div>
+
+              {/* Tags */}
+              {post?.tags && post.tags.length > 0 && (
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {post.tags.map((tag, index) => (
+                    <Link
+                      key={index}
+                      href={`/blog?tag=${encodeURIComponent(tag)}`}
+                      className="rounded-full bg-[#CD1A70]/10 px-3 py-1 text-sm font-medium text-[#CD1A70] hover:bg-[#CD1A70]/20 transition-colors duration-300"
+                    >
+                      #{tag}
+                    </Link>
+                  ))}
+                </div>
+              )}
 
               {/* Title */}
               <h1 className="mb-4 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[28px] font-bold leading-[1.2] tracking-normal text-transparent sm:text-[36px] md:text-[42px] lg:text-[48px] lg:leading-[1.1] [word-spacing:0.1em]">

@@ -49,6 +49,29 @@ export default function BlogCard({ post, index }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
         <div className="text-left">
+          <div className="mb-2 flex items-center">
+            <span className="mr-3 rounded-full bg-[#3A1772]/10 px-3 py-0.5 text-xs font-medium text-[#3A1772]">
+              News
+            </span>
+            <span className="text-xs text-gray-600">{formatDate(post.publishedAt)}</span>
+          </div>
+
+          {/* Tags */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="mb-3 flex flex-wrap gap-2">
+              {post.tags.map((tag, index) => (
+                <Link
+                  key={index}
+                  href={`/blog?tag=${encodeURIComponent(tag)}`}
+                  className="rounded-full bg-[#CD1A70]/10 px-2 py-0.5 text-xs font-medium text-[#CD1A70] hover:bg-[#CD1A70]/20 transition-colors duration-300"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  #{tag}
+                </Link>
+              ))}
+            </div>
+          )}
+
           <h3 className="mb-3 font-clash text-xl font-semibold text-gray-900 transition-colors duration-300 group-hover:bg-gradient-to-r group-hover:from-[#3A1772] group-hover:to-[#CD1A70] group-hover:bg-clip-text group-hover:text-transparent sm:text-2xl">
             {post.title}
           </h3>
@@ -56,7 +79,6 @@ export default function BlogCard({ post, index }) {
             {post.excerpt}
           </p>
           <div className="flex items-center space-x-4 text-sm text-gray-500 sm:text-base">
-            <span>{formatDate(post.publishedAt)}</span>
             {post.author && (
               <span className="bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-medium text-transparent">
                 {post.author.name}

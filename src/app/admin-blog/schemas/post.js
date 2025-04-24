@@ -20,6 +20,15 @@ export default {
       validation: Rule => Rule.required()
     },
     {
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        layout: 'tags'
+      }
+    },
+    {
       name: 'featuredImage',
       title: 'Featured Image',
       type: 'image',
@@ -65,35 +74,19 @@ export default {
               }
             }
           ]
-        },
-        {
-          type: 'object',
-          name: 'embed',
-          title: 'Embed',
-          fields: [
-            {
-              name: 'url',
-              type: 'url',
-              title: 'URL',
-              description: 'Paste the full embed URL (e.g., Privee video embed URL, YouTube URL, etc.)'
-            },
-            {
-              name: 'type',
-              type: 'string',
-              title: 'Type',
-              options: {
-                list: [
-                  { title: 'Privee Video', value: 'privee' },
-                  { title: 'YouTube', value: 'youtube' },
-                  { title: 'Vimeo', value: 'vimeo' },
-                  { title: 'Twitter', value: 'twitter' },
-                  { title: 'Instagram', value: 'instagram' }
-                ]
-              }
-            }
-          ]
         }
       ]
     }
-  ]
-} 
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      author: 'author.name',
+      media: 'featuredImage'
+    },
+    prepare(selection) {
+      const {author} = selection
+      return {...selection, subtitle: author && `by ${author}`}
+    }
+  }
+}

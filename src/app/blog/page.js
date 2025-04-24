@@ -4,14 +4,17 @@ import { urlForImage } from '../../lib/sanity/image';
 
 export const revalidate = 60; // Revalidate every minute
 
-async function getBlogPosts() {
+async function getBlogPosts(tag) {
   const client = getClient();
+  const filter = tag ? `&& "${tag}" in tags` : '';
+  
   const posts = await client.fetch(`
-    *[_type == "post"] | order(publishedAt desc) {
+    *[_type == "post" ${filter}] | order(publishedAt desc) {
       _id,
       title,
       slug,
       excerpt,
+      tags,
       "featuredImage": featuredImage.asset->url,
       publishedAt,
       author->{
@@ -30,7 +33,8 @@ async function getBlogPosts() {
   return posts;
 }
 
-export default async function BlogPage() {
-  const posts = await getBlogPosts();
-  return <BlogPageContent posts={posts} />;
+export default async function BlogPage({ searchParams }) {
+  const tag = searchParams?.tag;
+  const posts = await getBlogPosts(tag);
+  return <BlogPageContent posts={posts} currentTag={tag} />;
 } 

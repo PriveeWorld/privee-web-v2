@@ -6,6 +6,8 @@ import TopNav from "../../app/components/TopNav";
 import FullscreenNav from "../../app/components/FullscreenNav";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from 'next/link';
+import BlogCard from './BlogCard';
 
 const SECTION_HEADINGS = [
   "Discover Privee",
@@ -16,7 +18,7 @@ const SECTION_HEADINGS = [
   "Contact Us",
 ];
 
-export default function BlogPageContent({ posts }) {
+export default function BlogPageContent({ posts, currentTag }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [section, setSection] = useState(3); // Blog index in SECTION_HEADINGS
 
@@ -40,7 +42,7 @@ export default function BlogPageContent({ posts }) {
         section={SECTION_HEADINGS[section]}
       />
 
-      <div className="relative mt-[80px] w-full max-w-[1600px] mx-auto px-6 py-6 sm:px-8 lg:mt-[100px]">
+      <div className="relative mt-[80px] w-full max-w-[1600px] mx-auto px-6 py-6 sm:px-8 lg:mt-[100px] min-h-screen overflow-x-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={section}
@@ -60,13 +62,40 @@ export default function BlogPageContent({ posts }) {
         </AnimatePresence>
         <div className="mb-12"></div>
 
+        <div className="mb-8">
+          <h1 className="text-4xl md:text-5xl font-clash font-bold text-gray-900 mb-4">
+            {currentTag ? `Posts tagged with #${currentTag}` : 'Latest Blog Posts'}
+          </h1>
+          {currentTag && (
+            <Link
+              href="/blog"
+              className="inline-flex items-center text-sm font-medium text-[#CD1A70] hover:text-[#3A1772] transition-colors duration-300"
+            >
+              <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Clear tag filter
+            </Link>
+          )}
+        </div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
           className="w-full"
         >
-          <BlogGrid posts={posts} />
+          <BlogGrid>
+            {posts.map((post) => (
+              <BlogCard key={post._id} post={post} />
+            ))}
+          </BlogGrid>
+          
+          {posts.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-600">No posts found {currentTag && `with tag #${currentTag}`}</p>
+            </div>
+          )}
         </motion.div>
       </div>
     </main>
