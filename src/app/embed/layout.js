@@ -18,10 +18,22 @@ export default function EmbedLayout({ children }) {
 
         #embed-container {
           width: 100%;
-          height: 100%;
+          height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+          #embed-container {
+            height: -webkit-fill-available;
+          }
         }
       `}</style>
       <div id="embed-container">
