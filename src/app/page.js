@@ -282,7 +282,7 @@ export default function Home() {
     <div
       {...bind()}
       ref={containerRef}
-      className="flex h-screen w-screen touch-none items-center justify-center overflow-hidden"
+      className="flex h-screen w-screen lg:touch-none items-center justify-center overflow-hidden"
     >
       <FullscreenNav
         isOpen={isNavOpen}
@@ -295,7 +295,7 @@ export default function Home() {
       />
       <TopNav onMenuClick={() => setIsNavOpen(true)} section={section} />
 
-      <div className="relative mt-20 flex h-screen w-full max-w-[1600px] flex-col items-center justify-start px-4 pt-32 lg:h-fit lg:items-start lg:px-16 lg:pt-0">
+      <div className="relative mt-20 flex h-screen w-full max-w-[1600px] flex-col items-center justify-start px-4 pt-16 lg:h-fit lg:items-start lg:px-16 lg:pt-0">
         <AnimatePresence mode="wait">
           <SectionContent
             section={section}
@@ -314,13 +314,13 @@ export default function Home() {
               pointer-events-none fixed 
               bottom-0 right-0
               z-0 
-              w-full h-1/2
+              w-full h-[42%]
               md:w-[60%] md:h-[60%]
               lg:w-[50%] lg:h-[70%]
               xl:w-[45%] xl:h-[75%]
               2xl:w-[40%] 2xl:h-[80%]
               transform 
-              translate-x-[15%]
+              translate-x-0
               md:translate-x-[10%]
               lg:translate-x-[5%]
               xl:translate-x-0

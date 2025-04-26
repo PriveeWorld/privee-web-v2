@@ -85,6 +85,14 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
   const hlsRef = useRef(null);
   const hideControlsTimeout = useRef(null);
 
+  // Define hideControlsAfterDelay before it's used
+  const hideControlsAfterDelay = useCallback(() => {
+    clearTimeout(hideControlsTimeout.current);
+    hideControlsTimeout.current = setTimeout(() => {
+      setShowControls(false);
+    }, 2000);
+  }, []);
+
   // 5) Check file type
   useEffect(() => {
     if (!videoPath) return;
@@ -215,15 +223,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     }
   }, [isImage]);
 
-  // 8) Hide controls after 2s of playing
-  const hideControlsAfterDelay = () => {
-    clearTimeout(hideControlsTimeout.current);
-    hideControlsTimeout.current = setTimeout(() => {
-      setShowControls(false);
-    }, 2000);
-  };
-
-  // 9) Toggle play/pause
+  // 8) Toggle play/pause
   const togglePlayPause = () => {
     if (!videoRef.current) return;
     if (isPlaying) {

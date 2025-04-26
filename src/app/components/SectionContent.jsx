@@ -114,8 +114,7 @@ const SectionContent = ({ section, scrollDirection }) => {
   );
 
   const containerClasses = classNames(
-    "flex min-h-[300px] flex-col items-start justify-center relative",
-    { "-mt-[100px]": section === 0 }
+    "flex min-h-[300px] flex-col items-start justify-center relative"
   );
 
   switch (section) {
@@ -142,7 +141,7 @@ const SectionContent = ({ section, scrollDirection }) => {
             <motion.div
               variants={fadeUpVariants}
               custom={1}
-              className="text-[24px] mt-12 w-full lg:w-fit text-center lg:text-left font-roboto font-light text-gray-600"
+              className="text-[24px] mt-6 w-full lg:w-fit text-center lg:text-left font-roboto font-light text-gray-600"
             >
               {SECTION_SUBHEADINGS[section]}
             </motion.div>
