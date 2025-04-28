@@ -157,3 +157,14 @@ body {
   width: 100% !important;
   height: 100% !important;
 }
+
+/* Blog content links */
+.blog-content a {
+  color: #CD1A70 !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.blog-content a:hover {
+  color: rgba(205, 26, 112, 0.8) !important;
+}

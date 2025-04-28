@@ -32,7 +32,7 @@ export default function BlogCard({ post, index }) {
       className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-300 hover:border-[#CD1A70]/30 hover:shadow-xl sm:p-6"
     >
       <Link href={`/blog/${post.slug.current}`} className="block">
-        <div className="relative mb-6 h-[225px] sm:h-[280px] overflow-hidden rounded-xl">
+        <div className="relative mb-6 aspect-video overflow-hidden rounded-xl">
           {imageUrl ? (
             <Image
               src={imageUrl}

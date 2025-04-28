@@ -98,15 +98,15 @@ const portableTextComponents = {
         .url();
       
       return (
-        <div className="relative my-12 mx-auto w-full max-w-[900px] overflow-hidden rounded-xl">
-          <div className="aspect-[16/9] relative">
+        <div className="relative my-12 mx-auto w-full max-w-[800px] overflow-hidden rounded-xl">
+          <div className={`relative ${value.asset?.metadata?.dimensions?.aspectRatio > 1 ? 'aspect-[16/9]' : 'aspect-[9/16]'}`}>
             <Image
               src={imageUrl}
               alt={value.alt || ''}
               fill
               className="object-cover"
               priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 900px"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 400px"
             />
             {value.photoCredit && (
               <div className="absolute bottom-4 left-4 bg-black/50 px-3 py-1 rounded-md">
@@ -115,7 +115,18 @@ const portableTextComponents = {
             )}
           </div>
           {value.alt && (
-            <p className="mt-2 text-center text-sm text-gray-500 italic">{value.alt}</p>
+            <p className="mt-2 text-center text-sm text-gray-500 italic">
+              {value.alt.match(/https?:\/\/[^\s]+/) ? (
+                <a 
+                  href={value.alt.match(/https?:\/\/[^\s]+/)?.[0]} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#CD1A70] hover:text-[#CD1A70]/80 transition-colors duration-300 !text-[#CD1A70]"
+                >
+                  {value.alt}
+                </a>
+              ) : value.alt}
+            </p>
           )}
         </div>
       );
@@ -273,7 +284,7 @@ export default function BlogPostContent({ post }) {
               </div>
 
               {/* Main Content */}
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none blog-content">
                 <PortableText
                   value={post?.content}
                   components={portableTextComponents}
