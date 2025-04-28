@@ -8,10 +8,12 @@ import FullscreenNav from "../components/FullscreenNav";
 import Link from "next/link";
 
 const SECTION_HEADINGS = [
+  "Newsroom",
   "Discover Privee",
   "Privee Story",
   "Privee Hub",
   "Privacy Policy",
+  
   "Contact Us"
 ];
 

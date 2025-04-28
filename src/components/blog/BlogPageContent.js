@@ -18,6 +18,7 @@ const BlogCard = dynamic(() => import('./BlogCard'), {
 });
 
 const SECTION_HEADINGS = [
+  "Newsroom",
   "Discover Privee",
   "Privee Story",
   "Privee Hub",
@@ -102,7 +103,7 @@ export default function BlogPageContent({ posts, currentTag }) {
             </h1>
             {currentTag && (
               <Link
-                href="/blog"
+                href="/newsroom"
                 className="inline-flex items-center text-sm font-medium text-[#CD1A70] hover:text-[#3A1772] transition-colors duration-300"
               >
                 <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

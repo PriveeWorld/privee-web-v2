@@ -31,7 +31,7 @@ export default function BlogCard({ post, index }) {
       whileHover={{ y: -5 }}
       className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-300 hover:border-[#CD1A70]/30 hover:shadow-xl sm:p-6"
     >
-      <Link href={`/blog/${post.slug.current}`} className="block">
+      <Link href={`/newsroom/${post.slug.current}`} className="block">
         <div className="relative mb-6 aspect-video overflow-hidden rounded-xl">
           {imageUrl ? (
             <Image
@@ -62,7 +62,7 @@ export default function BlogCard({ post, index }) {
               {post.tags.map((tag, index) => (
                 <Link
                   key={index}
-                  href={`/blog?tag=${encodeURIComponent(tag)}`}
+                  href={`/newsroom?tag=${encodeURIComponent(tag)}`}
                   className="rounded-full bg-[#CD1A70]/10 px-2 py-0.5 text-xs font-medium text-[#CD1A70] hover:bg-[#CD1A70]/20 transition-colors duration-300"
                   onClick={(e) => e.stopPropagation()}
                 >

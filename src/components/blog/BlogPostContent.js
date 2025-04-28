@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { urlForImage } from '../../lib/sanity/image';
 
 const SECTION_HEADINGS = [
+  "Newsroom",
   "Discover Privee",
   "Privee Story",
   "Privee Hub",
@@ -272,7 +273,7 @@ export default function BlogPostContent({ post }) {
               className="mb-4 w-full"
             >
               <Link 
-                href="/blog"
+                href="/newsroom"
                 className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-[#CD1A70] transition-colors duration-300"
               >
                 <svg className="mr-2 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -353,7 +354,7 @@ export default function BlogPostContent({ post }) {
                   {post.tags.map((tag, index) => (
                     <Link
                       key={index}
-                      href={`/blog?tag=${encodeURIComponent(tag)}`}
+                      href={`/newsroom?tag=${encodeURIComponent(tag)}`}
                       className="rounded-full bg-[#CD1A70]/10 px-3 py-1 text-sm font-medium text-[#CD1A70] hover:bg-[#CD1A70]/20 transition-colors duration-300"
                     >
                       #{tag}
