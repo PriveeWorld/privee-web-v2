@@ -22,7 +22,7 @@ const SECTION_HEADINGS = [
   "Discover Privee",
   "Privee Story",
   "Privee Hub",
-  "Blog",
+  "Newsroom",
   "Privacy Policy",
   "Contact Us",
 ];
@@ -89,7 +89,7 @@ export default function BlogPageContent({ posts, currentTag }) {
             className="w-full text-center"
           >
             <h1 className="mb-4 mt-4 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[32px] font-semibold leading-tight tracking-tight text-transparent sm:text-[40px] md:text-[50px] lg:text-[60px]">
-              Privee Blog
+              Privee Newsroom
             </h1>
             <p className="text-md mx-auto mb-6 max-w-3xl font-light text-gray-700 sm:text-base md:text-lg lg:text-xl">
               Discover stories, insights, and updates from the Privee community. Stay informed about the latest trends, features, and success stories.
@@ -99,7 +99,7 @@ export default function BlogPageContent({ posts, currentTag }) {
 
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-clash font-bold text-gray-900 mb-4">
-              {currentTag ? `Posts tagged with #${currentTag}` : 'Latest Blog Posts'}
+              {currentTag ? `Posts tagged with #${currentTag}` : 'Latest news'}
             </h1>
             {currentTag && (
               <Link

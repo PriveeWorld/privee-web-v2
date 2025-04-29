@@ -50,45 +50,43 @@ export default function Tutorials() {
       return;
     }
 
-    const normalizedQuery = query.toLowerCase();
+    const normalizedQuery = query.toLowerCase().trim();
+    const results = new Map(); // Use Map to prevent duplicates
 
-    // Search through all articles and subtopics
-    const results = [];
+    // Helper function to add result if it matches and isn't already added
+    const addIfMatches = (item) => {
+      if (!results.has(item.id)) {
+        const titleMatch = item.title.toLowerCase().includes(normalizedQuery);
+        if (titleMatch) {
+          results.set(item.id, { ...item, matchType: 'title' });
+        }
+      }
+    };
 
     // Search in popular articles
-    helpData.popularArticles.forEach((article) => {
-      if (article.title.toLowerCase().includes(normalizedQuery)) {
-        results.push(article);
-      }
-    });
+    helpData.popularArticles.forEach(addIfMatches);
 
     // Search in topics and subtopics
     helpData.topics.forEach((topic) => {
-      topic.subtopics.forEach((subtopic) => {
-        if (
-          subtopic.title.toLowerCase().includes(normalizedQuery) &&
-          !results.find((r) => r.id === subtopic.id)
-        ) {
-          results.push(subtopic);
-        }
-      });
+      topic.subtopics.forEach(addIfMatches);
     });
 
     // Search in article content
     helpData.articles.forEach((article) => {
-      const contentToSearch = [article.title, ...article.steps, article.note]
-        .join(" ")
-        .toLowerCase();
+      if (!results.has(article.id)) {
+        const contentToSearch = [
+          article.title,
+          ...(article.steps || []),
+          article.note || ''
+        ].map(text => (text || '').toLowerCase()).join(' ');
 
-      if (
-        contentToSearch.includes(normalizedQuery) &&
-        !results.find((r) => r.id === article.id)
-      ) {
-        results.push(article);
+        if (contentToSearch.includes(normalizedQuery)) {
+          results.set(article.id, { ...article, matchType: 'content' });
+        }
       }
     });
 
-    setSearchResults(results);
+    setSearchResults(Array.from(results.values()));
     setIsSearching(true);
   };
 

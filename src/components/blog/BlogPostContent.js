@@ -15,7 +15,7 @@ const SECTION_HEADINGS = [
   "Discover Privee",
   "Privee Story",
   "Privee Hub",
-  "Blog",
+  "Newsroom",
   "Privacy Policy",
   "Contact Us",
 ];
@@ -348,7 +348,7 @@ export default function BlogPostContent({ post }) {
                     d="M10 19l-7-7m0 0l7-7m-7 7h18"
                   />
                 </svg>
-                Back to Blog
+                Back to Newsroom
               </Link>
             </motion.div>
 
@@ -403,7 +403,7 @@ export default function BlogPostContent({ post }) {
                 {/* Share Buttons */}
                 <div className="flex items-center">
                   <span className="mr-3 text-sm text-gray-600">
-                    Share this blog:
+                    Share this news:
                   </span>
                   {shareButtons.map((button) => (
                     <ShareButton
