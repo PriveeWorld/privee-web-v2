@@ -23,6 +23,8 @@ const SECTION_HEADINGS = [
   "Privee Story",
   "Privee Hub",
   "Newsroom",
+  "Help Center",
+  "FAQ",
   "Privacy Policy",
   "Contact Us",
 ];

@@ -308,6 +308,8 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
               { title: "Discover Privee", href: "/" },
               { title: "Privee Story", href: "/about-us" },
               { title: "Privacy Policy", href: "/privacy" },
+              { title: "Help Center", href: "/support" },
+              { title: "FAQ", href: "/faq" },
               { title: "Contact Us", href: "/contact-us" },
             ].map((link, index) => (
               <motion.div

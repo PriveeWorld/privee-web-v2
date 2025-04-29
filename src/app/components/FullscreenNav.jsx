@@ -19,6 +19,8 @@ export default function FullscreenNav({ isOpen, onClose }) {
     { title: "Newsroom", href: "/newsroom" },
     { title: "Discover Privee", href: "/" },
     { title: "Privee Story", href: "/about-us" },
+    { title: "Help Center", href: "/support" },
+    { title: "FAQ", href: "/faq" },
     { title: "Privacy Policy", href: "/privacy" },
     { title: "Contact Us", href: "/contact-us" },
   ];
