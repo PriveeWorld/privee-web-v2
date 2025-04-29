@@ -1,16 +1,13 @@
 [
   {
-    "question": "What is a visual in Privee?",
-    "answer": "A visual is a standalone piece of content that can be a 12-second video, a photo, or a slideshow of photos. It is designed to be published on its own."
+    "question": "What is a Visual in Privee??",
+    "answer": "A Visual is a standalone piece of content that can be a 12-second video, a photo, or a slideshow of photos. It is designed to be uploaded and published on its own."
   },
   {
-    "question": "What is a movie in Privee?",
-    "answer": "A movie is a collection of visuals grouped together under the same project or theme."
+    "question": "What is a Movie in Privee?",
+    "answer": "A Movie is thematic folder where Visuals are uploaded - collection of Visuals grouped together under the same project or theme will create exciting cinematic story - the Movie."
   },
-  {
-    "question": "What are networks, and how do they work?",
-    "answer": "When you join Privee, you can either join an existing network or the network of the person who invited you. Being in a network means their posts will be prioritized in your feed."
-  },
+
   {
     "question": "What are the main screens in Privee, and how do I use them?",
     "answer": "Privee has three main screens:\n• Cinema Screen: Browse movies and visuals by swiping left/right (to switch visuals) or up/down (to switch movies).\n• Camera Mode: Swipe left from the cinema screen to record or upload videos.\n• Private Movie Collection: Swipe right from the cinema screen to access your private movies. Use the toggle in the top-left corner to switch between private and public collections."
@@ -34,9 +31,6 @@
   {
     "question": "How can I find friends or explore content on Privee?",
     "answer": "Go to private profile → Tap play → Use search option to find videos or people."
-  },
-  {
-    "question": "Can I create private groups on Privee?",
-    "answer": "Yes! You can create private groups to invite friends and share videos that are only visible and interactive within the group."
   }
+
 ]
