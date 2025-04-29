@@ -1,6 +1,10 @@
 {
   "popularArticles": [
     {
+      "id": "about-privee",
+      "title": "About Privee"
+    },
+    {
       "id": "navigating-privee-world",
       "title": "Navigating Privee World"
     },
