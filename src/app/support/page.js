@@ -483,7 +483,7 @@ export default function Tutorials() {
               e.stopPropagation();
               setFullscreenImage(null);
             }}
-            className="absolute right-4 top-4 text-lg text-white"
+            className="absolute right-4 top-4 text-3xl text-white"
           >
             ✕
           </button>

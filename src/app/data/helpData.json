@@ -153,8 +153,8 @@
       "note": "Privee features three main screens, each offering a unique experience:",
       "steps": [
         "Cinema Screen: This is the first screen you’ll land on. Here, you can explore movies created by various content creators. Tap left or right to browse different visuals within the same movie, and swipe up or down to switch between movies.",
-        "Camera Mode: Swipe left from the cinema screen to enter camera mode. In this section, you can record a new movie or upload one from your device.",
-        "Private Movie Collection: Swipe right from the cinema screen to access your private movie collection. Here, you’ll find the movies you’ve uploaded. Use the toggle in the top-left corner to switch between your private collection and the movies you’ve published publicly."
+        "Camera Mode: Swipe left from the cinema screen to enter camera mode. In this section, you can record a new movie or upload one from your device. All uploads are going first to your Private Profile. ",
+        "Private Movie Collection: Swipe right from the cinema screen to access your private movie collection. Here, you’ll find the movies you’ve uploaded. When you tap on the Movie it will open last uploaded video. Taping left or right on the screen you can watch other visuals (videos) inside the movie."
       ],
       "image": "/images/support/navigating_privee.jpg"
     },
