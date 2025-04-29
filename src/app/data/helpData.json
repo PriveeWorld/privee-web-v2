@@ -53,7 +53,7 @@
         },
         {
           "id": "how-to-customize-your-video",
-          "title": "How to Customize Your Video with Captions, Filters, and More"
+          "title": "How to upload Visual and create Movie."
         },
         {
           "id": "how-to-publish-a-video",
@@ -74,11 +74,8 @@
         {
           "id": "how-to-search",
           "title": "How to Search for Videos or People"
-        },
-        {
-          "id": "groups",
-          "title": "Groups"
         }
+
       ]
     }
   ],
@@ -112,13 +109,13 @@
     {
       "id": "what-is-a-visual",
       "title": "What is a Visual?",
-      "note": "A visual is an individual video that can be published on its own lasting between 3-12 seconds. A visual is a standalone piece of content that can be a 12-second video, a photo, or a slideshow of photos. It is designed to be published on its own.",
+      "note": "A visual is an individual video that can be uploaded on its own in thematic folders (Movie) lasting between 3-12 seconds. (For subscribed partners visual can be long up to 60 seconds.) A visual is a standalone piece of video content or a photo. It is designed to be uploaded and could also be published on its own as a part of big story (thematic Movie).",
       "image": "/images/support/what_is_visual.jpg"
     },
     {
       "id": "what-is-a-movie",
       "title": "What is a Movie?",
-      "note": "In Privee, a movie is a collection of visuals (12-second videos or photos) grouped together under a common theme or project. Think of it as a curated playlist of visuals.",
+      "note": "In Privee, a movie is a collection of visuals (12-second videos or photos) grouped together under a common theme or project. Think of it as a curated playlist of visuals. Movies are thematic folders where you can upload many visuals (video/photo). Once you have many visuals in folder it will become cinematic continuous story on the particular theme - the Movie.",
       "image": "/images/support/what_is_movie.jpg"
     },
     {
@@ -208,18 +205,20 @@
         "Add Captions: Include text captions, which will be displayed directly on your video.",
         "Set a Date: Add a date to your video, allowing you to showcase a 'throwback' visual as today’s latest addition to your movie.",
         "Add Music: Select background music from Privee’s curated library to complement your video.",
-        "Once you’ve customized your video, it’s ready to be uploaded and shared!"
+        "Click done and you will get option to add the video to one of the existing Folders  (Movies) or tap Create New Movie and Done to upload the video in that particular Movie.",
+        " In order to add second video to the same Movie, just go trough the all steps above and at the end when you prepere the video tap on the Movie you wish to add second video and press DONE on the right up corner.",
+        "All uploads are Private"
       ],
       "image": "/images/support/how_to_customize.jpg"
     },
     {
       "id": "how-to-publish-a-video",
-      "title": "How to Publish a Video",
+      "title": "How to Publish a Visual (Video)",
       "steps": [
-        "Go to your private profile and select the video you want to publish.",
-        "Open the video and tap the play button at the bottom of your screen.",
-        "Choose 'Prepare to Publish,' then tap 'Publish.'",
-        "Your video will now appear under your Public Videos."
+        "Go to your Public Profile, tap and open the Movie and go to the Visual you would like to publish..",
+        "Tap the Play button at the bottom of your screen.",
+        "Choose 'Prepare to Publish,' then tap 'Publish. Before you press Publish you can change Tite, Captions… to be different for your public visual and the Privee will save your first Caption in your Private movie. So your captions and titles could be different on Private and Public videos.",
+        "Your video will appear on the Cinema visible to others and you can find it in your Public gallery also."
       ],
       "image": "/images/support/how_to_publish_video.jpg"
     },
