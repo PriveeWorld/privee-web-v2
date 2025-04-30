@@ -12,8 +12,9 @@ const SECTION_HEADINGS = [
   "Discover Privee",
   "Privee Story",
   "Privee Hub",
+  "Help Center",
+  "FAQ",
   "Privacy Policy",
-  
   "Contact Us"
 ];
 
