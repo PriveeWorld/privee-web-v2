@@ -452,7 +452,7 @@ export default function BlogPostContent({ post }) {
       </div>
 
       {/* Optionally keep Footer; remove if not needed */}
-      <Footer />
+ 
     </div>
   );
 }
