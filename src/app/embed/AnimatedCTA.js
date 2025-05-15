@@ -3,22 +3,8 @@
 // Animated Call to Action Banner component
 export default function AnimatedCTA() {
   const handleClick = () => {
-    // Check if running in mobile browser
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-      // For mobile devices, try to use the direct link
-      window.location.href = "https://apps.apple.com/pl/app/privee-world/id1629866639";
-      
-      // Fallback - if after 2 seconds the page hasn't changed, 
-      // we'll assume the deep link failed and open in new tab
-      setTimeout(() => {
-        window.open("https://apps.apple.com/pl/app/privee-world/id1629866639", "_blank");
-      }, 2000);
-    } else {
-      // For desktop, always open in new tab
-      window.open("https://apps.apple.com/pl/app/privee-world/id1629866639", "_blank");
-    }
+    // Simply navigate to the download page
+    window.open("/download", "_blank");
   };
 
   return (

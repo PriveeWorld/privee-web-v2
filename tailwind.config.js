@@ -12,6 +12,7 @@ module.exports = {
         roboto: ["Roboto", "sans-serif"], // Define "roboto" as a font-family utility class
         inter: ['Inter', 'sans-serif'],
         clashDisplay: ['ClashDisplay', 'sans-serif'],
+        'clash-display': ['var(--font-clash-display)', 'sans-serif'],
       },
       colors: {
         background: "var(--background)",
