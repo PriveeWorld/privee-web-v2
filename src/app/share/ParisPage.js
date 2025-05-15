@@ -391,7 +391,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                   onClick={() => {
-                    window.location.href = "https://priveee.onelink.me/AMM3";
+                    window.open("/download", "_blank");
                   }}
                 >
                   <Image
@@ -406,7 +406,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 <div
                   className="flex flex-col"
                   onClick={() => {
-                    window.location.href = "https://priveee.onelink.me/AMM3";
+                    window.open("/download", "_blank");
                   }}
                 >
                   {movieName ? (
@@ -467,7 +467,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                     <span
                       className="underline cursor-pointer pointer-events-auto"
                       onClick={() =>
-                        (window.location.href = "https://priveee.onelink.me/AMM3")
+                        ( window.open("/download", "_blank"))
                       }
                     >
                       Download now for free!
@@ -499,7 +499,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 key={i}
                 className="rounded-full p-2"
                 onClick={() => {
-                  window.location.href = "https://priveee.onelink.me/AMM3";
+                  window.open("/download", "_blank");
                 }}
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },
