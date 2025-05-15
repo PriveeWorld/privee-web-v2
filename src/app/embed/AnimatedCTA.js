@@ -8,16 +8,16 @@ export default function AnimatedCTA() {
     
     if (isMobile) {
       // For mobile devices, try to use the direct link
-      window.location.href = "https://priveee.onelink.me/AMM3/VEDATOR";
+      window.location.href = "https://apps.apple.com/pl/app/privee-world/id1629866639";
       
       // Fallback - if after 2 seconds the page hasn't changed, 
       // we'll assume the deep link failed and open in new tab
       setTimeout(() => {
-        window.open("https://priveee.onelink.me/AMM3/VEDATOR", "_blank");
+        window.open("https://apps.apple.com/pl/app/privee-world/id1629866639", "_blank");
       }, 2000);
     } else {
       // For desktop, always open in new tab
-      window.open("https://priveee.onelink.me/AMM3/VEDATOR", "_blank");
+      window.open("https://apps.apple.com/pl/app/privee-world/id1629866639", "_blank");
     }
   };
 
