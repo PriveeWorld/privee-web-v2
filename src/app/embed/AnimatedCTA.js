@@ -3,8 +3,13 @@
 // Animated Call to Action Banner component
 export default function AnimatedCTA() {
   const handleClick = () => {
-    // Simply navigate to the download page
-    window.open("/download", "_blank");
+    // Get videoId and userId from URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get('videoId');
+    const userId = urlParams.get('userId');
+    
+    // Navigate to download page with parameters
+    window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
   };
 
   return (

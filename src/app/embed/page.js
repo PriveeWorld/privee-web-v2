@@ -25,14 +25,7 @@ async function getVideoData(videoId, userWhoShareId) {
   }
 }
 
-// Viewport configuration
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-  viewportFit: 'cover'
-};
+
 
 // Metadata for embeds
 export async function generateMetadata({ searchParams: { videoId, userId } }) {

@@ -35,12 +35,8 @@ async function getVideoData(videoId, userWhoShareId) {
  */
 export async function generateMetadata({ searchParams }) {
   const domain = "https://p.privee.world"; // Your domain
-  const videoId = searchParams?.videoId;
-  const userWhoShareId = searchParams?.userId;
+  const { videoId, userId: userWhoShareId } = searchParams;
   let videoData = await getVideoData(videoId, userWhoShareId);
-
-  // Log the user who shares
-
 
   // If no data, fallback
   if (!videoData) {
@@ -67,7 +63,7 @@ export async function generateMetadata({ searchParams }) {
   const {
     visual: {
       captionText,
-      thumbnailImagePath ,
+      thumbnailImagePath,
       duration,
     } = {},
     movie: { name: movieName } = {},
@@ -97,7 +93,6 @@ export async function generateMetadata({ searchParams }) {
   return {
     title: metaTitle,
     description: metaDesc,
-
     openGraph: {
       title: metaTitle,
       description: metaDesc,
@@ -116,8 +111,7 @@ export async function generateMetadata({ searchParams }) {
 
 // 3) Default export (Server Component)
 export default async function ParisPageWrapper({ searchParams }) {
-  const videoId = searchParams?.videoId;
-  const userWhoShareId = searchParams?.userId;
+  const { videoId, userId: userWhoShareId } = searchParams;
   let videoData = null;
 
   try {

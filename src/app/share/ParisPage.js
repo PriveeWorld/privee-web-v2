@@ -391,7 +391,9 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                   onClick={() => {
-                    window.open("/download", "_blank");
+                    const videoId = videoData?.visual?.id;
+                    const userId = videoData?.userWhoShare?.id;
+                    window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
                   }}
                 >
                   <Image
@@ -406,7 +408,9 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 <div
                   className="flex flex-col"
                   onClick={() => {
-                    window.open("/download", "_blank");
+                    const videoId = videoData?.visual?.id;
+                    const userId = videoData?.userWhoShare?.id;
+                    window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
                   }}
                 >
                   {movieName ? (
@@ -457,27 +461,6 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                   </motion.div>
                 </div>
               )}
-
-              {/* Invitation message (moved from the bottom banner) */}
-              {!isEmbedded && (
-                <div className="bottom-20 relative z-50 flex flex-col items-center gap-2 rounded-md bg-black/50 p-2 text-center text-white">
-                  <p>{userWhoShareName || "Someone"} invited you to watch this movie.</p>
-                  <p>
-                    Step into Privee World –{" "}
-                    <span
-                      className="underline cursor-pointer pointer-events-auto"
-                      onClick={() =>
-                        ( window.open("/download", "_blank"))
-                      }
-                    >
-                      Download now for free!
-                    </span>
-                  </p>
-                </div>
-              )}
-
-              {/* Center Icon */}
-      
             </div>
           </div>
 
@@ -499,7 +482,9 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 key={i}
                 className="rounded-full p-2"
                 onClick={() => {
-                  window.open("/download", "_blank");
+                  const videoId = videoData?.visual?.id;
+                  const userId = videoData?.userWhoShare?.id;
+                  window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
                 }}
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },

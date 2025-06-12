@@ -1,3 +1,13 @@
+import { generateViewport } from 'next'
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: 'cover'
+}
+
 // Separate layout for embed that excludes footer
 export default function EmbedLayout({ children }) {
   return (

@@ -1,9 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "media-input132134-dev.s3.amazonaws.com",
-      "cdn.sanity.io"
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'media-input132134-dev.s3.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+      },
     ],
   },
   webpack(config) {
@@ -13,6 +23,7 @@ const nextConfig = {
     });
     return config;
   },
+  reactStrictMode: true,
 };
 
 export default nextConfig;
