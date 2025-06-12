@@ -16,20 +16,5 @@ export default function EmbedCode({ videoId, userId }) {
     setTimeout(() => setCopied(false), 3000);
   };
   
-  return (
-    <div className="mt-4 bg-gray-800 p-4 rounded-md">
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-white text-sm font-medium">Embed this video</h3>
-        <button 
-          onClick={copyToClipboard}
-          className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm transition-colors"
-        >
-          <FaCopy /> {copied ? "Copied!" : "Copy"}
-        </button>
-      </div>
-      <pre className="bg-gray-900 p-3 rounded text-gray-300 text-xs overflow-x-auto">
-        {embedCode}
-      </pre>
-    </div>
-  );
+
 }
