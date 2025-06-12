@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 export default function DownloadPage() {
   const searchParams = useSearchParams();
   const [networkCode, setNetworkCode] = useState('VEDATOR');
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchNetworkCode = async () => {
@@ -45,23 +44,15 @@ export default function DownloadPage() {
       } else {
         console.log('Missing videoId or userId parameters');
       }
-      setIsLoading(false);
     };
 
     fetchNetworkCode();
   }, [searchParams]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#3A1772] to-[#CD1A70]">
-        <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-white"></div>
-      </div>
-    );
-  }
-
   const baseUrl = "https://priveee.onelink.me/AMM3/";
   const downloadUrl = `${baseUrl}${networkCode}`;
   console.log('Final Download URL:', downloadUrl);
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#3A1772] to-[#CD1A70] p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
