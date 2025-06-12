@@ -386,13 +386,14 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
 
                 {/* User avatar */}
                 <motion.div
-                  className="relative z-[99999] h-10 w-10 overflow-hidden rounded-full bg-gray-300"
+                  className="relative z-[99999] h-10 w-10 overflow-hidden rounded-full bg-gray-300 cursor-pointer"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                   onClick={() => {
-                    const videoId = videoData?.visual?.id;
-                    const userId = videoData?.userWhoShare?.id;
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const videoId = urlParams.get('videoId');
+                    const userId = urlParams.get('userId');
                     window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
                   }}
                 >
@@ -405,23 +406,34 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 </motion.div>
 
                 {/* Movie & User */}
-                <div
-                  className="flex flex-col"
-                  onClick={() => {
-                    const videoId = videoData?.visual?.id;
-                    const userId = videoData?.userWhoShare?.id;
-                    window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
-                  }}
-                >
+                <div className="flex flex-col">
                   {movieName ? (
-                    <p className="text-md font-clash font-medium text-white">
+                    <p 
+                      className="text-md font-clash font-medium text-white cursor-pointer"
+                      onClick={() => {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const videoId = urlParams.get('videoId');
+                        const userId = urlParams.get('userId');
+                        window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
+                      }}
+                    >
                       {movieName}
                     </p>
                   ) : (
                     <SkeletonLoader width="100px" height="16px" />
                   )}
                   {userName ? (
-                    <p className="text-xs text-white">{userName}</p>
+                    <p 
+                      className="text-xs text-white cursor-pointer"
+                      onClick={() => {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const videoId = urlParams.get('videoId');
+                        const userId = urlParams.get('userId');
+                        window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
+                      }}
+                    >
+                      {userName}
+                    </p>
                   ) : (
                     <SkeletonLoader width="120px" height="8px" />
                   )}
@@ -482,8 +494,10 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
                 key={i}
                 className="rounded-full p-2"
                 onClick={() => {
-                  const videoId = videoData?.visual?.id;
-                  const userId = videoData?.userWhoShare?.id;
+                  // Get videoId and userId from URL params since they're already available
+                  const urlParams = new URLSearchParams(window.location.search);
+                  const videoId = urlParams.get('videoId');
+                  const userId = urlParams.get('userId');
                   window.open(`/download?videoId=${videoId}&userId=${userId}`, "_blank");
                 }}
                 variants={{
