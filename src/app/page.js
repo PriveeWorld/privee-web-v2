@@ -92,6 +92,8 @@ export default function Home() {
    *    Destroy it if we leave those sections.
    */
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     if (section < 4) {
       // Initialize or re-initialize the animation
       animationInstance.current = lottie.loadAnimation({

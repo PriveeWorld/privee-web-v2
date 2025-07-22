@@ -6,6 +6,8 @@ export default function LottieAnimation({ animationData }) {
   const lottieRef = useRef(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const animationInstance = lottie.loadAnimation({
       container: lottieRef.current,
       renderer: "svg",
