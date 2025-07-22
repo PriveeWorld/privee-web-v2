@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
 import "./globals.css";
+import ClientLayoutWrapper from "./components/ClientLayoutWrapper";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -38,7 +39,9 @@ export default function RootLayout({ children }) {
     <html lang="en" className={inter.className}>
       <body>
         <div id="root">
-          {children}
+          <ClientLayoutWrapper>
+            {children}
+          </ClientLayoutWrapper>
         </div>
       </body>
     </html>

@@ -61,8 +61,8 @@ export default function CustomCursor() {
   return (
     <>
       <motion.div
-        className={`pointer-events-none fixed z-[9999] rounded-full border transition-all duration-150 ease-out ${
-          isHoveringButton ? "#3A1772 z-[9999]" : "#3A1772"
+        className={`pointer-events-none fixed z-[9999] rounded-full border border-[#3A1772] transition-all duration-150 ease-out ${
+          isHoveringButton ? "border-opacity-100" : "border-opacity-50"
         }`}
         style={{
           left: springX,
