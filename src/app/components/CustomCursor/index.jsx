@@ -14,6 +14,8 @@ export default function CustomCursor() {
   const springY = useSpring(cursorY, { stiffness: 300, damping: 25 });
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     if (pathname === "/share" || pathname.startsWith('/embed')) {
       // Restore default cursor for /share and /embed routes
       document.body.style.cursor = "auto";
@@ -30,7 +32,9 @@ export default function CustomCursor() {
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      document.body.style.cursor = "auto"; // Restore default cursor on unmount
+      if (typeof document !== 'undefined') {
+        document.body.style.cursor = "auto"; // Restore default cursor on unmount
+      }
     };
   }, [cursorX, cursorY, pathname]);
 

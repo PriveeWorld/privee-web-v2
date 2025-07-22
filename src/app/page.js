@@ -75,6 +75,8 @@ export default function Home() {
 
   // Prevent default scroll behavior
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const preventDefault = (e) => e.preventDefault();
     document.body.style.overflow = 'hidden';
     window.addEventListener('wheel', preventDefault, { passive: false });
