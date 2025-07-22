@@ -65,31 +65,46 @@ const SectionContent = ({ section, scrollDirection }) => {
   };
 
   const renderTabs = () => (
-    <div className="mt-12 w-full rounded-lg border border-gray-300 bg-white/80 backdrop-blur-sm p-4 text-center font-medium md:p-6 lg:w-[600px]">
-      <div className="relative mb-4 flex justify-around text-gray-700">
+    <motion.div 
+      className="mt-8 sm:mt-10 md:mt-12 w-full max-w-[320px] sm:max-w-[480px] md:max-w-[580px] lg:max-w-[650px] rounded-xl border border-gray-200 bg-white/90 backdrop-blur-md p-4 sm:p-6 md:p-8 text-center font-medium shadow-xl"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3, duration: 0.6 }}
+    >
+      <div className="relative mb-4 sm:mb-6 flex justify-around text-gray-700 gap-2">
         {TABS.map((tab, index) => (
           <motion.button
             key={tab.title}
             className={classNames(
-              "relative flex-grow text-[16px] font-medium transition-colors duration-300 md:text-[20px] lg:text-[24px]",
+              "relative flex-grow text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-semibold transition-all duration-300 px-1 sm:px-2 py-1 rounded-lg",
               {
                 "text-black": activeTab === index,
-                "text-gray-500": activeTab !== index,
+                "text-gray-500 hover:text-gray-700": activeTab !== index,
               },
             )}
-            style={{ textAlign: "center", minWidth: "80px" }}
+            style={{ textAlign: "center", minWidth: "60px" }}
             onClick={() => setActiveTab(index)}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ 
+              scale: 1.05,
+              y: -2
+            }}
             whileTap={{ scale: 0.95 }}
           >
-            {tab.title}
+            <span className="block">{tab.title}</span>
             {activeTab === index && (
               <motion.div
                 layoutId="underline"
-                className="absolute bottom-[-2px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#3A1772] to-[#CD1A70]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                className="absolute bottom-[-4px] left-0 right-0 h-[2px] sm:h-[3px] bg-gradient-to-r from-[#3A1772] to-[#CD1A70] rounded-full"
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 1, scaleX: 1 }}
                 transition={springTransition}
+              />
+            )}
+            {activeTab !== index && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#3A1772]/10 to-[#CD1A70]/10 rounded-lg opacity-0"
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
               />
             )}
           </motion.button>
@@ -102,15 +117,26 @@ const SectionContent = ({ section, scrollDirection }) => {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="mt-4 text-sm text-gray-600 md:text-base"
+          className="mt-4 sm:mt-6 text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed px-2"
         >
-          <strong className="bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent">
+          <motion.strong 
+            className="bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent text-sm sm:text-base md:text-lg font-bold"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+          >
             {TABS[activeTab].title}:
-          </strong>{" "}
-          {TABS[activeTab].description}
+          </motion.strong>{" "}
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            {TABS[activeTab].description}
+          </motion.span>
         </motion.div>
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 
   const containerClasses = classNames(
@@ -141,7 +167,7 @@ const SectionContent = ({ section, scrollDirection }) => {
             <motion.div
               variants={fadeUpVariants}
               custom={1}
-              className="text-[24px] mt-6 w-full lg:w-fit text-center lg:text-left font-roboto font-light text-gray-600"
+              className="text-[20px] sm:text-[24px] mt-4 md:mt-6 w-full lg:w-fit text-center lg:text-left font-roboto font-light text-gray-600 px-4 lg:px-0"
             >
               {SECTION_SUBHEADINGS[section]}
             </motion.div>
@@ -149,7 +175,7 @@ const SectionContent = ({ section, scrollDirection }) => {
             <motion.div
               variants={fadeUpVariants}
               custom={2}
-              className="text-[50px] w-full lg:w-fit text-center lg:text-left md:text-[90px] font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight md:leading-none"
+              className="text-[40px] sm:text-[50px] md:text-[70px] lg:text-[90px] w-full lg:w-fit text-center lg:text-left font-clash font-semibold bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent leading-tight px-4 lg:px-0"
             >
               {section === 3 ? (
                 <>
@@ -160,14 +186,14 @@ const SectionContent = ({ section, scrollDirection }) => {
                   <motion.div 
                     variants={fadeUpVariants}
                     custom={5}
-                    className="mt-4 text-[16px] font-light text-gray-700 md:mt-6 md:text-[20px] lg:text-[24px]"
+                    className="mt-3 md:mt-4 lg:mt-6 text-[14px] sm:text-[16px] md:text-[18px] lg:text-[24px] font-light text-gray-700 leading-relaxed"
                   >
                     Turn your most Precious Moments into Cinematic Experiences
                   </motion.div>
                   <motion.div 
                     variants={fadeUpVariants}
                     custom={6}
-                    className="flex w-full px-4"
+                    className="flex w-full justify-center lg:justify-start px-2 sm:px-4"
                   >
                     {renderTabs()}
                   </motion.div>

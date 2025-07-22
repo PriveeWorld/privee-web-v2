@@ -44,28 +44,35 @@ function TopNav({ onMenuClick, section }) {
       initial="hidden"
       animate="visible"
     >
-      <div className="flex w-full max-w-[1600px] justify-between self-center px-4 lg:px-16">
+      <div className="flex w-full max-w-[1600px] justify-between items-center self-center px-3 sm:px-4 lg:px-16">
         <motion.div
-          className="flex items-center"
+          className="flex items-center cursor-pointer"
           variants={itemVariants}
           custom={0}
           onClick={handleLogoClick}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <Image
-            src={
-              section === 4
-                ? "/images/priveewhite.png"
-                : "/images/priveelogo.png"
-            }
-            alt="Logo"
-            width={150}
-            height={50}
-            className="object-contain"
-          />
+          <motion.div
+            className="transition-all duration-300 hover:drop-shadow-lg"
+            whileHover={{ y: -2 }}
+          >
+            <Image
+              src={
+                section === 4
+                  ? "/images/priveewhite.png"
+                  : "/images/priveelogo.png"
+              }
+              alt="Privee World - Logo"
+              width={120}
+              height={40}
+              className="object-contain sm:w-[150px] sm:h-[50px]"
+            />
+          </motion.div>
         </motion.div>
 
         <motion.div
-          className={`flex items-center space-x-1 text-xl md:space-x-4 ${iconColor}`}
+          className={`flex items-center space-x-2 sm:space-x-3 md:space-x-4 text-lg sm:text-xl ${iconColor}`}
           variants={itemVariants}
           custom={1}
         >
@@ -76,14 +83,19 @@ function TopNav({ onMenuClick, section }) {
             aria-label="Facebook"
             variants={itemVariants}
             custom={1.5}
-            className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
+            className={`relative overflow-hidden rounded-full border p-1.5 sm:p-2 transition-all duration-300 ${
               isTransparent
-                ? "border-white/30 hover:bg-white/10"
-                : "border-gray-300 hover:bg-gray-100"
+                ? "border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-lg"
+                : "border-gray-300 hover:border-gray-400 hover:bg-gray-100 hover:shadow-md"
             }`}
             whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <FaFacebook />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] opacity-0 transition-opacity duration-300"
+              whileHover={{ opacity: isTransparent ? 0.1 : 0.05 }}
+            />
+            <FaFacebook className="relative z-10" />
           </motion.a>
           <motion.a
             href="https://www.linkedin.com/company/priveeworld/posts/?feedView=all"
@@ -92,14 +104,19 @@ function TopNav({ onMenuClick, section }) {
             aria-label="Linkedin"
             variants={itemVariants}
             custom={2.0}
-            className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
+            className={`relative overflow-hidden rounded-full border p-1.5 sm:p-2 transition-all duration-300 ${
               isTransparent
-                ? "border-white/30 hover:bg-white/10"
-                : "border-gray-300 hover:bg-gray-100"
+                ? "border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-lg"
+                : "border-gray-300 hover:border-gray-400 hover:bg-gray-100 hover:shadow-md"
             }`}
             whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <FaLinkedin />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] opacity-0 transition-opacity duration-300"
+              whileHover={{ opacity: isTransparent ? 0.1 : 0.05 }}
+            />
+            <FaLinkedin className="relative z-10" />
           </motion.a>
           <motion.a
             href="https://www.instagram.com/privee.world/"
@@ -108,30 +125,40 @@ function TopNav({ onMenuClick, section }) {
             aria-label="Instagram"
             variants={itemVariants}
             custom={2.5}
-            className={`rounded-full border p-2 transition duration-300 hover:bg-gray-100 ${
+            className={`relative overflow-hidden rounded-full border p-1.5 sm:p-2 transition-all duration-300 ${
               isTransparent
-                ? "border-white/30 hover:bg-white/10"
-                : "border-gray-300 hover:bg-gray-100"
+                ? "border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-lg"
+                : "border-gray-300 hover:border-gray-400 hover:bg-gray-100 hover:shadow-md"
             }`}
             whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <FaInstagram />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] opacity-0 transition-opacity duration-300"
+              whileHover={{ opacity: isTransparent ? 0.1 : 0.05 }}
+            />
+            <FaInstagram className="relative z-10" />
           </motion.a>
         </motion.div>
 
         <motion.button
           onClick={onMenuClick}
-          className={`rounded-full border p-2 text-2xl transition duration-300 focus:outline-none ${
+          className={`relative overflow-hidden rounded-full border p-1.5 sm:p-2 text-xl sm:text-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#3A1772] focus:ring-opacity-50 ${
             isTransparent
-              ? "border-white/30 text-white hover:bg-white/10"
-              : "border-gray-300 text-gray-800 hover:bg-gray-100"
+              ? "border-white/30 text-white hover:border-white/60 hover:bg-white/10 hover:shadow-lg"
+              : "border-gray-300 text-gray-800 hover:border-gray-400 hover:bg-gray-100 hover:shadow-md"
           }`}
           aria-label="Open Menu"
           variants={itemVariants}
           custom={3}
           whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <HiMenu />
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] opacity-0 transition-opacity duration-300"
+            whileHover={{ opacity: isTransparent ? 0.1 : 0.05 }}
+          />
+          <HiMenu className="relative z-10" />
         </motion.button>
       </div>
     </motion.nav>

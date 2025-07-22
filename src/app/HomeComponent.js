@@ -95,13 +95,19 @@ export default function HomeComponent() {
     if (typeof window === 'undefined') return;
     
     if (section < 4) {
-      // Initialize or re-initialize the animation
+      // Initialize or re-initialize the animation with performance optimizations
       animationInstance.current = lottie.loadAnimation({
         container: lottieRef.current,
         renderer: "canvas",
         loop: false,
         autoplay: false,
         animationData,
+        // Performance optimizations
+        rendererSettings: {
+          clearCanvas: true,
+          hideOnTransparent: true,
+          progressiveLoad: false,
+        }
       });
 
       // Go to first frame to ensure visibility
@@ -131,22 +137,28 @@ export default function HomeComponent() {
     if (!animationInstance.current) return;
 
     let currentFrame = startFrame;
-    // Adjust increment for forward vs. reverse
-    const frameIncrement = reverse ? -0.25 : 0.25;
+    // Improved frame increment for smoother animation
+    const frameIncrement = reverse ? -0.5 : 0.5;
+    let lastFrameTime = 0;
+    const frameDelay = 16; // ~60fps
 
-    const step = () => {
-      if (
-        (!reverse && currentFrame < endFrame) ||
-        (reverse && currentFrame > endFrame)
-      ) {
-        currentFrame += frameIncrement;
-        animationInstance.current.goToAndStop(currentFrame, true);
-        requestAnimationFrame(step);
-      } else {
-        // Make sure we end exactly on the endFrame
-        animationInstance.current.goToAndStop(endFrame, true);
-        isTransitioning.current = false;
+    const step = (currentTime) => {
+      if (currentTime - lastFrameTime >= frameDelay) {
+        if (
+          (!reverse && currentFrame < endFrame) ||
+          (reverse && currentFrame > endFrame)
+        ) {
+          currentFrame += frameIncrement;
+          animationInstance.current.goToAndStop(Math.round(currentFrame), true);
+          lastFrameTime = currentTime;
+        } else {
+          // Make sure we end exactly on the endFrame
+          animationInstance.current.goToAndStop(endFrame, true);
+          isTransitioning.current = false;
+          return;
+        }
       }
+      requestAnimationFrame(step);
     };
 
     step();

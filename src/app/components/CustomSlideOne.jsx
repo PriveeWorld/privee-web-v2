@@ -8,6 +8,8 @@ const CustomSlideOne = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [videoSrc, setVideoSrc] = useState("/images/priveeweb.mp4");
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isVideoError, setIsVideoError] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -40,8 +42,46 @@ const CustomSlideOne = () => {
     }
   };
 
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+    setIsVideoError(false);
+  };
+
+  const handleVideoError = () => {
+    setIsVideoError(true);
+    setIsVideoLoaded(false);
+  };
+
   return (
     <div className="fixed inset-0 z-0 h-screen w-screen">
+      {!isVideoLoaded && !isVideoError && (
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="w-12 h-12 border-4 border-white/20 border-t-white animate-spin rounded-full mx-auto" />
+            <p className="text-white/80 font-medium">Loading video...</p>
+          </div>
+        </div>
+      )}
+      
+      {isVideoError && (
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <p className="text-white/80 font-medium">Unable to load video</p>
+            <button
+              onClick={() => {
+                setIsVideoError(false);
+                setIsVideoLoaded(false);
+                const video = videoRef.current;
+                if (video) video.load();
+              }}
+              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      )}
+
       <motion.video
         ref={videoRef}
         className="absolute left-0 top-0 h-full w-full object-cover"
@@ -49,6 +89,12 @@ const CustomSlideOne = () => {
         autoPlay
         loop
         playsInline
+        muted
+        onLoadedData={handleVideoLoad}
+        onError={handleVideoError}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isVideoLoaded ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
       />
 
       <motion.div
@@ -74,18 +120,26 @@ const CustomSlideOne = () => {
         </motion.button>
       </motion.div>
 
-      <div className="absolute bottom-8 left-8 z-20 flex items-center gap-4">
-        <button
+      <motion.div 
+        className="absolute bottom-8 left-8 z-20 flex items-center gap-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.5 }}
+      >
+        <motion.button
           onClick={togglePlayPause}
-          className="rounded-full bg-white p-0 shadow transition hover:scale-110"
+          className="rounded-full bg-white/90 backdrop-blur-sm p-3 shadow-lg transition-all hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          disabled={!isVideoLoaded}
         >
           {isPlaying ? (
             <FaPause className="text-lg text-black" />
           ) : (
-            <FaPlay className="text-lg text-black" />
+            <FaPlay className="text-lg text-black ml-0.5" />
           )}
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       {isModalOpen && (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black bg-opacity-90">

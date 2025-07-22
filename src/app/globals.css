@@ -55,6 +55,30 @@ body:not([data-route^="/embed"]):not([data-route="/share"]) {
   cursor: none;
 }
 
+/* Improved scroll behavior */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Better focus states */
+*:focus-visible {
+  outline: 2px solid #3A1772;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .swiper-slide {
   display: flex;
   justify-content: center;
@@ -65,26 +89,162 @@ body:not([data-route^="/embed"]):not([data-route="/share"]) {
 .animated-gradient {
   background: radial-gradient(
     circle at center,
-    rgba(255, 0, 150, 0.3),
-    rgba(0, 0, 255, 0.3),
+    rgba(58, 23, 114, 0.4),
+    rgba(205, 26, 112, 0.3),
     rgba(255, 255, 255, 0.1)
   );
-  animation: moveGradient 10s infinite alternate;
+  background-size: 200% 200%;
+  animation: moveGradient 15s ease-in-out infinite alternate;
 }
 
 @keyframes moveGradient {
   0% {
-    background-position: center;
-    transform: scale(1);
+    background-position: 0% 50%;
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    background-position: 100% 25%;
+    transform: scale(1.05) rotate(1deg);
   }
   50% {
-    background-position: 80% 50%;
-    transform: scale(1.1);
+    background-position: 80% 75%;
+    transform: scale(1.1) rotate(-1deg);
+  }
+  75% {
+    background-position: 20% 25%;
+    transform: scale(1.05) rotate(0.5deg);
   }
   100% {
-    background-position: 20% 50%;
-    transform: scale(1);
+    background-position: 50% 50%;
+    transform: scale(1) rotate(0deg);
   }
+}
+
+/* New gradient animations */
+.gradient-animation {
+  background: linear-gradient(-45deg, #3A1772, #CD1A70, #3A1772, #CD1A70);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Pulse animation for loading states */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse-slow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Typography improvements */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.text-shadow-md {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Improved line heights for better readability */
+.leading-relaxed-mobile {
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .leading-relaxed-mobile {
+    line-height: 1.625;
+  }
+}
+
+/* Better letter spacing for headlines */
+.tracking-tight-mobile {
+  letter-spacing: -0.025em;
+}
+
+@media (min-width: 768px) {
+  .tracking-tight-mobile {
+    letter-spacing: -0.05em;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip to main content link */
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #3A1772;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  text-decoration: none;
+  transition: top 0.3s;
+}
+
+.skip-to-main:focus {
+  top: 6px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-gradient-to-r {
+    background: #3A1772 !important;
+  }
+  
+  .text-transparent {
+    color: #000 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #3A1772;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .custom-cursor {
