@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
-const showFooter = !pathname?.startsWith('/embed') && pathname !== '/' && pathname !== '/download' && pathname !== '/share';
+const showFooter = !pathname?.startsWith('/embed') && pathname !== '/' && pathname !== '/download' && pathname !== '/share' && pathname !== '/discover';
   
 
   return (
