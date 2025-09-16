@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search } from "lucide-react";
+import { Search, MessageCircle } from "lucide-react";
 import TopNav from "../components/TopNav";
 import FullscreenNav from "../components/FullscreenNav";
+import AIChatbot from "../components/AIChatbot";
 import helpData from "../data/helpData.json";
 
 const SECTION_HEADINGS = [
@@ -43,6 +44,7 @@ export default function Tutorials() {
   const [showCommentForm, setShowCommentForm] = useState(false);
   const [selectedRating, setSelectedRating] = useState(null);
   const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   // Rotate search suggestions
   useEffect(() => {
@@ -212,6 +214,20 @@ export default function Tutorials() {
                   <p className="mb-8 text-xl text-gray-600">
                     Hi, how can we help?
                   </p>
+                  <div className="mb-8">
+                    <motion.button
+                      onClick={() => setIsChatbotOpen(true)}
+                      className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#3A1772] to-[#CD1A70] px-6 py-3 text-white font-medium hover:opacity-90 transition-opacity"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                      Ask AI Assistant
+                    </motion.button>
+                    <p className="text-sm text-gray-500 mt-2">Get instant answers from our AI assistant</p>
+                  </div>
                   <div className="mx-auto max-w-2xl">
                     <form onSubmit={handleSearchSubmit} className="relative">
                       <div className="relative">
@@ -681,6 +697,27 @@ export default function Tutorials() {
           />
         </div>
       )}
+      
+      {/* Floating Chat Button */}
+      {!isChatbotOpen && (
+        <motion.button
+          onClick={() => setIsChatbotOpen(true)}
+          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] rounded-full shadow-lg hover:shadow-xl transition-shadow z-30 flex items-center justify-center"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 1 }}
+        >
+          <MessageCircle className="w-6 h-6 text-white" />
+        </motion.button>
+      )}
+      
+      {/* AI Chatbot */}
+      <AIChatbot 
+        isOpen={isChatbotOpen} 
+        onClose={() => setIsChatbotOpen(false)} 
+      />
     </div>
   );
 }
