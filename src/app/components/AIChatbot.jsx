@@ -113,10 +113,10 @@ const AIChatbot = ({ isOpen, onClose }) => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed bottom-4 right-4 w-96 h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col border border-gray-200"
+            className="fixed bottom-4 right-4 w-96 h-[600px] md:w-96 md:h-[600px] md:bottom-4 md:right-4 sm:w-full sm:h-screen sm:bottom-0 sm:right-0 bg-white md:rounded-2xl shadow-2xl z-50 flex flex-col border border-gray-200"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] rounded-t-2xl">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] md:rounded-t-2xl">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
                   <Bot className="w-5 h-5 text-[#CD1A70]" />
@@ -219,7 +219,7 @@ const AIChatbot = ({ isOpen, onClose }) => {
             )}
 
             {/* Input */}
-            <div className="p-4 border-t border-gray-200">
+            <div className="p-4 border-t border-gray-200 md:rounded-b-2xl">
               <div className="flex gap-2">
                 <input
                   type="text"
