@@ -36,6 +36,14 @@ export default function Tutorials() {
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
   const [fullscreenImage, setFullscreenImage] = useState(null);
 
+  // Feedback state management
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState({});
+  const [feedbackComment, setFeedbackComment] = useState('');
+  const [feedbackEmail, setFeedbackEmail] = useState('');
+  const [showCommentForm, setShowCommentForm] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(null);
+  const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
+
   // Rotate search suggestions
   useEffect(() => {
     const interval = setInterval(() => {
@@ -103,6 +111,63 @@ export default function Tutorials() {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     searchArticles(searchQuery);
+  };
+
+  // Feedback handlers
+  const handleFeedbackSubmit = async (rating, articleId) => {
+    setIsSubmittingFeedback(true);
+    try {
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          articleId,
+          rating,
+          comment: feedbackComment,
+          email: feedbackEmail,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+        }),
+      });
+
+      if (response.ok) {
+        setFeedbackSubmitted(prev => ({
+          ...prev,
+          [articleId]: { rating, submitted: true }
+        }));
+        setFeedbackComment('');
+        setFeedbackEmail('');
+        setShowCommentForm(false);
+        setSelectedRating(null);
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      // Still update UI even if API fails
+      setFeedbackSubmitted(prev => ({
+        ...prev,
+        [articleId]: { rating, submitted: true }
+      }));
+    } finally {
+      setIsSubmittingFeedback(false);
+    }
+  };
+
+  const handleFeedbackClick = (rating, articleId) => {
+    if (isSubmittingFeedback) return; // Prevent multiple clicks
+    setSelectedRating(rating);
+    if (rating === 'No') {
+      setShowCommentForm(true);
+    } else {
+      handleFeedbackSubmit(rating, articleId);
+    }
+  };
+
+  const handleCommentSubmit = () => {
+    if (selectedRating && !isSubmittingFeedback) {
+      handleFeedbackSubmit(selectedRating, selectedArticle);
+    }
   };
 
   // Get the article content if one is selected
@@ -421,25 +486,147 @@ export default function Tutorials() {
                         )}
                         {/* Was this helpful */}
                         <div className="mb-12 border-t border-gray-200 pt-8">
+                          {!feedbackSubmitted[selectedArticle]?.submitted ? (
+                            <>
                           <p className="mb-4 text-base text-gray-600">
                             Was this article helpful?
                           </p>
                           <div className="flex gap-4">
                             <motion.button
-                              className="rounded-md bg-gradient-to-r from-[#3A1772] to-[#CD1A70] px-6 py-2 text-base font-medium text-white"
-                              whileHover={{ scale: 1.05 }}
+                                  onClick={() => handleFeedbackClick('Yes', selectedArticle)}
+                                  disabled={isSubmittingFeedback}
+                                  className={`rounded-md bg-gradient-to-r from-[#3A1772] to-[#CD1A70] px-6 py-2 text-base font-medium text-white hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}
+                                  whileHover={!isSubmittingFeedback ? { scale: 1.05 } : {}}
+                                  whileTap={!isSubmittingFeedback ? { scale: 0.95 } : {}}
                               transition={{ duration: 0.2 }}
                             >
-                              Yes
+                                  {isSubmittingFeedback && selectedRating === 'Yes' ? (
+                                    <>
+                                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                                      Sending...
+                                    </>
+                                  ) : (
+                                    'Yes 👍'
+                                  )}
                             </motion.button>
                             <motion.button
-                              className="rounded-md border border-gray-200 bg-white px-6 py-2 text-base font-medium text-gray-700 hover:border-gray-300"
-                              whileHover={{ scale: 1.05 }}
+                                  onClick={() => handleFeedbackClick('No', selectedArticle)}
+                                  disabled={isSubmittingFeedback}
+                                  className={`rounded-md border border-gray-200 bg-white px-6 py-2 text-base font-medium text-gray-700 hover:border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}
+                                  whileHover={!isSubmittingFeedback ? { scale: 1.05 } : {}}
+                                  whileTap={!isSubmittingFeedback ? { scale: 0.95 } : {}}
                               transition={{ duration: 0.2 }}
+                                >
+                                  {isSubmittingFeedback && selectedRating === 'No' ? (
+                                    <>
+                                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600"></div>
+                                      Sending...
+                                    </>
+                                  ) : (
+                                    'No 👎'
+                                  )}
+                                </motion.button>
+                              </div>
+                              
+                              {/* Comment form for negative feedback */}
+                              {showCommentForm && selectedRating === 'No' && (
+                                <motion.div
+                                  initial={{ opacity: 0, height: 0 }}
+                                  animate={{ opacity: 1, height: 'auto' }}
+                                  exit={{ opacity: 0, height: 0 }}
+                                  className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-6"
+                                >
+                                  <p className="mb-3 text-sm font-medium text-gray-700">
+                                    Help us improve this article. What was missing or unclear?
+                                  </p>
+                                  <textarea
+                                    value={feedbackComment}
+                                    onChange={(e) => setFeedbackComment(e.target.value)}
+                                    placeholder="Please share your feedback..."
+                                    className="mb-4 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[#CD1A70] focus:outline-none focus:ring-2 focus:ring-[#CD1A70]/20"
+                                    rows={3}
+                                  />
+                                  <input
+                                    type="email"
+                                    value={feedbackEmail}
+                                    onChange={(e) => setFeedbackEmail(e.target.value)}
+                                    placeholder="Your email (optional) - for support to contact you"
+                                    className="mb-4 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[#CD1A70] focus:outline-none focus:ring-2 focus:ring-[#CD1A70]/20"
+                                  />
+                                  <div className="flex gap-3">
+                                    <motion.button
+                                      onClick={handleCommentSubmit}
+                                      disabled={isSubmittingFeedback}
+                                      className={`rounded-md bg-[#CD1A70] px-4 py-2 text-sm font-medium text-white hover:bg-[#B01560] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}
+                                      whileHover={!isSubmittingFeedback ? { scale: 1.05 } : {}}
+                                      whileTap={!isSubmittingFeedback ? { scale: 0.95 } : {}}
+                                    >
+                                      {isSubmittingFeedback ? (
+                                        <>
+                                          <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
+                                          Sending...
+                                        </>
+                                      ) : (
+                                        'Send Feedback'
+                                      )}
+                                    </motion.button>
+                                    <motion.button
+                                      onClick={() => {
+                                        setShowCommentForm(false);
+                                        setFeedbackComment('');
+                                        setFeedbackEmail('');
+                                        setSelectedRating(null);
+                                        setIsSubmittingFeedback(false);
+                                      }}
+                                      disabled={isSubmittingFeedback}
+                                      className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                      whileHover={!isSubmittingFeedback ? { scale: 1.05 } : {}}
+                                      whileTap={!isSubmittingFeedback ? { scale: 0.95 } : {}}
+                                    >
+                                      Cancel
+                                    </motion.button>
+                                  </div>
+                                </motion.div>
+                              )}
+                            </>
+                          ) : (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 p-6"
                             >
-                              No
-                            </motion.button>
+                              <div className="flex items-center gap-3">
+                                <div className="text-2xl">🎉</div>
+                                <div>
+                                  <p className="text-sm font-medium text-green-800">
+                                    Thank you for your feedback!
+                                  </p>
+                                  <p className="text-xs text-green-600">
+                                    Your input helps us improve our help center.
+                                  </p>
+                                </div>
+                              </div>
+                              {feedbackSubmitted[selectedArticle]?.rating === 'No' && (
+                                <div className="mt-4 rounded-md bg-blue-50 border border-blue-200 p-4">
+                                  <p className="text-sm text-blue-800">
+                                    <strong>Need more help?</strong> Our support team is here to assist you. 
+                                    {feedbackEmail ? (
+                                      <span> We'll contact you at <strong>{feedbackEmail}</strong> if you provided your email.</span>
+                                    ) : (
+                                      <>
+                                        <a 
+                                          href="/contact-us" 
+                                          className="ml-1 text-blue-600 underline hover:text-blue-800"
+                                        >
+                                          Contact us
+                                        </a> for personalized assistance.
+                                      </>
+                                    )}
+                                  </p>
                           </div>
+                              )}
+                            </motion.div>
+                          )}
                         </div>
                         {/* Related Links */}
                         {articleContent.relatedLinks && (
