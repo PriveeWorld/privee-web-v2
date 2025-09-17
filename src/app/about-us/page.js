@@ -78,16 +78,16 @@ const PriveeStory = () => {
                 <h2 className="mb-4 font-clash text-2xl font-semibold text-gray-800">
                   Hey, welcome to Privee World!
                 </h2>
-                <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-700">
-                  This isn't just another social media app. This is your life, turned into a movie. But
-                  before you go uploading your dog eating spaghetti or your cousin doing backflips at
-                  a wedding, let's break it down. Step by step.
-                </p>
+                 <p className="mx-auto max-w-2xl text-lg font-inter font-light tracking-[0.01em] leading-[20px] text-gray-700">
+                   This isn't just another social media app. This is <span className="font-semibold text-[#3A1772]">your life, turned into a movie</span>. But
+                   before you go uploading your dog eating spaghetti or your cousin doing backflips at
+                   a wedding, let's <span className="font-semibold">break it down. Step by step</span>.
+                 </p>
               </div>
             </motion.div>
 
             {/* What is Privee Section */}
-            <div className="mx-auto mb-8 max-w-5xl">
+            <div className="mx-auto mb-12 max-w-5xl">
               <motion.div 
                 className="mb-12 text-center"
                 initial={{ opacity: 0 }}
@@ -110,11 +110,11 @@ const PriveeStory = () => {
                   <h3 className="mb-3 font-clash text-xl font-semibold text-gray-800">
                     Netflix for Your Life
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    Privee World is THE place where your life gets organized like a Netflix series.
-                    You create "movies" – basically folders – and each video or photo you upload goes
-                    into one of them.
-                  </p>
+                    <p className="text-gray-600 font-inter font-light tracking-[0.01em] leading-[20px]">
+                      Privee World is <span className="font-semibold text-[#CD1A70]">THE place</span> where your life gets organized like a <span className="font-semibold">Netflix series</span>.
+                      You create <span className="font-semibold text-[#3A1772]">"movies"</span> – basically folders – and each video or photo you upload goes
+                      into one of them.
+                    </p>
           </motion.div>
 
         <motion.div
@@ -126,16 +126,16 @@ const PriveeStory = () => {
                   <h3 className="mb-3 font-clash text-xl font-semibold text-gray-800">
                     Private by Default
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    The cool part? It's private by default. Just for your eyes. Until you say, "Okay, world,
-                    check this out."
-                  </p>
+                    <p className="text-gray-600 font-inter font-light tracking-[0.01em] leading-[20px]">
+                      The cool part? It's <span className="font-semibold text-[#CD1A70]">private by default</span>. Just for your eyes. Until you say, <span className="font-semibold">"Okay, world,
+                      check this out."</span>
+                    </p>
                 </motion.div>
               </div>
             </div>
 
             {/* App Sections */}
-            <div className="mx-auto mb-8 max-w-5xl">
+            <div className="mx-auto mb-12 max-w-5xl">
               <motion.div 
                 className="mb-12 text-center"
           initial={{ opacity: 0 }}
@@ -168,9 +168,9 @@ const PriveeStory = () => {
                   <h3 className="mb-2 font-clash text-xl font-semibold text-gray-800">
                     1. Cinema
                   </h3>
-                  <p className="text-gray-600">
-                    Watch public stories from other users.
-                  </p>
+                    <p className="text-gray-600 font-inter font-light tracking-[0.01em] leading-[20px]">
+                      Watch <span className="font-semibold text-blue-600">public stories</span> from other users.
+                    </p>
                 </motion.div>
 
           <motion.div
@@ -182,8 +182,8 @@ const PriveeStory = () => {
                   <h3 className="mb-2 font-clash text-xl font-semibold text-gray-800">
                     2. Private
             </h3>
-                  <p className="text-gray-600">
-                    Your world. Your story. No one sees it but you.
+                    <p className="text-gray-600 font-inter font-light tracking-[0.01em] leading-[20px]">
+                      <span className="font-semibold text-green-600">Your world. Your story.</span> No one sees it but you.
             </p>
           </motion.div>
 
@@ -196,15 +196,15 @@ const PriveeStory = () => {
                   <h3 className="mb-2 font-clash text-xl font-semibold text-gray-800">
                     3. Camera
                   </h3>
-                  <p className="text-gray-600">
-                    Upload visuals from your gallery or record fresh content. Everything lands in Private first. Boom.
-                  </p>
+                    <p className="text-gray-600 font-inter font-light tracking-[0.01em] leading-[20px]">
+                      Upload visuals from your gallery or record fresh content. Everything lands in <span className="font-semibold text-orange-600">Private first</span>. <span className="font-semibold">Boom.</span>
+                    </p>
                 </motion.div>
               </div>
             </div>
 
             {/* User Stories Section */}
-            <div className="mx-auto mb-8 max-w-5xl">
+            <div className="mx-auto mb-12 max-w-5xl">
               <motion.div 
                 className="mb-12 text-center"
                 initial={{ opacity: 0 }}
@@ -234,13 +234,13 @@ const PriveeStory = () => {
                   </div>
                 </div>
                 
-                <p className="mb-4 text-gray-700 leading-relaxed">
-                  Maja's a boss. Like, literal boss. She runs global beauty events. She's got a folder
+                <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+                  Maja's a <span className="font-semibold text-[#CD1A70]">boss</span>. Like, <span className="font-semibold">literal boss</span>. She runs <span className="font-semibold">global beauty events</span>. She's got a folder
                   called <span className="font-semibold text-purple-700">Events</span>.
                 </p>
-                <p className="mb-4 text-gray-700 leading-relaxed">
-                  After each event, she uploads a couple of videos, adds a title (like "NYC Pop-Up 💄")
-                  and writes a short caption like:
+                <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+                  After each event, she uploads a couple of videos, adds a <span className="font-semibold">title</span> (like <span className="font-semibold text-[#3A1772]">"NYC Pop-Up 💄"</span>)
+                  and writes a <span className="font-semibold">short caption</span> like:
                 </p>
                 
                 <div className="mb-6 rounded-lg bg-white/70 p-4 border-l-4 border-pink-400">
@@ -249,13 +249,13 @@ const PriveeStory = () => {
                   </p>
                 </div>
                 
-                <p className="mb-4 text-gray-700 leading-relaxed">
-                  Now, when she plays her Events movie from the beginning, she gets a cinematic
-                  timeline of her whole journey.
+                <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+                  Now, when she plays her Events movie from the beginning, she gets a <span className="font-semibold text-[#CD1A70]">cinematic
+                  timeline</span> of her whole journey.
                 </p>
-                <p className="text-gray-700 leading-relaxed">
-                  It's private – just for her. But when she feels like sharing a moment with the world,
-                  she selects one video, tweaks the caption for the public, and <strong>BOOM</strong> – it's live on her
+                <p className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+                  It's <span className="font-semibold text-green-600">private</span> – just for her. But when she feels like <span className="font-semibold">sharing a moment</span> with the world,
+                  she selects one video, tweaks the caption for the public, and <span className="font-bold text-[#CD1A70]">BOOM</span> – it's live on her
                   public Privee profile.
                 </p>
 
@@ -285,20 +285,20 @@ const PriveeStory = () => {
                   </div>
                 </div>
                 
-                <p className="mb-4 text-gray-700 leading-relaxed">
-                  Ana's got the college life locked down. She's got a <span className="font-semibold text-blue-700">Campus</span> movie for unforgettable
-                  uni moments.
+                <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+                  Ana's got the <span className="font-semibold text-[#3A1772]">college life locked down</span>. She's got a <span className="font-semibold text-blue-700">Campus</span> movie for <span className="font-semibold">unforgettable
+                  uni moments</span>.
                 </p>
-                <p className="mb-4 text-gray-700 leading-relaxed">
+                <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
                   She's got another one called <span className="font-semibold text-blue-700">Friends</span>, because, duh.
                 </p>
-                <p className="mb-4 text-gray-700 leading-relaxed">
-                  Every time she captures something that screams "this was a vibe", she uploads it to
-                  the right movie folder.
+                <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+                  Every time she captures something that screams <span className="font-semibold text-[#CD1A70]">"this was a vibe"</span>, she uploads it to
+                  the <span className="font-semibold">right movie folder</span>.
                 </p>
-                <p className="text-gray-700 leading-relaxed">
-                  Now, in 2 years when she's sobbing at graduation, she'll have a full movie of her
-                  best memories.
+                <p className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+                  Now, in 2 years when she's sobbing at graduation, she'll have a <span className="font-semibold text-[#3A1772]">full movie</span> of her
+                  <span className="font-semibold text-[#CD1A70]">best memories</span>.
                 </p>
 
                 {/* Ana video placeholder */}
@@ -328,24 +328,24 @@ const PriveeStory = () => {
                   <div className="rounded-lg bg-white/70 p-4">
                     <div className="mb-2 text-2xl">🏷️</div>
                     <h4 className="mb-2 font-semibold text-gray-800">Name Smart</h4>
-                    <p className="text-sm text-gray-600">Think "Adventures 2024" or "Baby Noa's First Year" – something future you will recognize.</p>
+                    <p className="text-sm text-gray-600 font-inter font-light tracking-[0.01em] leading-[20px]">Think "Adventures 2024" or "Baby Noa's First Year" – something future you will recognize.</p>
                   </div>
                   <div className="rounded-lg bg-white/70 p-4">
                     <div className="mb-2 text-2xl">💭</div>
                     <h4 className="mb-2 font-semibold text-gray-800">Memory Triggers</h4>
-                    <p className="text-sm text-gray-600">Use captions as memory triggers. Write what you felt in that moment.</p>
+                    <p className="text-sm text-gray-600 font-inter font-light tracking-[0.01em] leading-[20px]">Use captions as memory triggers. Write what you felt in that moment.</p>
                   </div>
                   <div className="rounded-lg bg-white/70 p-4">
                     <div className="mb-2 text-2xl">🎬</div>
                     <h4 className="mb-2 font-semibold text-gray-800">You're the Director</h4>
-                    <p className="text-sm text-gray-600">Share only what you want. One clip, the whole movie, or none.</p>
+                    <p className="text-sm text-gray-600 font-inter font-light tracking-[0.01em] leading-[20px]">Share only what you want. One clip, the whole movie, or none.</p>
                   </div>
                 </div>
               </motion.div>
             </div>
 
             {/* Features & Users Section */}
-            <div className="mx-auto mb-8 max-w-5xl">
+            <div className="mx-auto mb-12 max-w-5xl">
               <div className="grid gap-8 lg:grid-cols-2">
                 {/* What you get */}
                 <motion.div 
@@ -388,27 +388,27 @@ const PriveeStory = () => {
                   <div className="space-y-4">
                     <div className="flex items-start">
                       <span className="mr-3 mt-0.5 text-lg flex-shrink-0">👶</span>
-                      <span className="text-gray-700 leading-relaxed">Parents making baby documentaries</span>
+                      <span className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Parents making baby documentaries</span>
                     </div>
                     <div className="flex items-start">
                       <span className="mr-3 mt-0.5 text-lg flex-shrink-0">🏃</span>
-                      <span className="text-gray-700 leading-relaxed">Athletes creating training timelines</span>
+                      <span className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Athletes creating training timelines</span>
                     </div>
                     <div className="flex items-start">
                       <span className="mr-3 mt-0.5 text-lg flex-shrink-0">✈️</span>
-                      <span className="text-gray-700 leading-relaxed">Travelers making a movie for every country</span>
+                      <span className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Travelers making a movie for every country</span>
                     </div>
                     <div className="flex items-start">
                       <span className="mr-3 mt-0.5 text-lg flex-shrink-0">🎓</span>
-                      <span className="text-gray-700 leading-relaxed">Students archiving their college chaos</span>
+                      <span className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Students archiving their college chaos</span>
                     </div>
                     <div className="flex items-start">
                       <span className="mr-3 mt-0.5 text-lg flex-shrink-0">🎨</span>
-                      <span className="text-gray-700 leading-relaxed">Creatives logging their behind-the-scenes process</span>
+                      <span className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Creatives logging their behind-the-scenes process</span>
                     </div>
                     <div className="flex items-start">
                       <span className="mr-3 mt-0.5 text-lg flex-shrink-0">✨</span>
-                      <span className="text-gray-700 leading-relaxed">Regular folks documenting life, but in a meaningful, beautiful, own-it kind of way</span>
+                      <span className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Regular folks documenting life, but in a meaningful, beautiful, own-it kind of way</span>
                     </div>
                   </div>
                 </motion.div>
@@ -430,11 +430,11 @@ const PriveeStory = () => {
                   </h2>
                 </div>
                 
-                <p className="mb-6 text-lg leading-relaxed text-gray-700 text-center max-w-3xl mx-auto">
+                <p className="mb-6 text-lg font-inter font-light tracking-[0.01em] leading-[20px] text-gray-700 text-center max-w-3xl mx-auto">
                   You don't need to be a content creator to tell a story. You just need to live – and
                   capture it.
                 </p>
-                <p className="mb-8 text-lg leading-relaxed text-gray-700 text-center max-w-3xl mx-auto">
+                <p className="mb-8 text-lg font-inter font-light tracking-[0.01em] leading-[20px] text-gray-700 text-center max-w-3xl mx-auto">
                   So go ahead. Make your movies. Keep them private. Or share them with the world.
                   Just don't let your memories disappear into your gallery forever.
                 </p>
