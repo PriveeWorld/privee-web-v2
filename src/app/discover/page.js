@@ -81,7 +81,14 @@ const DiscoverPage = () => {
             <div className="mb-20">
               <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6">
                 <p className="font-inter font-semibold text-gray-700 tracking-[0.18px] text-[18px] leading-[24px] lg:mb-0">
-                  Download now, invite your friends, and experience the magic of Privee World!
+                  <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                    Download now
+                  </Link>
+                  , invite your friends, and experience the magic of{" "}
+                  <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                    Privee World
+                  </Link>
+                  !
                 </p>
 
                 <div className="flex gap-4">

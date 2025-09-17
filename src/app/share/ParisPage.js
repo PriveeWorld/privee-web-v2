@@ -307,7 +307,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
           <motion.div className="flex w-full flex-col">
             {[
               { title: "Newsroom", href: "/newsroom" },
-              { title: "Discover Privee", href: "/" },
+              { title: "Discover Privee", href: "/discover" },
               { title: "Privee Story", href: "/about-us" },
               { title: "Privacy Policy", href: "/privacy" },
               { title: "Help Center", href: "/support" },
