@@ -6,15 +6,17 @@ import Image from "next/image";
 import Link from "next/link";
 import TopNav from "../components/TopNav";
 import FullscreenNav from "../components/FullscreenNav";
+import Footer from "../components/Footer";
 
 const SECTION_HEADINGS = ["Discover Privee"];
 
 const DiscoverPage = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [section, setSection] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-y-auto">
+    <div className="min-h-screen bg-gray-50 overflow-y-auto flex flex-col">
       <FullscreenNav
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
@@ -30,7 +32,7 @@ const DiscoverPage = () => {
       />
 
       {/* Main Content */}
-      <div className="flex min-h-screen lg:h-screen">
+      <div className="flex flex-1">
         {/* Left Content */}
         <div className="w-full lg:w-3/5 flex flex-col justify-center px-8 pt-20 pb-20 sm:px-12 sm:pt-24 lg:px-16 lg:py-20 relative z-10 text-center lg:text-left">
           <motion.div
@@ -78,62 +80,90 @@ const DiscoverPage = () => {
               </li>
             </ul>
 
-            <div className="mb-20">
-              <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6">
-                <p className="font-inter font-semibold text-gray-700 tracking-[0.18px] text-[18px] leading-[24px] lg:mb-0">
-                  <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
-                    Download now
-                  </Link>
-                  , invite your friends, and experience the magic of{" "}
-                  <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
-                    Privee World
-                  </Link>
-                  !
-                </p>
+            <div className="mb-8">
+              <p className="font-inter font-semibold text-gray-700 tracking-[0.18px] text-[18px] leading-[24px] text-center lg:text-left">
+                <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                  Download now
+                </Link>
+                , invite your friends, and experience the magic of{" "}
+                <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                  Privee World
+                </Link>
+                !
+              </p>
+            </div>
 
-                <div className="flex gap-4">
-                  <Link href="https://apps.apple.com/pl/app/privee-world/id1629866639" target="_blank">
+            {/* Video Section */}
+            <div className="mb-8 flex justify-center lg:justify-start">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative max-w-md w-full"
+              >
+                <video
+                  ref={(video) => {
+                    if (video) {
+                      video.addEventListener('play', () => setIsVideoPlaying(true));
+                      video.addEventListener('pause', () => setIsVideoPlaying(false));
+                      video.addEventListener('ended', () => setIsVideoPlaying(false));
+                    }
+                  }}
+                  className="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                  controls
+                  preload="metadata"
+                  onClick={(e) => {
+                    if (e.target.requestFullscreen) {
+                      e.target.requestFullscreen();
+                    } else if (e.target.webkitRequestFullscreen) {
+                      e.target.webkitRequestFullscreen();
+                    } else if (e.target.msRequestFullscreen) {
+                      e.target.msRequestFullscreen();
+                    }
+                  }}
+                >
+                  <source src="/videos/privee_tut.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                
+                {/* Play Button Overlay - only show when video is not playing */}
+                {!isVideoPlaying && (
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const video = e.currentTarget.parentElement.querySelector('video');
+                      if (video) {
+                        video.play();
+                        setIsVideoPlaying(true);
+                      }
+                    }}
+                  >
                     <motion.div
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="flex items-center hover:shadow-sm transition-all duration-300"
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="bg-black/30 rounded-full p-4 hover:bg-black/40 transition-colors duration-300"
                     >
-                      <Image 
-                        src="/App_Store.svg" 
-                        alt="Download on the App Store" 
-                        width={250} 
-                        height={60} 
-                        className="h-auto"
-                      />
+                      <svg
+                        className="w-10 h-10 text-white ml-1"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
                     </motion.div>
-                  </Link>
-                  
-                  <Link href="https://play.google.com/store/apps/details?id=com.privee.privee_mobile" target="_blank">
-                    <motion.div
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="flex items-center hover:shadow-sm transition-all duration-300"
-                    >
-                      <Image 
-                        src="/Google_Play.svg" 
-                        alt="Get it on Google Play" 
-                        width={250} 
-                        height={60} 
-                        className="h-auto"
-                      />
-                    </motion.div>
-                  </Link>
-                </div>
-              </div>
+                  </div>
+                )}
+              </motion.div>
             </div>
 
             {/* Learn More Section */}
-            <div>
+            <div className="mb-12">
               <p className="mb-4 font-inter font-semibold text-gray-700 tracking-[0.01em] leading-[20px] text-center">
                 Learn more about Privee World:
               </p>
               
-              <div className="flex flex-wrap gap-4 mb-6 justify-center">
+              <div className="flex flex-wrap gap-4 mb-8 justify-center">
                 <Link href="/about-us">
                   <motion.div
                     whileHover={{ scale: 1.03 }}
@@ -161,13 +191,14 @@ const DiscoverPage = () => {
                   </motion.div>
                 </Link>
               </div>
+
             </div>
           </motion.div>
         </div>
         
         {/* Right Image */}
         <div className="hidden lg:block w-2/5 relative z-0">
-          <div className="absolute inset-0 -left-[15%] w-[115%] h-full">
+          <div className="absolute inset-0 -left-[35%] w-[135%] h-full">
             <Image
               src="/images/woman.png"
               alt="Privee World Visual"
@@ -178,6 +209,9 @@ const DiscoverPage = () => {
           </div>
         </div>
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

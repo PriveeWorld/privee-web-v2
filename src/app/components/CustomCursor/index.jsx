@@ -80,7 +80,7 @@ export default function CustomCursor() {
     <>
       {/* Outer cursor ring */}
       <motion.div
-        className={`pointer-events-none fixed z-[9999] rounded-full border-2 transition-all duration-200 ease-out ${
+        className={`pointer-events-none fixed z-[9999] rounded-full border-2 transition-all duration-200 ease-out hidden md:block ${
           isHoveringButton || isHoveringLink
             ? "border-[#CD1A70] border-opacity-80"
             : "border-[#3A1772] border-opacity-60"
@@ -101,7 +101,7 @@ export default function CustomCursor() {
 
       {/* Inner cursor dot */}
       <motion.div
-        className={`pointer-events-none fixed z-[9999] rounded-full transition-all duration-150 ease-out ${
+        className={`pointer-events-none fixed z-[9999] rounded-full transition-all duration-150 ease-out hidden md:block ${
           isHoveringButton
             ? "bg-gradient-to-r from-[#3A1772] to-[#CD1A70]"
             : isHoveringLink
@@ -124,7 +124,7 @@ export default function CustomCursor() {
       {/* Hover effect glow */}
       {(isHoveringButton || isHoveringLink) && (
         <motion.div
-          className="pointer-events-none fixed z-[9998] rounded-full bg-gradient-to-r from-[#3A1772]/20 to-[#CD1A70]/20 blur-sm"
+          className="pointer-events-none fixed z-[9998] rounded-full bg-gradient-to-r from-[#3A1772]/20 to-[#CD1A70]/20 blur-sm hidden md:block"
           style={{
             left: springX,
             top: springY,
