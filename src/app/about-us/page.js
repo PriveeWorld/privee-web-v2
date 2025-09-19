@@ -588,19 +588,78 @@ const PriveeStory = () => {
                     <p className="text-gray-600 mt-2">Watch some videos we've prepared for you</p>
                   </div>
                   
-                  {/* Video embed placeholder */}
-                  <div className="flex min-h-[200px] sm:min-h-[250px] items-center justify-center rounded-xl border-2 border-dashed border-blue-200 bg-white/70">
-                    <div className="text-center">
-                      <div className="mb-3 text-3xl sm:text-4xl">🎬</div>
-                      <p className="font-medium text-blue-700 text-sm sm:text-base">Video tutorials coming soon</p>
-                      <p className="text-blue-500 text-xs sm:text-sm mt-1">Step-by-step guides from the app</p>
-                    </div>
+                  {/* Video Tutorial */}
+                  <div className="relative rounded-xl overflow-hidden bg-white/70 shadow-sm flex justify-center">
+                    <video
+                      className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-xl shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                      controls
+                      preload="metadata"
+                      poster="/images/prive_tut_1_thumbnail.jpg"
+                      onClick={(e) => {
+                        if (e.target.requestFullscreen) {
+                          e.target.requestFullscreen();
+                        } else if (e.target.webkitRequestFullscreen) {
+                          e.target.webkitRequestFullscreen();
+                        } else if (e.target.msRequestFullscreen) {
+                          e.target.msRequestFullscreen();
+                        }
+                      }}
+                    >
+                      <source src="/videos/prive_tut_1_compressed.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 </div>
               </div>
             </motion.div>
           </motion.div>
         </AnimatePresence>
+
+        {/* Learn More Section */}
+        <div className="mb-12 mt-16">
+          <p className="mb-4 font-inter font-semibold text-gray-700 tracking-[0.01em] leading-[20px] text-center">
+            Learn more about Privee World:
+          </p>
+          
+          <div className="flex flex-wrap gap-4 mb-8 justify-center">
+            <Link href="/newsroom">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+              >
+                Newsroom
+              </motion.div>
+            </Link>
+            
+            <Link href="/discover">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+              >
+                Discover Privee
+              </motion.div>
+            </Link>
+            
+            <Link href="/support">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+              >
+                Help Center
+              </motion.div>
+            </Link>
+            
+            <Link href="/faq">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+              >
+                FAQ
+              </motion.div>
+            </Link>
+            
+          </div>
+        </div>
       </div>
 
       {/* Image Modal */}

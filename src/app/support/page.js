@@ -674,6 +674,53 @@ export default function Tutorials() {
             )}
           </motion.div>
         </AnimatePresence>
+
+        {/* Learn More Section */}
+        <div className="mb-12 mt-16">
+          <p className="mb-4 font-inter font-semibold text-gray-700 tracking-[0.01em] leading-[20px] text-center">
+            Learn more about Privee World:
+          </p>
+          
+          <div className="flex flex-wrap gap-4 mb-8 justify-center">
+            <a href="/newsroom">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+              >
+                Newsroom
+              </motion.div>
+            </a>
+            
+            <a href="/discover">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+              >
+                Discover Privee
+              </motion.div>
+            </a>
+            
+            <a href="/about-us">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+              >
+                Privee Story
+              </motion.div>
+            </a>
+            
+            <a href="/faq">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+              >
+                FAQ
+              </motion.div>
+            </a>
+            
+          </div>
+        </div>
+
         <div className="blank-spacer h-20"></div>
       </div>
       {fullscreenImage && (
@@ -697,7 +744,7 @@ export default function Tutorials() {
           />
         </div>
       )}
-      
+
       {/* Floating Chat Button */}
       {!isChatbotOpen && (
         <motion.button
