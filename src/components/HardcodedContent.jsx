@@ -179,6 +179,35 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
                 !
               </p>
             </div>
+
+            {/* Video Section */}
+            <div className="mb-8 flex justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative max-w-md w-full"
+              >
+                <video
+                  className="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                  controls
+                  preload="metadata"
+                  poster="/images/privee_tut_thumbnail.jpg"
+                  onClick={(e) => {
+                    if (e.target.requestFullscreen) {
+                      e.target.requestFullscreen();
+                    } else if (e.target.webkitRequestFullscreen) {
+                      e.target.webkitRequestFullscreen();
+                    } else if (e.target.msRequestFullscreen) {
+                      e.target.msRequestFullscreen();
+                    }
+                  }}
+                >
+                  <source src="/videos/privee_tut.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -630,167 +659,28 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
         </div>
       </motion.div>
 
-      {/* Discover Privee Section */}
-      <div className="mt-16 mb-16">
-        <div className="text-center mb-12">
-          <h2 className="mb-6 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[28px] font-bold leading-tight tracking-tight text-transparent sm:text-[36px] md:text-[44px] lg:text-[52px]">
-            DOBRODOŠLI U PRIVEE WORLD!
-          </h2>
-          <div className="mx-auto h-1 w-24 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] rounded-full"></div>
-        </div>
 
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <span className="text-gray-700 font-medium">Otkrijte Privee</span>
-
-            <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
-              Zakoračite u <span className="font-semibold">novu eru</span> <span className="font-semibold">vizualnog pripovijedanja</span>
-            </p>
-            <p className="mb-6 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
-              Privee nije samo još jedna društvena mreža – ovo je mjesto gdje vaši privatni trenuci postaju filmske priče.
-            </p>
-
-            <ul className="space-y-5 mb-8 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px] text-left max-w-2xl mx-auto">
-              <li className="flex items-start gap-3">
-                <span className="text-gray-500 mt-1 font-semibold">•</span>
-                <div>
-                  <p className="font-inter font-light tracking-[0.01em] leading-[20px]">
-                    Uploadujte videozapise u privatnu sekciju i organizirajte ih u tematske foldere – i gledajte kako se pretvaraju u <span className="font-semibold">nevjerovatne lične filmove</span>.
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-gray-500 mt-1 font-semibold">•</span>
-                <div>
-                  <p className="font-inter font-light tracking-[0.01em] leading-[20px]">
-                    Lajkovi, komentari i pregledi? <span className="font-semibold">100% su privatni</span> — dijelite ih samo vi i osoba koja reagira.
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-gray-500 mt-1 font-semibold">•</span>
-                <div>
-                  <p className="font-inter font-light tracking-[0.01em] leading-[20px]">
-                     <span className="font-semibold">Uronite u Cinema sekciju</span>, naš glavni feed, pun uzbudljivih video vijesti, sportskih i lifestyle sadržaja. Povlačenjem prsta u bilo kojem smjeru, dodirom desno i lijevo po ekranu, istražite više od Privee Worlda.
-                  </p>
-                </div>
-              </li>
-            </ul>
-
-            <div className="mb-8">
-              <p className="font-inter font-semibold text-gray-700 tracking-[0.18px] text-[18px] leading-[24px] text-center">
-                <Link href={appStoreUrl} target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
-                  Preuzmite aplikaciju
-                </Link>
-                , pozovite prijatelje i iskusite čaroliju{" "}
-                <Link href={appStoreUrl} target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
-                  Privee Worlda
-                </Link>
-                !
-              </p>
-            </div>
-
-            {/* Video Section */}
-            <div className="mb-8 flex justify-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative max-w-md w-full"
-              >
-                <video
-                  className="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
-                  controls
-                  preload="metadata"
-                  poster="/images/privee_tut_thumbnail.jpg"
-                  onClick={(e) => {
-                    if (e.target.requestFullscreen) {
-                      e.target.requestFullscreen();
-                    } else if (e.target.webkitRequestFullscreen) {
-                      e.target.webkitRequestFullscreen();
-                    } else if (e.target.msRequestFullscreen) {
-                      e.target.msRequestFullscreen();
-                    }
-                  }}
-                >
-                  <source src="/videos/privee_tut.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </motion.div>
-            </div>
-
-            {/* Download Buttons */}
-            <div className="mb-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href={appStoreUrl} target="_blank">
-                <Image
-                  src="/App_Store.svg"
-                  alt="Download on the App Store"
-                  width={200}
-                  height={60}
-                  className="hover:opacity-80 transition-opacity duration-300"
-                />
-              </Link>
-              <Link href={playStoreUrl} target="_blank">
-                <Image
-                  src="/Google_Play.svg"
-                  alt="Get it on Google Play"
-                  width={200}
-                  height={60}
-                  className="hover:opacity-80 transition-opacity duration-300"
-                />
-              </Link>
-            </div>
-
-            {/* Learn More Section */}
-            <div className="mb-12">
-              <p className="mb-4 font-inter font-semibold text-gray-700 tracking-[0.01em] leading-[20px] text-center">
-                Saznaj više o Privee Worldu:
-              </p>
-              
-              <div className="flex flex-wrap gap-4 mb-8 justify-center">
-                <Link href="/newsroom">
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
-                  >
-                    Novosti
-                  </motion.div>
-                </Link>
-                
-                <Link href="/about-us">
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
-                  >
-                    O nama
-                  </motion.div>
-                </Link>
-                
-                <Link href="/support">
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
-                  >
-                    Pomoć
-                  </motion.div>
-                </Link>
-                
-                <Link href="/faq">
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
-                  >
-                    Česta pitanja
-                  </motion.div>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
+      {/* Download Buttons */}
+      <div className="mt-24 mb-16">
+        <div className="flex flex-row items-center justify-center gap-3 max-w-[400px] mx-auto">
+          <Link href={appStoreUrl} target="_blank" className="w-[160px] sm:w-[180px]">
+            <Image
+              src="/App_Store.svg"
+              alt="Download on the App Store"
+              width={200}
+              height={60}
+              className="hover:opacity-80 transition-opacity duration-300 w-full h-auto"
+            />
+          </Link>
+          <Link href={playStoreUrl} target="_blank" className="w-[160px] sm:w-[180px]">
+            <Image
+              src="/Google_Play.svg"
+              alt="Get it on Google Play"
+              width={200}
+              height={60}
+              className="hover:opacity-80 transition-opacity duration-300 w-full h-auto"
+            />
+          </Link>
         </div>
       </div>
 
