@@ -17,6 +17,8 @@ async function getBlogPosts(tag) {
       tags,
       "featuredImage": featuredImage.asset->url,
       publishedAt,
+      enableHardcodedText,
+      hardcodedText,
       author->{
         name,
         "image": image.asset->url

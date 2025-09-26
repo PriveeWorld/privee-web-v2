@@ -9,6 +9,7 @@ import FullscreenNav from "../../app/components/FullscreenNav";
 import Footer from "../../app/components/Footer";
 import { motion } from "framer-motion";
 import { urlForImage } from "../../lib/sanity/image";
+import HardcodedContent from "../HardcodedContent";
 
 const SECTION_HEADINGS = [
   "Newsroom",
@@ -431,6 +432,13 @@ export default function BlogPostContent({ post }) {
                   components={portableTextComponents}
                 />
               </div>
+
+              {/* Hardcoded Text */}
+              {post?.enableHardcodedText && (
+                <div className="mt-8 mb-8">
+                  <HardcodedContent />
+                </div>
+              )}
 
               {/* Tags */}
               {post?.tags && post.tags.length > 0 && (

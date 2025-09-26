@@ -17,6 +17,8 @@ async function getPost(slug) {
       tags,
       featuredImage,
       publishedAt,
+      enableHardcodedText,
+      hardcodedText,
       author->{
         name,
         image
