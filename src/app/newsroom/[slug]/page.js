@@ -19,6 +19,8 @@ async function getPost(slug) {
       publishedAt,
       enableHardcodedText,
       hardcodedText,
+      appStoreUrl,
+      playStoreUrl,
       author->{
         name,
         image

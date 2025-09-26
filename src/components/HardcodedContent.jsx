@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-const HardcodedContent = () => {
+const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDATOR", playStoreUrl = "https://priveee.onelink.me/AMM3/VEDATOR" }) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [imageScale, setImageScale] = useState(1);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
@@ -616,11 +616,11 @@ const HardcodedContent = () => {
 
             <div className="mb-8">
               <p className="font-inter font-semibold text-gray-700 tracking-[0.18px] text-[18px] leading-[24px] text-center">
-                <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                <Link href={appStoreUrl} target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
                   Preuzmite aplikaciju
                 </Link>
                 , pozovite prijatelje i iskusite čaroliju{" "}
-                <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                <Link href={appStoreUrl} target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
                   Privee Worlda
                 </Link>
                 !
@@ -654,6 +654,28 @@ const HardcodedContent = () => {
                   Your browser does not support the video tag.
                 </video>
               </motion.div>
+            </div>
+
+            {/* Download Buttons */}
+            <div className="mb-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href={appStoreUrl} target="_blank">
+                <Image
+                  src="/App_Store.svg"
+                  alt="Download on the App Store"
+                  width={200}
+                  height={60}
+                  className="hover:opacity-80 transition-opacity duration-300"
+                />
+              </Link>
+              <Link href={playStoreUrl} target="_blank">
+                <Image
+                  src="/Google_Play.svg"
+                  alt="Get it on Google Play"
+                  width={200}
+                  height={60}
+                  className="hover:opacity-80 transition-opacity duration-300"
+                />
+              </Link>
             </div>
 
             {/* Learn More Section */}

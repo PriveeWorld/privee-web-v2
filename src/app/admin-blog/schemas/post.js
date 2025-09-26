@@ -88,6 +88,20 @@ export default {
       initialValue: false
     },
     {
+      name: 'appStoreUrl',
+      title: 'App Store URL',
+      type: 'url',
+      description: 'Custom App Store download URL for this blog post',
+      hidden: ({ parent }) => !parent?.enableHardcodedText
+    },
+    {
+      name: 'playStoreUrl',
+      title: 'Play Store URL',
+      type: 'url',
+      description: 'Custom Google Play Store download URL for this blog post',
+      hidden: ({ parent }) => !parent?.enableHardcodedText
+    },
+    {
       name: 'hardcodedText',
       title: 'Hardcoded Text',
       type: 'array',

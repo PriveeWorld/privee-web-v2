@@ -436,7 +436,10 @@ export default function BlogPostContent({ post }) {
               {/* Hardcoded Text */}
               {post?.enableHardcodedText && (
                 <div className="mt-8 mb-8">
-                  <HardcodedContent />
+                  <HardcodedContent 
+                    appStoreUrl={post?.appStoreUrl || "https://priveee.onelink.me/AMM3/VEDATOR"}
+                    playStoreUrl={post?.playStoreUrl || "https://priveee.onelink.me/AMM3/VEDATOR"}
+                  />
                 </div>
               )}
 
