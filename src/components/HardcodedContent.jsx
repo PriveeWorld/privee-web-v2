@@ -115,7 +115,75 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
 
   return (
     <div className="w-full">
-      {/* Hero Section */}
+      {/* Discover Section */}
+      <div className="mt-16 mb-16">
+        <div className="text-center mb-12">
+          <h2 className="mb-6 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[28px] font-bold leading-tight tracking-tight text-transparent sm:text-[36px] md:text-[44px] lg:text-[52px]">
+            DOBRODOŠLI U PRIVEE WORLD!
+          </h2>
+          <div className="mx-auto h-1 w-24 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] rounded-full"></div>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <span className="text-gray-700 font-medium">Otkrijte Privee</span>
+
+            <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+              Zakoračite u <span className="font-semibold">novu eru</span> <span className="font-semibold">vizualnog pripovijedanja</span>
+            </p>
+            <p className="mb-6 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">
+              Privee nije samo još jedna društvena mreža – ovo je mjesto gdje vaši privatni trenuci postaju filmske priče.
+            </p>
+
+            <ul className="space-y-5 mb-8 text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px] text-left max-w-2xl mx-auto">
+              <li className="flex items-start gap-3">
+                <span className="text-gray-500 mt-1 font-semibold">•</span>
+                <div>
+                  <p className="font-inter font-light tracking-[0.01em] leading-[20px]">
+                    Uploadujte videozapise u privatnu sekciju i organizirajte ih u tematske foldere – i gledajte kako se pretvaraju u <span className="font-semibold">nevjerovatne lične filmove</span>.
+                  </p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-gray-500 mt-1 font-semibold">•</span>
+                <div>
+                  <p className="font-inter font-light tracking-[0.01em] leading-[20px]">
+                    Lajkovi, komentari i pregledi? <span className="font-semibold">100% su privatni</span> — dijelite ih samo vi i osoba koja reagira.
+                  </p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-gray-500 mt-1 font-semibold">•</span>
+                <div>
+                  <p className="font-inter font-light tracking-[0.01em] leading-[20px]">
+                     <span className="font-semibold">Uronite u Cinema sekciju</span>, naš glavni feed, pun uzbudljivih video vijesti, sportskih i lifestyle sadržaja. Povlačenjem prsta u bilo kojem smjeru, dodirom desno i lijevo po ekranu, istražite više od Privee Worlda.
+                  </p>
+                </div>
+              </li>
+            </ul>
+
+            <div className="mb-8">
+              <p className="font-inter font-semibold text-gray-700 tracking-[0.18px] text-[18px] leading-[24px] text-center">
+                <Link href={appStoreUrl} target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                  Preuzmite aplikaciju
+                </Link>
+                , pozovite prijatelje i iskusite čaroliju{" "}
+                <Link href={appStoreUrl} target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                  Privee Worlda
+                </Link>
+                !
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* About Us Section */}
       <div className="text-center mb-8">
         <h1 className="mb-4 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text font-clash text-[28px] font-bold leading-tight tracking-tight text-transparent sm:text-[36px] md:text-[44px] lg:text-[52px]">
           Kako koristiti Privee World
