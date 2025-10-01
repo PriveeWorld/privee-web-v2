@@ -546,11 +546,11 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
             <div className="space-y-4">
               <div className="flex items-start">
                 <div className="mr-3 mt-2 h-2 w-2 rounded-full bg-blue-500 flex-shrink-0"></div>
-                <p className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">33 uploada svakog mjeseca – znači, 33 video/foto trenutka, bez naknade.</p>
+                <p className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Neograničeno gledaj i uživaj u kvalitetnom video sadržaju.</p>
               </div>
               <div className="flex items-start">
                 <div className="mr-3 mt-2 h-2 w-2 rounded-full bg-blue-500 flex-shrink-0"></div>
-                <p className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Ako se pretplatiš 🎉 neograničeni uploadi i dužina videa do 1 pune minute (da, dobijaš više vremena da zablistaš).</p>
+                <p className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[20px]">Uploaduj 33 videa ili fotografije u trajanju od po 12 sekundi svakog mjeseca, a ako ti to nije dovoljno, jednostavno uradi upgrade i uživaj u neograničenom uploadu video i foto sadržaja u trajanju od po jedne minute.</p>
               </div>
             </div>
           </motion.div>
