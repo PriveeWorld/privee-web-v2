@@ -62,6 +62,24 @@ export default defineType({
       of: [
         {
           type: 'block',
+          marks: {
+            annotations: [
+              {
+                name: 'hideOnMobile',
+                type: 'object',
+                title: 'Hide on Mobile',
+                fields: [
+                  {
+                    name: 'hide',
+                    type: 'boolean',
+                    title: 'Hide on Mobile',
+                    initialValue: true,
+                  },
+                ],
+                icon: () => '📱',
+              },
+            ],
+          },
         },
         {
           type: 'image',

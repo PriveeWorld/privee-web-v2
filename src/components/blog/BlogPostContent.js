@@ -160,6 +160,11 @@ const portableTextComponents = {
     },
     embed: EmbedComponent,
   },
+  marks: {
+    hideOnMobile: ({ children }) => (
+      <span className="hidden md:inline">{children}</span>
+    ),
+  },
   block: {
     normal: ({ children }) => (
       <p className="mb-6 text-left text-gray-700 leading-relaxed max-w-[800px] mx-auto">
