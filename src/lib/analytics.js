@@ -2,10 +2,125 @@
 
 const GA_MEASUREMENT_ID = "G-ZW8TJZZ4ZZ";
 
+// Traffic Source Tracking - Where are users coming from?
+export const getTrafficSource = () => {
+  if (typeof window === 'undefined') return null;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const referrer = document.referrer;
+
+  // Get UTM parameters
+  const utmSource = urlParams.get('utm_source');
+  const utmMedium = urlParams.get('utm_medium');
+  const utmCampaign = urlParams.get('utm_campaign');
+  const utmTerm = urlParams.get('utm_term');
+  const utmContent = urlParams.get('utm_content');
+
+  let source = 'direct'; // Default: typed URL or bookmark
+  let medium = 'none';
+  let category = 'Direct Traffic';
+
+  // Check UTM parameters first (most accurate)
+  if (utmSource) {
+    source = utmSource;
+    medium = utmMedium || 'unknown';
+    category = 'Campaign Traffic';
+  }
+  // Check referrer
+  else if (referrer) {
+    const referrerDomain = new URL(referrer).hostname;
+
+    // Social Media
+    if (referrerDomain.includes('facebook.com')) {
+      source = 'facebook';
+      medium = 'social';
+      category = 'Social Media';
+    } else if (referrerDomain.includes('instagram.com')) {
+      source = 'instagram';
+      medium = 'social';
+      category = 'Social Media';
+    } else if (referrerDomain.includes('twitter.com') || referrerDomain.includes('t.co')) {
+      source = 'twitter';
+      medium = 'social';
+      category = 'Social Media';
+    } else if (referrerDomain.includes('linkedin.com')) {
+      source = 'linkedin';
+      medium = 'social';
+      category = 'Social Media';
+    } else if (referrerDomain.includes('tiktok.com')) {
+      source = 'tiktok';
+      medium = 'social';
+      category = 'Social Media';
+    } else if (referrerDomain.includes('youtube.com')) {
+      source = 'youtube';
+      medium = 'social';
+      category = 'Social Media';
+    }
+    // Search Engines
+    else if (referrerDomain.includes('google.')) {
+      source = 'google';
+      medium = 'organic';
+      category = 'Search Engine';
+    } else if (referrerDomain.includes('bing.')) {
+      source = 'bing';
+      medium = 'organic';
+      category = 'Search Engine';
+    } else if (referrerDomain.includes('yahoo.')) {
+      source = 'yahoo';
+      medium = 'organic';
+      category = 'Search Engine';
+    }
+    // Other websites
+    else {
+      source = referrerDomain;
+      medium = 'referral';
+      category = 'Referral Traffic';
+    }
+  }
+
+  return {
+    source,
+    medium,
+    category,
+    utmSource,
+    utmMedium,
+    utmCampaign,
+    utmTerm,
+    utmContent,
+    referrer,
+  };
+};
+
+export const trackTrafficSource = (pagePath) => {
+  const trafficSource = getTrafficSource();
+
+  if (typeof window !== 'undefined' && window.gtag && trafficSource) {
+    window.gtag('event', 'traffic_source', {
+      event_category: 'Traffic',
+      event_label: trafficSource.source,
+      traffic_category: trafficSource.category,
+      source: trafficSource.source,
+      medium: trafficSource.medium,
+      campaign: trafficSource.utmCampaign || 'none',
+      referrer: trafficSource.referrer || 'none',
+      page_path: pagePath,
+    });
+  }
+
+  return trafficSource;
+};
+
 export const pageview = (url) => {
   if (typeof window !== 'undefined' && window.gtag) {
+    const trafficSource = getTrafficSource();
+
     window.gtag('config', GA_MEASUREMENT_ID, {
       page_path: url,
+      ...(trafficSource && {
+        campaign_source: trafficSource.source,
+        campaign_medium: trafficSource.medium,
+        campaign_name: trafficSource.utmCampaign,
+      }),
     });
   }
 };
@@ -42,6 +157,8 @@ export const trackBlogView = (postTitle, postSlug, category) => {
 };
 
 export const trackBlogShare = (platform, postTitle, postSlug) => {
+  const trafficSource = getTrafficSource();
+
   event({
     action: 'share',
     category: 'Blog',
@@ -51,10 +168,14 @@ export const trackBlogShare = (platform, postTitle, postSlug) => {
 
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'share', {
+      event_category: 'Engagement',
       method: platform,
       content_type: 'blog_post',
       item_id: postSlug,
       content_name: postTitle,
+      // Track where the sharer came from originally
+      original_source: trafficSource?.source || 'unknown',
+      came_from_campaign: trafficSource?.utmCampaign || 'none',
     });
   }
 };
@@ -76,6 +197,8 @@ export const trackLinkClick = (destination, label) => {
 };
 
 export const trackDownload = (appStore, source) => {
+  const trafficSource = getTrafficSource();
+
   event({
     action: 'app_download_click',
     category: 'Conversion',
@@ -85,8 +208,13 @@ export const trackDownload = (appStore, source) => {
 
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'app_download_click', {
+      event_category: 'Conversion',
       app_store: appStore,
       source: source,
+      // Include traffic source to see which campaigns drive downloads
+      came_from: trafficSource?.source || 'unknown',
+      traffic_medium: trafficSource?.medium || 'unknown',
+      campaign: trafficSource?.utmCampaign || 'none',
     });
   }
 };

@@ -10,7 +10,7 @@ import Footer from "../../app/components/Footer";
 import { motion } from "framer-motion";
 import { urlForImage } from "../../lib/sanity/image";
 import HardcodedContent from "../HardcodedContent";
-import { trackBlogView, trackBlogShare, trackScrollDepth, trackLinkClick } from "../../lib/analytics";
+import { trackBlogView, trackBlogShare, trackScrollDepth, trackLinkClick, trackTrafficSource } from "../../lib/analytics";
 import { useEngagementTracking } from "../../hooks/useEngagementTracking";
 
 const SECTION_HEADINGS = [
@@ -260,10 +260,17 @@ export default function BlogPostContent({ post }) {
     post?.title
   );
 
-  // Track blog post view on mount
+  // Track blog post view and traffic source on mount
   useEffect(() => {
     if (post?.title && post?.slug?.current) {
+      // Track where user came from
+      const trafficSource = trackTrafficSource(window.location.pathname);
+
+      // Track blog view with source info
       trackBlogView(post.title, post.slug.current, post.category || 'News');
+
+      // Log source for debugging (optional - remove in production)
+      console.log('User came from:', trafficSource);
     }
   }, [post]);
 

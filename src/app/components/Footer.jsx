@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { trackDownload } from "../../lib/analytics";
 
 export default function Footer() {
   return (
@@ -21,10 +22,11 @@ export default function Footer() {
             </h3>
             <div className="flex flex-row flex-wrap items-center gap-6">
               {/* App Store Badge */}
-              <Link 
+              <Link
                 href="https://apps.apple.com/pl/app/privee-world/id1629866639"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackDownload('App Store', 'Footer')}
               >
                 <motion.div
                   whileHover={{ scale: 1.05, y: -2 }}
@@ -40,12 +42,13 @@ export default function Footer() {
                   />
                 </motion.div>
               </Link>
-              
+
               {/* Google Play Badge */}
-              <Link 
+              <Link
                 href="https://play.google.com/store/apps/details?id=com.privee.privee_mobile"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackDownload('Google Play', 'Footer')}
               >
                 <motion.div
                   whileHover={{ scale: 1.05, y: -2 }}

@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TopNav from "../components/TopNav";
 import FullscreenNav from "../components/FullscreenNav";
+import { trackFormSubmit, trackTrafficSource } from "../../lib/analytics";
 
 const SECTION_HEADINGS = [
   "Newsroom",
@@ -20,6 +21,11 @@ const ContactUs = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   // Assuming "Contact Us" is index 4 in SECTION_HEADINGS
   const [section, setSection] = useState(4);
+
+  useEffect(() => {
+    // Track traffic source
+    trackTrafficSource(window.location.pathname);
+  }, []);
 
   const scrollToSection = (index) => {
     setSection(index);
@@ -68,6 +74,9 @@ const ContactUs = () => {
       if (!response.ok) {
         throw new Error("There was a problem sending the email.");
       }
+
+      // Track form submission
+      trackFormSubmit('Contact Form');
 
       // Clear the form and set success message
       setFormData({ name: "", email: "", message: "" });

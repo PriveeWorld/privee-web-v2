@@ -5,32 +5,36 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { trackDownload, trackTrafficSource } from '../../lib/analytics';
 
 export default function DownloadPage() {
   const searchParams = useSearchParams();
   const [networkCode, setNetworkCode] = useState('VEDATOR');
 
   useEffect(() => {
+    // Track traffic source
+    trackTrafficSource(window.location.pathname);
+
     const fetchNetworkCode = async () => {
       const videoId = searchParams.get('videoId');
       const userWhoShareId = searchParams.get('userId');
-      
+
       console.log('URL Parameters:', { videoId, userWhoShareId });
 
       if (videoId && userWhoShareId) {
         try {
           const url = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${userWhoShareId}/${videoId}`;
           console.log('Fetching from URL:', url);
-          
+
           const response = await fetch(url);
           console.log('Response status:', response.status);
-          
+
           if (response.ok) {
             const data = await response.json();
             console.log('Full API Response:', data);
             const userNetworkCode = data?.data?.video?.userWhoShare?.networkCode;
             console.log('Extracted Network Code:', userNetworkCode);
-            
+
             if (userNetworkCode) {
               console.log('Setting Network Code to:', userNetworkCode);
               setNetworkCode(userNetworkCode);
@@ -63,11 +67,12 @@ export default function DownloadPage() {
         
         <div className="space-y-4">
           {/* App Store Button */}
-          <Link 
+          <Link
             href={downloadUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full block"
+            onClick={() => trackDownload('App Store', 'Download Page')}
           >
             <motion.div
               whileHover={{ scale: 1.02 }}
@@ -85,11 +90,12 @@ export default function DownloadPage() {
           </Link>
 
           {/* Google Play Button */}
-          <Link 
+          <Link
             href={downloadUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full block"
+            onClick={() => trackDownload('Google Play', 'Download Page')}
           >
             <motion.div
               whileHover={{ scale: 1.02 }}
