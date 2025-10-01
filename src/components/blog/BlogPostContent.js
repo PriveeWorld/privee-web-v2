@@ -117,8 +117,13 @@ const portableTextComponents = {
       const { width, height } =
         value.asset?.metadata?.dimensions || { width: 800, height: 600 };
 
+      // Apply hide on mobile class if hideOnMobile is true
+      const containerClass = value.hideOnMobile
+        ? "my-12 mx-auto w-full max-w-[800px] hidden md:block"
+        : "my-12 mx-auto w-full max-w-[800px]";
+
       return (
-        <figure className="my-12 mx-auto w-full max-w-[800px]">
+        <figure className={containerClass}>
           {/* Image */}
           <Image
             src={imageUrl}
