@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { trackDownload, trackTrafficSource } from '../../lib/analytics';
 
-export default function DownloadPage() {
+function DownloadPageContent() {
   const searchParams = useSearchParams();
   const [networkCode, setNetworkCode] = useState('VEDATOR');
 
@@ -115,4 +115,12 @@ export default function DownloadPage() {
       </div>
     </div>
   );
-} 
+}
+
+export default function DownloadPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DownloadPageContent />
+    </Suspense>
+  );
+}

@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { trackTrafficSource, pageview } from '../lib/analytics';
 
-export default function PageAnalytics() {
+function AnalyticsContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -26,4 +26,12 @@ export default function PageAnalytics() {
   }, [pathname, searchParams]);
 
   return null;
+}
+
+export default function PageAnalytics() {
+  return (
+    <Suspense fallback={null}>
+      <AnalyticsContent />
+    </Suspense>
+  );
 }

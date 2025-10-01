@@ -1,4 +1,4 @@
-import { generateViewport } from 'next'
+import { generateViewport } from 'next/viewport'
 import { Suspense } from 'react'
 
 export const viewport = {

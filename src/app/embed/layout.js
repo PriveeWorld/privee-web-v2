@@ -1,4 +1,4 @@
-import { generateViewport } from 'next'
+import { generateViewport } from 'next/viewport'
 
 export const viewport = {
   width: 'device-width',
