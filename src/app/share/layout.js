@@ -1,4 +1,4 @@
-import { generateViewport } from 'next/viewport'
+// Viewport configuration for the share page
 
 export const viewport = {
   width: 'device-width',

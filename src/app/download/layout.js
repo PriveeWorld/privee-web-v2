@@ -1,4 +1,4 @@
-import { generateViewport } from 'next/viewport'
+// Viewport configuration for the download page
 import { Suspense } from 'react'
 
 export const viewport = {
