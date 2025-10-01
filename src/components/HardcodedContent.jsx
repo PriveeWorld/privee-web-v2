@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { trackDownload, trackVideoPlay } from "../lib/analytics";
 
 const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDATOR", playStoreUrl = "https://priveee.onelink.me/AMM3/VEDATOR" }) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -169,11 +170,21 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
 
             <div className="mb-8">
               <p className="font-inter font-semibold text-gray-700 tracking-[0.18px] text-[18px] leading-[24px] text-center">
-                <Link href={appStoreUrl} target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                <Link
+                  href={appStoreUrl}
+                  target="_blank"
+                  className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline"
+                  onClick={() => trackDownload('App Store', 'Inline Text Link 1')}
+                >
                   Preuzmite aplikaciju
                 </Link>
                 , pozovite prijatelje i iskusite čaroliju{" "}
-                <Link href={appStoreUrl} target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
+                <Link
+                  href={appStoreUrl}
+                  target="_blank"
+                  className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline"
+                  onClick={() => trackDownload('App Store', 'Inline Text Link 2')}
+                >
                   Privee Worlda
                 </Link>
                 !
@@ -193,6 +204,7 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
                   controls
                   preload="metadata"
                   poster="/images/privee_tut_thumbnail.jpg"
+                  onPlay={() => trackVideoPlay('Privee Tutorial', '/videos/privee_tut.mp4')}
                   onClick={(e) => {
                     if (e.target.requestFullscreen) {
                       e.target.requestFullscreen();
@@ -645,6 +657,7 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
                 controls
                 preload="metadata"
                 poster="/images/prive_tut_1_thumbnail.jpg"
+                onPlay={() => trackVideoPlay('Privee Tutorial 1', '/videos/prive_tut_1_compressed.mp4')}
                 onClick={(e) => {
                   if (e.target.requestFullscreen) {
                     e.target.requestFullscreen();
@@ -663,7 +676,12 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
       {/* Download Buttons */}
       <div className="mt-24 mb-16">
         <div className="flex flex-row items-center justify-center gap-3 max-w-[400px] mx-auto">
-          <Link href={appStoreUrl} target="_blank" className="w-[160px] sm:w-[180px]">
+          <Link
+            href={appStoreUrl}
+            target="_blank"
+            className="w-[160px] sm:w-[180px]"
+            onClick={() => trackDownload('App Store', 'Hardcoded Content')}
+          >
             <Image
               src="/App_Store.svg"
               alt="Download on the App Store"
@@ -672,7 +690,12 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
               className="hover:opacity-80 transition-opacity duration-300 w-full h-auto"
             />
           </Link>
-          <Link href={playStoreUrl} target="_blank" className="w-[160px] sm:w-[180px]">
+          <Link
+            href={playStoreUrl}
+            target="_blank"
+            className="w-[160px] sm:w-[180px]"
+            onClick={() => trackDownload('Google Play', 'Hardcoded Content')}
+          >
             <Image
               src="/Google_Play.svg"
               alt="Get it on Google Play"

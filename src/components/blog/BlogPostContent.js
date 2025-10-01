@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
@@ -10,6 +10,8 @@ import Footer from "../../app/components/Footer";
 import { motion } from "framer-motion";
 import { urlForImage } from "../../lib/sanity/image";
 import HardcodedContent from "../HardcodedContent";
+import { trackBlogView, trackBlogShare, trackScrollDepth, trackLinkClick } from "../../lib/analytics";
+import { useEngagementTracking } from "../../hooks/useEngagementTracking";
 
 const SECTION_HEADINGS = [
   "Newsroom",
@@ -215,7 +217,7 @@ function formatDate(dateString) {
   });
 }
 
-const ShareButton = ({ platform, icon, link, onClick }) => {
+const ShareButton = ({ platform, icon, link, onClick, onShare }) => {
   if (platform === "Copy Link") {
     return (
       <button
@@ -232,6 +234,7 @@ const ShareButton = ({ platform, icon, link, onClick }) => {
       href={link}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => onShare && onShare(platform)}
       className="mr-4 flex items-center text-gray-600 hover:text-[#CD1A70] transition-colors duration-300"
     >
       {icon}
@@ -246,18 +249,60 @@ export default function BlogPostContent({ post }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [section, setSection] = useState(3);
   const [copied, setCopied] = useState(false);
+  const [scrollTracked, setScrollTracked] = useState({ 25: false, 50: false, 75: false, 100: false });
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const shareText = post?.title || "";
+
+  // Use comprehensive engagement tracking hook
+  const engagement = useEngagementTracking(
+    typeof window !== 'undefined' ? window.location.pathname : '',
+    post?.title
+  );
+
+  // Track blog post view on mount
+  useEffect(() => {
+    if (post?.title && post?.slug?.current) {
+      trackBlogView(post.title, post.slug.current, post.category || 'News');
+    }
+  }, [post]);
+
+  // Track scroll depth (keeping the simple version for immediate feedback)
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+
+      const thresholds = [25, 50, 75, 100];
+      thresholds.forEach(threshold => {
+        if (scrollPercent >= threshold && !scrollTracked[threshold]) {
+          trackScrollDepth(threshold, window.location.pathname);
+          setScrollTracked(prev => ({ ...prev, [threshold]: true }));
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrollTracked]);
 
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+
+      // Track copy link action
+      trackBlogShare('Copy Link', post?.title, post?.slug?.current);
     } catch (err) {
       console.error("Failed to copy link:", err);
     }
+  };
+
+  const handleShare = (platform) => {
+    trackBlogShare(platform, post?.title, post?.slug?.current);
   };
 
   const shareButtons = [
@@ -425,6 +470,7 @@ export default function BlogPostContent({ post }) {
                       icon={button.icon}
                       link={button.link}
                       onClick={button.onClick}
+                      onShare={handleShare}
                     />
                   ))}
                   {copied && (

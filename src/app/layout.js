@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google'
 import "./globals.css";
 import ClientLayoutWrapper from "./components/ClientLayoutWrapper";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,6 +38,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.className}>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body>
         <div id="root">
           <ClientLayoutWrapper>
