@@ -59,7 +59,32 @@ export default {
       type: 'array',
       of: [
         {
-          type: 'block'
+          type: 'block',
+          marks: {
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL',
+                    validation: Rule => Rule.uri({
+                      scheme: ['http', 'https', 'mailto', 'tel']
+                    })
+                  },
+                  {
+                    name: 'blank',
+                    type: 'boolean',
+                    title: 'Open in new tab',
+                    initialValue: true
+                  }
+                ]
+              }
+            ]
+          }
         },
         {
           type: 'image',
@@ -107,7 +132,32 @@ export default {
       type: 'array',
       of: [
         {
-          type: 'block'
+          type: 'block',
+          marks: {
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL',
+                    validation: Rule => Rule.uri({
+                      scheme: ['http', 'https', 'mailto', 'tel']
+                    })
+                  },
+                  {
+                    name: 'blank',
+                    type: 'boolean',
+                    title: 'Open in new tab',
+                    initialValue: true
+                  }
+                ]
+              }
+            ]
+          }
         },
         {
           type: 'image',
