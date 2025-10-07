@@ -1,0 +1,23 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "MNL7LF3F72.com.privee.privee-mobile",
+        "paths": [
+          "/share*",
+          "/movie/*",
+          "/user/*",
+          "/group/*",
+          "/content/*",
+          "/*"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "MNL7LF3F72.com.privee.privee-mobile"
+    ]
+  }
+}

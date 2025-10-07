@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.privee.privee_mobile",
+      "sha256_cert_fingerprints": [
+        "78:2E:49:F7:61:14:E6:E4:F8:8E:29:80:38:39:79:AC:58:EE:DE:27:C7:24:D2:A0:73:EA:27:CC:EE:B8:33:CF"
+      ]
+    }
+  }
+]
