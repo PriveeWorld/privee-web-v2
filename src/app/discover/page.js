@@ -15,6 +15,24 @@ const DiscoverPage = () => {
   const [section, setSection] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 overflow-y-auto flex flex-col">
       <FullscreenNav
@@ -31,253 +49,490 @@ const DiscoverPage = () => {
         section={SECTION_HEADINGS[section]}
       />
 
-      {/* Main Content */}
-      <div className="flex flex-col flex-1">
-        {/* Hero Section */}
-        <div className="w-full flex flex-col lg:flex-row">
-          {/* Left Content */}
-          <div className="w-full lg:w-3/5 flex flex-col justify-center px-8 pt-20 pb-12 sm:px-12 sm:pt-24 lg:px-16 lg:py-20 relative z-10 text-center lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-2xl"
-            >
-              <span className="text-gray-700 font-medium">Discover Privee</span>
-              <h1 className="mt-4 sm:mt-2 mb-6 bg-gradient-to-tr from-[#CD1B70] to-[#3B1872] bg-clip-text text-transparent font-clash text-[32px] leading-tight sm:text-[40px] md:text-[44px] relative z-20">
-                <span className="font-bold">What is Privee World</span> <span className="font-normal">&</span> <span className="font-bold">How to turn your life stories to Privee movies</span>
-              </h1>
+      {/* Hero Section with Image */}
+      <div className="flex flex-1 min-h-[60vh] lg:min-h-[70vh]">
+        {/* Left Content */}
+        <div className="w-full lg:w-3/5 flex flex-col justify-center px-6 pt-24 pb-12 sm:px-12 lg:px-16 lg:py-20 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-2xl"
+          >
+            <span className="inline-block px-4 py-1 rounded-full bg-gradient-to-r from-[#3A1772]/10 to-[#CD1A70]/10 text-[#3A1772] font-medium text-sm mb-4">
+              Discover Privee
+            </span>
 
-              {/* Section: Turn Your Day Into a Memory */}
-              <h2 className="mt-8 mb-4 text-gray-800 font-clash font-semibold text-[24px] sm:text-[28px] leading-tight">
+            <h1 className="mb-6 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] bg-clip-text text-transparent font-clash text-[32px] leading-tight sm:text-[40px] md:text-[48px] font-bold">
+              What is Privee World & How to turn your life stories to Privee movies
+            </h1>
+
+            <div className="h-1 w-24 bg-gradient-to-r from-[#3A1772] to-[#CD1A70] rounded-full mb-6" />
+
+         
+          </motion.div>
+        </div>
+
+        {/* Right Image */}
+        <div className="hidden lg:block w-2/5 relative z-0">
+          <div className="absolute inset-0 -left-[35%] w-[135%] h-full">
+            <Image
+              src="/images/woman.png"
+              alt="Privee World Visual"
+              fill
+              className="object-cover object-center"
+              priority
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Sections */}
+      <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-8 py-16">
+
+        {/* Section 1: Turn Your Day Into Memory */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 p-6 sm:p-8 border border-purple-100 shadow-sm"
+            whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center mb-6">
+              <span className="text-4xl mr-4">✨</span>
+              <h2 className="font-clash text-2xl sm:text-3xl font-semibold text-gray-800">
                 Turn Your Day Into a Memory That Lives Forever
               </h2>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                At the end of the day, you scroll through your phone gallery. So many photos. So many videos. And then you pause… <span className="font-semibold">What actually mattered today?</span>
+            </div>
+            <div className="space-y-4 text-gray-700 font-inter font-light leading-relaxed text-lg">
+              <p>
+                At the end of the day, you scroll through your phone gallery. So many photos. So many videos. And then you pause… <span className="font-semibold text-[#CD1A70]">What actually mattered today?</span>
               </p>
-              <p className="mb-6 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                With <span className="font-semibold">Privee</span>, you don't just store moments — you <span className="font-semibold">feel them again</span>.
+              <p>
+                With <span className="font-semibold text-[#3A1772]">Privee</span>, you don't just store moments — you <span className="font-semibold text-[#CD1A70]">feel them again</span>.
               </p>
+            </div>
+          </motion.div>
+        </motion.section>
 
-              {/* Section: Choose What Truly Matters */}
-              <h2 className="mt-8 mb-4 text-gray-800 font-clash font-semibold text-[24px] sm:text-[28px] leading-tight">
+        {/* Section 2: Choose What Truly Matters */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-6 sm:p-8 border border-blue-100 shadow-sm"
+            whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center mb-6">
+              <span className="text-4xl mr-4">📱</span>
+              <h2 className="font-clash text-2xl sm:text-3xl font-semibold text-gray-800">
                 Choose What Truly Matters
               </h2>
-              <p className="mb-6 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                Select one video from your phone gallery to upload. Even better, select <span className="font-semibold">two or three videos</span> and <span className="font-semibold">a few photos</span> from your gallery. Use <span className="font-semibold">Privee Video Editor</span> to shape them easily into something meaningful — not everything, only what counts.
+            </div>
+            <div className="space-y-4 text-gray-700 font-inter font-light leading-relaxed text-lg">
+              <p>
+                Select one video from your phone gallery to upload. Even better, select <span className="font-semibold text-blue-600">two or three videos</span> and <span className="font-semibold text-blue-600">a few photos</span> from your gallery.
               </p>
+              <p>
+                Use <span className="font-semibold text-[#3A1772]">Privee Video Editor</span> to shape them easily into something meaningful — not everything, only what counts.
+              </p>
+            </div>
+          </motion.div>
+        </motion.section>
 
-              {/* Section: Capture the Feeling */}
-              <h2 className="mt-8 mb-4 text-gray-800 font-clash font-semibold text-[24px] sm:text-[28px] leading-tight">
+        {/* Section 3: Capture the Feeling */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 p-6 sm:p-8 border border-green-100 shadow-sm"
+            whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center mb-6">
+              <span className="text-4xl mr-4">💭</span>
+              <h2 className="font-clash text-2xl sm:text-3xl font-semibold text-gray-800">
                 Capture the Feeling
               </h2>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
+            </div>
+            <div className="space-y-4 text-gray-700 font-inter font-light leading-relaxed text-lg">
+              <p>
                 Once you got nice video mix. Think! What did this moment mean to you today? Joy. Pride. Calm. Love. Chaos. Write it down.
               </p>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                Use a <span className="font-semibold">Caption</span> to express the emotion — not for likes, not for others — but as a message to your <span className="font-semibold">future self</span>.
+              <p>
+                Use a <span className="font-semibold text-green-600">Caption</span> to express the emotion — not for likes, not for others — but as a message to your <span className="font-semibold text-green-600">future self</span>.
               </p>
-              <p className="mb-6 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                Add a <span className="font-semibold">Title</span>. One simple line that connects you forever to that feeling.
+              <p>
+                Add a <span className="font-semibold text-[#3A1772]">Title</span>. One simple line that connects you forever to that feeling.
               </p>
+            </div>
+          </motion.div>
+        </motion.section>
 
-              {/* Section: Vision of the Moment */}
-              <h2 className="mt-8 mb-4 text-gray-800 font-clash font-semibold text-[24px] sm:text-[28px] leading-tight">
+        {/* Section 4: Vision of the Moment */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-gradient-to-br from-orange-50 to-yellow-50 p-6 sm:p-8 border border-orange-100 shadow-sm"
+            whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center mb-6">
+              <span className="text-4xl mr-4">🎬</span>
+              <h2 className="font-clash text-2xl sm:text-3xl font-semibold text-gray-800">
                 Vision of the Moment — The Visual
               </h2>
-              <p className="mb-6 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                When you tap <span className="font-semibold">DONE</span>, your video—blended with your captions and emotions—becomes a <span className="font-semibold">Visual</span>. In Privee World, a Visual is your personal interpretation of a moment in your life, captured and ready to be stored.
+            </div>
+            <div className="space-y-4 text-gray-700 font-inter font-light leading-relaxed text-lg">
+              <p>
+                When you tap <span className="font-semibold text-orange-600">DONE</span>, your video—blended with your captions and emotions—becomes a <span className="font-semibold text-[#CD1A70]">Visual</span>.
               </p>
+              <p>
+                In Privee World, a Visual is your personal interpretation of a moment in your life, captured and ready to be stored.
+              </p>
+            </div>
+          </motion.div>
+        </motion.section>
 
-              {/* Section: Save It Where It Belongs */}
-              <h2 className="mt-8 mb-4 text-gray-800 font-clash font-semibold text-[24px] sm:text-[28px] leading-tight">
+        {/* Section 5: Save It Where It Belongs */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-gradient-to-br from-cyan-50 to-blue-50 p-6 sm:p-8 border border-cyan-100 shadow-sm"
+            whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center mb-6">
+              <span className="text-4xl mr-4">📁</span>
+              <h2 className="font-clash text-2xl sm:text-3xl font-semibold text-gray-800">
                 Save It Where It Belongs
               </h2>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                When you tap <span className="font-semibold">DONE</span>, your story — now a <span className="font-semibold">Visual</span> in Privee World — is ready to be saved to your <span className="font-semibold">private Movie folder</span>. It is visible only to you: <span className="font-semibold">safe, organized, and timeless</span>.
+            </div>
+            <div className="space-y-4 text-gray-700 font-inter font-light leading-relaxed text-lg">
+              <p>
+                When you tap <span className="font-semibold text-cyan-600">DONE</span>, your story — now a <span className="font-semibold text-[#3A1772]">Visual</span> in Privee World — is ready to be saved to your <span className="font-semibold text-cyan-600">private Movie folder</span>.
               </p>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                Choose a meaningful name for your Movie folder and define its theme — <span className="font-semibold">Family, Friends, Travel, Events</span>, or any moment you want to preserve.
+              <p>
+                It is visible only to you: <span className="font-semibold text-[#CD1A70]">safe, organized, and timeless</span>.
               </p>
-              <p className="mb-6 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                When you capture a new moment and create another Visual, you can simply add it to the same Private Movie folder. Or, create a new with a different theme and continue building your story there.
+              <p>
+                Choose a meaningful name for your Movie folder and define its theme — <span className="font-semibold text-cyan-600">Family, Friends, Travel, Events</span>, or any moment you want to preserve.
               </p>
+              <p>
+                When you capture a new moment and create another Visual, you can simply add it to the same Private Movie folder. Or, create a new one with a different theme and continue building your story there.
+              </p>
+            </div>
+          </motion.div>
+        </motion.section>
 
-              {/* Section: And That's Just the Beginning */}
-              <h2 className="mt-8 mb-4 text-gray-800 font-clash font-semibold text-[24px] sm:text-[28px] leading-tight">
+        {/* Section 6: And That's Just the Beginning */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 p-6 sm:p-8 border border-purple-100 shadow-sm"
+            whileHover={{ scale: 1.01, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center mb-6">
+              <span className="text-4xl mr-4">🎭</span>
+              <h2 className="font-clash text-2xl sm:text-3xl font-semibold text-gray-800">
                 And That's Just the Beginning
               </h2>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                Life is full of themes worth remembering. Every folder becomes a <span className="font-semibold">Movie</span>. Every Movie becomes a <span className="font-semibold">memory you can relive</span>.
+            </div>
+            <div className="space-y-4 text-gray-700 font-inter font-light leading-relaxed text-lg">
+              <p>
+                Life is full of themes worth remembering. Every folder becomes a <span className="font-semibold text-[#3A1772]">Movie</span>. Every Movie becomes a <span className="font-semibold text-[#CD1A70]">memory you can relive</span>.
               </p>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                <span className="font-semibold">Privee isn't about sharing your life.</span> It's about <span className="font-semibold">keeping it</span>.
-              </p>
-              <p className="mb-6 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
+              <div className="my-6 p-4 rounded-xl bg-white/70 border-l-4 border-[#CD1A70]">
+                <p className="text-xl font-semibold text-gray-800">
+                  Privee isn't about sharing your life. It's about <span className="text-[#CD1A70]">keeping it</span>.
+                </p>
+              </div>
+              <p className="text-center text-2xl">
                 Welcome to your private cinema. 🎬
               </p>
+            </div>
+          </motion.div>
+        </motion.section>
 
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                You're in control of every moment. You can publish your Visuals, invite friends to create <span className="font-semibold">Group Movies</span>, explore other Movies, or delete and edit any <span className="font-semibold">Private or Public Visuals</span> at any time.
+        {/* Features Grid */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <div className="grid gap-6 md:grid-cols-2">
+            <motion.div
+              className="rounded-xl bg-white p-6 shadow-md border border-gray-100"
+              variants={fadeInUp}
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="mb-4 text-3xl">🎮</div>
+              <h3 className="mb-3 font-clash text-xl font-semibold text-gray-800">
+                You're in Control
+              </h3>
+              <p className="text-gray-600 font-inter font-light leading-relaxed">
+                You can publish your Visuals, invite friends to create <span className="font-semibold text-[#3A1772]">Group Movies</span>, explore other Movies, or delete and edit any <span className="font-semibold text-[#CD1A70]">Private or Public Visuals</span> at any time.
               </p>
-              <p className="mb-8 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                Start your journey with <span className="font-semibold">Privee World</span> now and experience something truly different.
-              </p>
+            </motion.div>
 
-              {/* Section: Lifetime Upgrade */}
-              <h2 className="mt-8 mb-4 text-gray-800 font-clash font-semibold text-[24px] sm:text-[28px] leading-tight">
-                Privee life time upgrade for your life
+            <motion.div
+              className="rounded-xl bg-white p-6 shadow-md border border-gray-100"
+              variants={fadeInUp}
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="mb-4 text-3xl">🚀</div>
+              <h3 className="mb-3 font-clash text-xl font-semibold text-gray-800">
+                Start Your Journey
+              </h3>
+              <p className="text-gray-600 font-inter font-light leading-relaxed">
+                Start your journey with <span className="font-semibold text-[#3A1772]">Privee World</span> now and experience something truly different.
+              </p>
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Lifetime Upgrade Section - Special Gradient */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-gradient-to-r from-[#3A1772] to-[#CD1A70] p-8 sm:p-10 shadow-xl"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="text-center mb-6">
+              <span className="text-5xl mb-4 block">🚀</span>
+              <h2 className="font-clash text-2xl sm:text-3xl font-bold text-white mb-2">
+                Privee lifetime upgrade for your life
               </h2>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
+            </div>
+            <div className="space-y-4 text-white/90 font-inter font-light leading-relaxed text-lg text-center max-w-3xl mx-auto">
+              <p>
                 We've all spent hours on social media watching other people's lives. Now, there's an opportunity to experience something entirely new.
               </p>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                <span className="font-semibold">Privee World</span> is free to download. Create and upload up to 33 videos per month, with unlimited free viewing.
+              <p>
+                <span className="font-semibold text-white">Privee World</span> is free to download. Create and upload up to 33 videos per month, with unlimited free viewing.
               </p>
-              <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                Limited offer: To celebrate the holiday season, everyone who downloads and registers now receives a lifetime upgrade (no limit in video upload).
+              <p className="bg-white/20 rounded-lg p-4 backdrop-blur-sm">
+                <span className="font-semibold text-yellow-200">Limited offer:</span> To celebrate the holiday season, everyone who downloads and registers now receives a <span className="font-bold text-white">lifetime upgrade</span> (no limit in video upload).
               </p>
-              <p className="mb-4 text-gray-700 font-inter font-semibold tracking-[0.01em] leading-[24px]">
+            </div>
+            <div className="text-center mt-8">
+              <p className="text-xl font-bold text-white mb-4">
                 Your Life Deserves a Lifetime Upgrade.
               </p>
-              <p className="mb-8 text-gray-700 font-inter font-semibold tracking-[0.01em] leading-[24px]">
-                <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline">
-                  Download Privee World today.
-                </Link>
-              </p>
-
-              {/* Video Section */}
-              <div className="mb-8 flex justify-center lg:justify-start">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative max-w-md w-full"
+              <Link href="https://priveee.onelink.me/AMM3/VEDATOR" target="_blank">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-white text-[#3A1772] font-bold rounded-full shadow-lg hover:shadow-xl transition-shadow text-lg"
                 >
-                  <video
-                    ref={(video) => {
-                      if (video) {
-                        video.addEventListener('play', () => setIsVideoPlaying(true));
-                        video.addEventListener('pause', () => setIsVideoPlaying(false));
-                        video.addEventListener('ended', () => setIsVideoPlaying(false));
-                      }
-                    }}
-                    className="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
-                    controls
-                    preload="metadata"
-                    poster="/images/privee_tut_thumbnail.jpg"
+                  Download Privee World Today
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        </motion.section>
+
+        {/* Video Section */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 p-6 sm:p-8 border border-gray-200 shadow-sm"
+            whileHover={{ boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
+          >
+            <div className="text-center mb-6">
+              <span className="text-4xl block mb-2">📺</span>
+              <h3 className="font-clash text-xl font-semibold text-gray-800">
+                See Privee in Action
+              </h3>
+              <p className="text-gray-600 font-inter font-light">Watch how easy it is to create your movie</p>
+            </div>
+
+            <div className="flex justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative max-w-md w-full"
+              >
+                <video
+                  ref={(video) => {
+                    if (video) {
+                      video.addEventListener('play', () => setIsVideoPlaying(true));
+                      video.addEventListener('pause', () => setIsVideoPlaying(false));
+                      video.addEventListener('ended', () => setIsVideoPlaying(false));
+                    }
+                  }}
+                  className="w-full rounded-xl shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                  controls
+                  preload="metadata"
+                  poster="/images/privee_tut_thumbnail.jpg"
+                  onClick={(e) => {
+                    if (e.target.requestFullscreen) {
+                      e.target.requestFullscreen();
+                    } else if (e.target.webkitRequestFullscreen) {
+                      e.target.webkitRequestFullscreen();
+                    } else if (e.target.msRequestFullscreen) {
+                      e.target.msRequestFullscreen();
+                    }
+                  }}
+                >
+                  <source src="/videos/privee_tut.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+
+                {/* Play Button Overlay */}
+                {!isVideoPlaying && (
+                  <div
+                    className="absolute inset-0 flex items-center justify-center cursor-pointer rounded-xl"
                     onClick={(e) => {
-                      if (e.target.requestFullscreen) {
-                        e.target.requestFullscreen();
-                      } else if (e.target.webkitRequestFullscreen) {
-                        e.target.webkitRequestFullscreen();
-                      } else if (e.target.msRequestFullscreen) {
-                        e.target.msRequestFullscreen();
+                      e.preventDefault();
+                      const video = e.currentTarget.parentElement.querySelector('video');
+                      if (video) {
+                        video.play();
+                        setIsVideoPlaying(true);
                       }
                     }}
                   >
-                    <source src="/videos/privee_tut.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-
-                  {/* Play Button Overlay - only show when video is not playing */}
-                  {!isVideoPlaying && (
-                    <div
-                      className="absolute inset-0 flex items-center justify-center cursor-pointer"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const video = e.currentTarget.parentElement.querySelector('video');
-                        if (video) {
-                          video.play();
-                          setIsVideoPlaying(true);
-                        }
-                      }}
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="bg-black/40 rounded-full p-5 hover:bg-black/50 transition-colors duration-300 backdrop-blur-sm"
                     >
-                      <motion.div
-                        animate={{ scale: [1, 1.1, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="bg-black/30 rounded-full p-4 hover:bg-black/40 transition-colors duration-300"
+                      <svg
+                        className="w-12 h-12 text-white ml-1"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <svg
-                          className="w-10 h-10 text-white ml-1"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </motion.div>
-                    </div>
-                  )}
-                </motion.div>
-              </div>
-
-              {/* B2B Opportunities Section */}
-              <div className="mt-12 mb-8 p-6 bg-gradient-to-br from-gray-100 to-gray-50 rounded-xl border border-gray-200">
-                <h2 className="mb-4 text-gray-800 font-clash font-semibold text-[24px] sm:text-[28px] leading-tight">
-                  B2B Opportunities
-                </h2>
-                <p className="mb-4 text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                  <span className="font-semibold">Privee World</span> offers a wide range of opportunities for <span className="font-semibold">media companies, brands, and storytellers</span> with existing communities to build, engage, and truly own their audience on the platform.
-                </p>
-                <p className="text-gray-700 font-inter font-light tracking-[0.01em] leading-[24px]">
-                  For professional storytelling partnerships, brand collaborations, or media integrations, please contact{" "}
-                  <Link href="mailto:info@privee.world" className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline font-semibold">
-                    info@privee.world
-                  </Link>
-                </p>
-              </div>
-
-              {/* Learn More Section */}
-              <div className="mb-12">
-                <p className="mb-4 font-inter font-semibold text-gray-700 tracking-[0.01em] leading-[20px] text-center">
-                  Learn more about Privee World:
-                </p>
-
-                <div className="flex flex-wrap gap-4 mb-8 justify-center">
-                  <Link href="/privee-story">
-                    <motion.div
-                      whileHover={{ scale: 1.03 }}
-                      className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
-                    >
-                      Privee Story
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
                     </motion.div>
-                  </Link>
-
-                  <Link href="/support">
-                    <motion.div
-                      whileHover={{ scale: 1.03 }}
-                      className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
-                    >
-                      Help Center
-                    </motion.div>
-                  </Link>
-
-                  <Link href="/faq">
-                    <motion.div
-                      whileHover={{ scale: 1.03 }}
-                      className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
-                    >
-                      FAQ
-                    </motion.div>
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right Image */}
-          <div className="hidden lg:block w-2/5 relative z-0">
-            <div className="absolute inset-0 -left-[35%] w-[135%] h-full">
-              <Image
-                src="/images/woman.png"
-                alt="Privee World Visual"
-                fill
-                className="object-cover object-center"
-                priority
-              />
+                  </div>
+                )}
+              </motion.div>
             </div>
+          </motion.div>
+        </motion.section>
+
+        {/* B2B Opportunities Section */}
+        <motion.section
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="rounded-2xl bg-white p-6 sm:p-8 shadow-lg border border-gray-200"
+            whileHover={{ scale: 1.01, boxShadow: "0 25px 50px rgba(0,0,0,0.1)" }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center mb-6">
+              <span className="text-4xl mr-4">💼</span>
+              <h2 className="font-clash text-2xl sm:text-3xl font-semibold text-gray-800">
+                B2B Opportunities
+              </h2>
+            </div>
+            <div className="space-y-4 text-gray-700 font-inter font-light leading-relaxed text-lg">
+              <p>
+                <span className="font-semibold text-[#3A1772]">Privee World</span> offers a wide range of opportunities for <span className="font-semibold text-gray-800">media companies, brands, and storytellers</span> with existing communities to build, engage, and truly own their audience on the platform.
+              </p>
+              <p>
+                For professional storytelling partnerships, brand collaborations, or media integrations, please contact{" "}
+                <Link href="mailto:info@privee.world" className="text-[#CD1A70] hover:text-[#3A1772] transition-colors duration-300 underline font-semibold">
+                  info@privee.world
+                </Link>
+              </p>
+            </div>
+          </motion.div>
+        </motion.section>
+
+        {/* Learn More Section */}
+        <motion.div
+          className="text-center py-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          <p className="mb-6 font-inter font-semibold text-gray-700 tracking-[0.01em] leading-[20px]">
+            Learn more about Privee World:
+          </p>
+
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/privee-story">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold"
+              >
+                Privee Story
+              </motion.div>
+            </Link>
+
+            <Link href="/support">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold"
+              >
+                Help Center
+              </motion.div>
+            </Link>
+
+            <Link href="/faq">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold"
+              >
+                FAQ
+              </motion.div>
+            </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Footer */}
