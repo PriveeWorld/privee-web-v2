@@ -313,6 +313,7 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
               { title: "Help Center", href: "/support" },
               { title: "FAQ", href: "/faq" },
               { title: "Contact Us", href: "/contact-us" },
+              { title: "About Us", href: "/about-us" },
             ].map((link, index) => (
               <motion.div
                 key={index}

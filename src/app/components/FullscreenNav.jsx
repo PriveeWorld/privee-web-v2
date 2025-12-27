@@ -23,6 +23,7 @@ export default function FullscreenNav({ isOpen, onClose }) {
     { title: "FAQ", href: "/faq" },
     { title: "Privacy Policy", href: "/privacy" },
     { title: "Contact Us", href: "/contact-us" },
+    { title: "About Us", href: "/about-us" },
   ];
 
   return (

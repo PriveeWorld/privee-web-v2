@@ -531,6 +531,16 @@ const DiscoverPage = () => {
                 FAQ
               </motion.div>
             </Link>
+
+            <Link href="/about-us">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold"
+              >
+                About Us
+              </motion.div>
+            </Link>
           </div>
         </motion.div>
       </div>

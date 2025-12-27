@@ -13,12 +13,13 @@ const SECTION_HEADINGS = [
   "Help Center",
   "FAQ",
   "Privacy Policy",
-  "Contact Us"
+  "Contact Us",
+  "About Us"
 ];
 
 const AboutUs = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [section, setSection] = useState(1);
+  const [section, setSection] = useState(7);
 
   const scrollToSection = (index) => {
     setSection(index);

@@ -640,7 +640,7 @@ const PriveeStory = () => {
                   Discover Privee
                 </motion.div>
               </Link>
-              
+
               <Link href="/support">
                 <motion.div
                   whileHover={{ scale: 1.03 }}
@@ -649,13 +649,22 @@ const PriveeStory = () => {
                   Help Center
                 </motion.div>
               </Link>
-              
+
               <Link href="/faq">
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
                 >
                   FAQ
+                </motion.div>
+              </Link>
+
+              <Link href="/about-us">
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
+                >
+                  About Us
                 </motion.div>
               </Link>
             </div>
