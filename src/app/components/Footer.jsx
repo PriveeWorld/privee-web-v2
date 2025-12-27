@@ -74,7 +74,7 @@ export default function Footer() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            © {new Date().getFullYear()} Privee World. All rights reserved.
+            © {new Date().getFullYear()} Privee World GmbH, Vienna, Austria. All rights reserved.
           </motion.p>
           
           {/* Decorative element */}

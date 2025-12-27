@@ -7,7 +7,7 @@ import FullscreenNav from "../components/FullscreenNav";
 import { trackFormSubmit, trackTrafficSource } from "../../lib/analytics";
 
 const SECTION_HEADINGS = [
-  "Newsroom",
+  // "Newsroom",
   "Discover Privee",
   "Privee Story",
   "Help Center",
@@ -219,15 +219,15 @@ const ContactUs = () => {
           </p>
           
           <div className="flex flex-wrap gap-4 mb-8 justify-center">
-            <a href="/newsroom">
+            {/* <a href="/newsroom">
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"
               >
                 Newsroom
               </motion.div>
-            </a>
-            
+            </a> */}
+
             <a href="/discover">
               <motion.div
                 whileHover={{ scale: 1.03 }}
@@ -237,7 +237,7 @@ const ContactUs = () => {
               </motion.div>
             </a>
             
-            <a href="/about-us">
+            <a href="/privee-story">
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 className="border border-[#6f2c91]/30 rounded-full px-6 py-2 text-[#6f2c91] hover:bg-[#6f2c91]/5 transition-colors font-inter font-semibold tracking-[0.01em] leading-[20px]"

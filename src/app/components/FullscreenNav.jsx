@@ -16,9 +16,9 @@ export default function FullscreenNav({ isOpen, onClose }) {
   };
 
   const navLinks = [
-    { title: "Newsroom", href: "/newsroom" },
+    // { title: "Newsroom", href: "/newsroom" },
     { title: "Discover Privee", href: "/discover" },
-    { title: "Privee Story", href: "/about-us" },
+    { title: "Privee Story", href: "/privee-story" },
     { title: "Help Center", href: "/support" },
     { title: "FAQ", href: "/faq" },
     { title: "Privacy Policy", href: "/privacy" },

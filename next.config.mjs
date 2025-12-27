@@ -14,6 +14,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'i.ibb.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'streaming-media.production.privee.world',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static-media.production.privee.world',
+      },
     ],
   },
   webpack(config) {

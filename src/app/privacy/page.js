@@ -6,7 +6,7 @@ import TopNav from "../components/TopNav";
 import FullscreenNav from "../components/FullscreenNav";
 
 const SECTION_HEADINGS = [
-  "Newsroom",
+  // "Newsroom",
   "Discover Privee",
   "Privee Story",
   "Privee Hub",

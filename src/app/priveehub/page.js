@@ -8,7 +8,7 @@ import FullscreenNav from "../components/FullscreenNav";
 import Link from "next/link";
 
 const SECTION_HEADINGS = [
-  "Newsroom",
+  // "Newsroom",
   "Discover Privee",
   "Privee Story",
   "Privee Hub",
