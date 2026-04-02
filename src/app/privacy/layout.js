@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "Privacy Policy",
     description: "Privee World privacy policy. Your data privacy and content ownership is our priority.",
-    url: "https://privee.world/privacy",
+    url: "https://www.privee.world/privacy",
     type: "website",
   },
 };

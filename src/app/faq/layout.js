@@ -6,7 +6,7 @@ export const metadata = {
   openGraph: {
     title: "FAQ",
     description: "Frequently asked questions about Privee - how to create Visuals, build Movies from videos and photos, use Cinema, publish and share your content.",
-    url: "https://privee.world/faq",
+    url: "https://www.privee.world/faq",
     type: "website",
   },
 };

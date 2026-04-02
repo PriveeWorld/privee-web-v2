@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "Child Safety Standards",
     description: "Privee World's commitment to child safety and content moderation standards.",
-    url: "https://privee.world/child-safety-standards",
+    url: "https://www.privee.world/child-safety-standards",
     type: "website",
   },
 };

@@ -7,7 +7,7 @@ import PageAnalytics from "@/components/PageAnalytics";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  metadataBase: new URL("https://privee.world"),
+  metadataBase: new URL("https://www.privee.world"),
   title: {
     default: "Privee World",
     template: "%s | Privee World",
@@ -17,7 +17,7 @@ export const metadata = {
   openGraph: {
     title: "Privee World",
     description: "Create Movies from your videos and photos. Turn everyday moments into cinematic stories. Your personal movie maker - private first.",
-    url: "https://privee.world",
+    url: "https://www.privee.world",
     siteName: "Privee World",
     images: [
       {
@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Privee World","alternateName":"Privee World GmbH","url":"https://privee.world","logo":"https://privee.world/images/priveelogo.png","description":"A media-tech company empowering users to create cinematic video stories and Movies from their everyday moments. Private first.","address":{"@type":"PostalAddress","addressLocality":"Vienna","addressCountry":"AT"}},{"@type":"WebSite","name":"Privee World","url":"https://privee.world"},{"@type":"SoftwareApplication","name":"Privee World","operatingSystem":"iOS, Android","applicationCategory":"MultimediaApplication","description":"Create Movies from your videos and photos. Turn everyday moments into cinematic stories. Watch curated content on Cinema.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}]}`
+            __html: `{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Privee World","alternateName":"Privee World GmbH","url":"https://www.privee.world","logo":"https://www.privee.world/images/priveelogo.png","description":"A media-tech company empowering users to create cinematic video stories and Movies from their everyday moments. Private first.","address":{"@type":"PostalAddress","addressLocality":"Vienna","addressCountry":"AT"}},{"@type":"WebSite","name":"Privee World","url":"https://www.privee.world"},{"@type":"SoftwareApplication","name":"Privee World","operatingSystem":"iOS, Android","applicationCategory":"MultimediaApplication","description":"Create Movies from your videos and photos. Turn everyday moments into cinematic stories. Watch curated content on Cinema.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}]}`
           }}
         />
       </head>

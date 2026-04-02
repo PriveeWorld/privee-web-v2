@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "Terms of Service",
     description: "Privee World terms and conditions of use.",
-    url: "https://privee.world/terms",
+    url: "https://www.privee.world/terms",
     type: "website",
   },
 };

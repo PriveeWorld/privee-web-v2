@@ -7,6 +7,6 @@ export default function robots() {
         disallow: ['/admin-blog', '/api/', '/embed'],
       },
     ],
-    sitemap: 'https://privee.world/sitemap.xml',
+    sitemap: 'https://www.privee.world/sitemap.xml',
   };
 }

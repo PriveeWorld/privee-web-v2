@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "Help Center",
     description: "Privee World Help Center. Learn how to create video collages, build Movies from photos and videos, use Cinema, publish and share content.",
-    url: "https://privee.world/support",
+    url: "https://www.privee.world/support",
     type: "website",
   },
 };

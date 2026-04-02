@@ -7,7 +7,7 @@ export const metadata = {
   openGraph: {
     title: "Cinema - Privee World",
     description: "Browse Movies and Visuals on Privee Cinema. Swipe to discover curated cinematic stories from creators.",
-    url: "https://privee.world/cinema",
+    url: "https://www.privee.world/cinema",
     type: "website",
   },
 };

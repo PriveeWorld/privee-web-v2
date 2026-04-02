@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "Contact Us",
     description: "Get in touch with the Privee World team. For partnerships, media integrations, or general inquiries.",
-    url: "https://privee.world/contact-us",
+    url: "https://www.privee.world/contact-us",
     type: "website",
   },
 };

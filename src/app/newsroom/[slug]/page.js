@@ -98,7 +98,7 @@ export default async function BlogPost({ params }) {
     "publisher": {
       "@type": "Organization",
       "name": "Privee World",
-      "logo": { "@type": "ImageObject", "url": "https://privee.world/images/priveelogo.png" },
+      "logo": { "@type": "ImageObject", "url": "https://www.privee.world/images/priveelogo.png" },
     },
     ...(imageUrl && { "image": imageUrl }),
   };

@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "Newsroom",
     description: "Latest news, updates, and stories from Privee World.",
-    url: "https://privee.world/newsroom",
+    url: "https://www.privee.world/newsroom",
     type: "website",
   },
 };

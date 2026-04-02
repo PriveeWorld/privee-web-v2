@@ -63,7 +63,7 @@ const TermsOfService = () => {
           setIsNavOpen(false);
         }}
       />
-      <h1 className="text-4xl mt-24 font-bold mb-4">Terms and Conditions</h1>
+      <h1 className="text-4xl mt-[100px] font-bold mb-4">Terms and Conditions</h1>
       <p className="text-lg mb-4">"Privee World GmbH"</p>
       <p className="text-lg mb-4">Effective as of May 24, 2024.</p>
       <Section>

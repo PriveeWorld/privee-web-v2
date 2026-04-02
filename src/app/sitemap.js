@@ -1,7 +1,7 @@
 import { getClient } from '../lib/sanity/client';
 
 export default async function sitemap() {
-  const baseUrl = 'https://privee.world';
+  const baseUrl = 'https://www.privee.world';
 
   const staticRoutes = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },

@@ -64,7 +64,7 @@ const PrivacyPolicy = () => {
           setIsNavOpen(false);
         }}
       />
-      <h1 className="text-4xl mt-24 font-bold mb-4">
+      <h1 className="text-4xl mt-[100px] font-bold mb-4">
         Privacy Policy for Privee World
       </h1>
       <p className="text-lg mb-8">Privacy Policy</p>
