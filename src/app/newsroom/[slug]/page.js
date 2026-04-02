@@ -50,12 +50,14 @@ export async function generateMetadata({ params }) {
 
   const imageUrl = post.featuredImage ? urlForImage(post.featuredImage).width(1200).height(630).url() : null;
 
+  const description = post.title;
+
   return {
     title: post.title,
-    description: post.title,
+    description,
     openGraph: {
       title: post.title,
-      description: post.title,
+      description,
       images: imageUrl ? [
         {
           url: imageUrl,
@@ -85,5 +87,29 @@ export default async function BlogPost({ params }) {
     return <div>Post not found</div>;
   }
 
-  return <BlogPostContent post={post} />;
+  const imageUrl = post.featuredImage ? urlForImage(post.featuredImage).width(1200).height(630).url() : null;
+
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "datePublished": post.publishedAt,
+    "author": post.author?.name ? { "@type": "Person", "name": post.author.name } : undefined,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Privee World",
+      "logo": { "@type": "ImageObject", "url": "https://privee.world/images/priveelogo.png" },
+    },
+    ...(imageUrl && { "image": imageUrl }),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <BlogPostContent post={post} />
+    </>
+  );
 } 

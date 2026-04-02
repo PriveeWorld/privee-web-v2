@@ -213,11 +213,11 @@ const ContactUs = () => {
         </motion.div>
 
         {/* Learn More Section */}
-        <div className="mb-12 mt-16">
+        <div className="mb-12 mt-16 w-full">
           <p className="mb-4 font-inter font-semibold text-gray-700 tracking-[0.01em] leading-[20px] text-center">
             Learn more about Privee World:
           </p>
-          
+
           <div className="flex flex-wrap gap-4 mb-8 justify-center">
             {/* <a href="/newsroom">
               <motion.div

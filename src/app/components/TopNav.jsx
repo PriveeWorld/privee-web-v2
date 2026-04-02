@@ -66,6 +66,7 @@ function TopNav({ onMenuClick, section }) {
               alt="Privee World - Logo"
               width={120}
               height={40}
+              priority
               className="object-contain sm:w-[150px] sm:h-[50px]"
             />
           </motion.div>

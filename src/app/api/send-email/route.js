@@ -4,7 +4,19 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
   try {
     // Parse JSON from the request body
-    const { subject, text, html } = await request.json();
+    const body = await request.json();
+    const { subject, text, html } = body;
+
+    // Input validation
+    if (subject && (typeof subject !== 'string' || subject.length > 200)) {
+      return NextResponse.json({ error: 'Subject must be a string under 200 characters' }, { status: 400 });
+    }
+    if (text && (typeof text !== 'string' || text.length > 5000)) {
+      return NextResponse.json({ error: 'Text must be a string under 5000 characters' }, { status: 400 });
+    }
+    if (html && (typeof html !== 'string' || html.length > 10000)) {
+      return NextResponse.json({ error: 'HTML must be a string under 10000 characters' }, { status: 400 });
+    }
 
     // Create a Nodemailer transporter using your AWS SES SMTP credentials
     const transporter = nodemailer.createTransport({

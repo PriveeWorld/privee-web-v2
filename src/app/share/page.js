@@ -101,7 +101,7 @@ export async function generateMetadata({ searchParams }) {
       images: [metaImage],
     },
     twitter: {
-      card: [metaImage],
+      card: "summary_large_image",
       title: metaTitle,
       description: metaDesc,
       images: [metaImage],

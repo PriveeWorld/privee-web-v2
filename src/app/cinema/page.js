@@ -3,10 +3,10 @@ import CinemaViewer from "./CinemaViewer";
 
 export const metadata = {
   title: "Cinema - Privee World",
-  description: "Watch amazing movies and visuals on Privee Cinema",
+  description: "Browse Movies and Visuals on Privee Cinema. Swipe to discover curated cinematic stories from creators.",
   openGraph: {
     title: "Cinema - Privee World",
-    description: "Watch amazing movies and visuals on Privee Cinema",
+    description: "Browse Movies and Visuals on Privee Cinema. Swipe to discover curated cinematic stories from creators.",
     url: "https://privee.world/cinema",
     type: "website",
   },
