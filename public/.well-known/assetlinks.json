@@ -1,11 +1,14 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.privee.privee_mobile",
       "sha256_cert_fingerprints": [
-        "78:2E:49:F7:61:14:E6:E4:F8:8E:29:80:38:39:79:AC:58:EE:DE:27:C7:24:D2:A0:73:EA:27:CC:EE:B8:33:CF"
+        "F5:11:05:6D:D7:D3:2B:09:5C:6A:79:1C:F8:2C:FF:67:B1:39:2E:F0:7D:96:62:DA:C7:3A:AB:92:0A:01:42:8B",
+        "46:3B:FB:99:B7:7C:E8:A6:D3:23:4D:9A:2C:A8:C0:79:96:C2:7A:FC:3B:CA:C1:4E:E3:7C:29:17:84:BC:3E:CD"
       ]
     }
   }
