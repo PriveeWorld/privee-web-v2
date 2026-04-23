@@ -103,6 +103,41 @@ export default function ParisPage({ videoData, isEmbedded = false }) {
     }
   }, [videoPath]);
 
+  // 5.1) Attempt to open the native app if installed.
+  //      iOS only fires Universal Links for cross-app taps, so an in-Safari
+  //      visit to /share won't bounce into the app on its own. We nudge it by
+  //      firing the custom scheme once on mount; if the app isn't installed
+  //      nothing happens (we intentionally do NOT redirect to the store —
+  //      someone viewing in a browser probably wants to stay there).
+  //      In-app browsers (Instagram, Facebook, etc.) block custom schemes,
+  //      so we skip them to avoid jank.
+  useEffect(() => {
+    if (isEmbedded) return;
+    if (typeof window === "undefined") return;
+
+    const ua = navigator.userAgent || "";
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(ua);
+    if (!isMobile) return;
+
+    const isInAppBrowser = /FBAN|FBAV|Instagram|Line|WhatsApp|Snapchat|TikTok/i.test(ua);
+    if (isInAppBrowser) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const videoId = params.get("videoId");
+    const userId = params.get("userId");
+    if (!videoId) return;
+
+    const deepLink = `privee://share?videoId=${encodeURIComponent(videoId)}${
+      userId ? `&userId=${encodeURIComponent(userId)}` : ""
+    }`;
+
+    const timer = setTimeout(() => {
+      window.location.href = deepLink;
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [isEmbedded]);
+
   // Optimize user activity handler with debounce
   const debouncedHandleUserActivity = useCallback(
     debounce(() => {

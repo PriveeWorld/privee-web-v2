@@ -130,6 +130,12 @@ export async function generateMetadata({ searchParams }) {
     ? `${domain}/share?videoId=${videoId}&userId=${userWhoShareId}`
     : `${domain}/share`;
 
+  // iOS Smart App Banner argument — the app receives this as the launch URL
+  // and its deeplink controller routes to the shared video.
+  const appArgument = videoId && userWhoShareId
+    ? `privee://share?videoId=${videoId}&userId=${userWhoShareId}`
+    : "privee://";
+
   return {
     title: metaTitle,
     description: metaDesc,
@@ -145,6 +151,15 @@ export async function generateMetadata({ searchParams }) {
       title: metaTitle,
       description: metaDesc,
       images: [metaImage],
+    },
+    other: {
+      "apple-itunes-app": `app-id=1629866639, app-argument=${appArgument}`,
+      "al:ios:url": appArgument,
+      "al:ios:app_store_id": "1629866639",
+      "al:ios:app_name": "Privee",
+      "al:android:url": appArgument,
+      "al:android:package": "com.privee.privee_mobile",
+      "al:android:app_name": "Privee",
     },
   };
 }
