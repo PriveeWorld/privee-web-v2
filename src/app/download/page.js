@@ -19,34 +19,23 @@ function DownloadPageContent() {
       const videoId = searchParams.get('videoId');
       const userWhoShareId = searchParams.get('userId');
 
-      console.log('URL Parameters:', { videoId, userWhoShareId });
+      if (!videoId || !userWhoShareId) return;
 
-      if (videoId && userWhoShareId) {
-        try {
-          const url = `https://38wzs9wt1a.execute-api.eu-central-1.amazonaws.com/shared-video/${userWhoShareId}/${videoId}`;
-          console.log('Fetching from URL:', url);
+      try {
+        // The new backend's /shared-video endpoint does not expose the
+        // sharer's networkCode (the legacy endpoint loaded it from a second
+        // DynamoDB lookup). Fall back to the movie creator's networkCode —
+        // for self-shared content the sharer and creator are the same user,
+        // which is the common case. Otherwise the VEDATOR default applies.
+        const url = `https://api.privee.world/api/v1/shared-video/${userWhoShareId}/${videoId}`;
+        const response = await fetch(url);
+        if (!response.ok) return;
 
-          const response = await fetch(url);
-          console.log('Response status:', response.status);
-
-          if (response.ok) {
-            const data = await response.json();
-            console.log('Full API Response:', data);
-            const userNetworkCode = data?.data?.video?.userWhoShare?.networkCode;
-            console.log('Extracted Network Code:', userNetworkCode);
-
-            if (userNetworkCode) {
-              console.log('Setting Network Code to:', userNetworkCode);
-              setNetworkCode(userNetworkCode);
-            } else {
-              console.log('No network code found in response');
-            }
-          }
-        } catch (error) {
-          console.error("Error fetching network code:", error);
-        }
-      } else {
-        console.log('Missing videoId or userId parameters');
+        const data = await response.json();
+        const code = data?.data?.creator?.networkCode;
+        if (code) setNetworkCode(code);
+      } catch (error) {
+        console.error("Error fetching network code:", error);
       }
     };
 
