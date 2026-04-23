@@ -80,6 +80,7 @@ export async function generateMetadata({ searchParams }) {
 
   // If no data, fallback
   if (!videoData) {
+    const fallbackImage = `${domain}/images/priveelogo.png`;
     return {
       title: "Privee - Shared Video",
       description: "Check out this video on Privee!",
@@ -87,14 +88,15 @@ export async function generateMetadata({ searchParams }) {
         title: "Privee - Shared Video",
         description: "Check out this video on Privee!",
         url: `${domain}/share`,
-        images: [`${domain}/images/priveelogo.png`],
+        siteName: "Privee World",
+        images: [{ url: fallbackImage, width: 1200, height: 630, alt: "Privee World" }],
         type: "website",
       },
       twitter: {
         card: "summary_large_image",
         title: "Privee - Shared Video",
         description: "Check out this video on Privee!",
-        images: [`${domain}/images/priveelogo.png`],
+        images: [fallbackImage],
       },
     };
   }
@@ -137,8 +139,9 @@ export async function generateMetadata({ searchParams }) {
       title: metaTitle,
       description: metaDesc,
       url: fullUrl,
+      siteName: "Privee World",
       type: "video.other",
-      images: [metaImage],
+      images: [{ url: metaImage, width: 1200, height: 630, alt: metaTitle }],
     },
     twitter: {
       card: "summary_large_image",
