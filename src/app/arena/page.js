@@ -19,13 +19,6 @@ const ARENA = {
 const GRAIN_URI =
   "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
-const FEATURES = [
-  { id: "01", title: "Posebni serijali" },
-  { id: "02", title: "Zanimljivi trenuci" },
-  { id: "03", title: "Reakcije" },
-  { id: "04", title: "Priče" },
-];
-
 function TickerRow() {
   const items = Array.from({ length: 8 });
   return (
@@ -323,36 +316,6 @@ export default function ArenaPage() {
               pratiti reprezentaciju BiH na putu kroz Svjetsko prvenstvo.
             </motion.p>
 
-            <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {FEATURES.map((f, i) => (
-                <motion.div
-                  key={f.id}
-                  {...rise(0.1 + i * 0.1)}
-                  whileHover={reduceMotion ? {} : { y: -6 }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition-colors duration-300 hover:border-[#00D4F9]/60 hover:bg-white/[0.05]"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="absolute right-0 top-0 h-10 w-10 -translate-y-1/2 translate-x-1/2 rotate-45 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ backgroundColor: ARENA.cyan }}
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="font-clashDisplay text-5xl font-bold text-white/[0.07] transition-colors duration-300 group-hover:text-[#00D4F9]/20"
-                  >
-                    {f.id}
-                  </span>
-                  <h3 className="mt-6 font-clashDisplay text-xl font-semibold uppercase tracking-wide text-white">
-                    {f.title}
-                  </h3>
-                  <span
-                    aria-hidden="true"
-                    className="mt-6 block h-[2px] w-8 transition-all duration-500 group-hover:w-full"
-                    style={{ backgroundColor: ARENA.cyan }}
-                  />
-                </motion.div>
-              ))}
-            </div>
           </div>
         </section>
 
