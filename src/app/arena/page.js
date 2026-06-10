@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import TopNav from "../components/TopNav";
 import FullscreenNav from "../components/FullscreenNav";
 import { trackDownload } from "../../lib/analytics";
@@ -40,6 +40,82 @@ function TickerRow() {
         </span>
       ))}
     </>
+  );
+}
+
+// globals.css makes <body> its own scroll container, so scroll state must be
+// read from document.body, not window
+function onBodyScroll(handler) {
+  handler();
+  document.body.addEventListener("scroll", handler, { passive: true });
+  window.addEventListener("scroll", handler, { passive: true });
+  return () => {
+    document.body.removeEventListener("scroll", handler);
+    window.removeEventListener("scroll", handler);
+  };
+}
+
+function scrollTopNow() {
+  return document.body.scrollTop || document.documentElement.scrollTop || 0;
+}
+
+// Thin cyan progress bar across the very top — fills as you scroll
+function ScrollProgress() {
+  const progress = useMotionValue(0);
+  const scaleX = useSpring(progress, { stiffness: 140, damping: 26, mass: 0.4 });
+
+  useEffect(
+    () =>
+      onBodyScroll(() => {
+        const el = document.body;
+        const max = Math.max(
+          el.scrollHeight - el.clientHeight,
+          document.documentElement.scrollHeight - document.documentElement.clientHeight
+        );
+        progress.set(max > 0 ? scrollTopNow() / max : 0);
+      }),
+    [progress]
+  );
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="fixed inset-x-0 top-0 z-40 h-[3px] origin-left"
+      style={{ scaleX, backgroundColor: ARENA.cyan, boxShadow: "0 0 14px rgba(0,212,249,0.8)" }}
+    />
+  );
+}
+
+// Pulsing chevrons at the bottom of the hero; fade out once scrolling starts
+function ScrollCue({ reduceMotion }) {
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => onBodyScroll(() => setHidden(scrollTopNow() > 80)), []);
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: hidden ? 0 : 1 }}
+      transition={{ duration: 0.5, delay: hidden ? 0 : 1.2 }}
+    >
+      {[0, 1].map((i) => (
+        <motion.svg
+          key={i}
+          viewBox="0 0 24 24"
+          className="-my-1 h-6 w-6"
+          fill="none"
+          stroke={ARENA.cyan}
+          strokeWidth="2.5"
+          style={{ filter: "drop-shadow(0 0 6px rgba(0,212,249,0.6))" }}
+          animate={reduceMotion ? { opacity: 0.8 } : { y: [0, 7, 0], opacity: [0.25, 1, 0.25] }}
+          transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut", delay: i * 0.18 }}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+        </motion.svg>
+      ))}
+    </motion.div>
   );
 }
 
@@ -81,12 +157,14 @@ export default function ArenaPage() {
     <div className="min-h-screen bg-[#111111] text-white" style={{ colorScheme: "dark" }}>
       <FullscreenNav isOpen={isNavOpen} onClose={() => setIsNavOpen(false)} />
       <TopNav onMenuClick={() => setIsNavOpen(true)} section={4} />
+      <ScrollProgress />
 
       <main lang="bs" className="relative overflow-hidden">
         <h1 className="sr-only">Arena Sport Universe</h1>
 
         {/* ============ HERO ============ */}
-        <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-24 pt-28 sm:px-8">
+        {/* Slightly under 100svh so the cyan ticker peeks above the fold */}
+        <section className="relative flex min-h-[calc(100svh-52px)] flex-col items-center justify-center overflow-hidden px-5 pb-24 pt-28 sm:px-8">
           {/* Stadium floodlight */}
           <div
             aria-hidden="true"
@@ -188,20 +266,7 @@ export default function ArenaPage() {
 
           </div>
 
-          {/* Scroll cue */}
-          <motion.div
-            aria-hidden="true"
-            className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.4, duration: 1 }}
-          >
-            <motion.div
-              animate={reduceMotion ? {} : { y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              className="h-12 w-[1px] bg-gradient-to-b from-transparent via-white/50 to-transparent"
-            />
-          </motion.div>
+          <ScrollCue reduceMotion={reduceMotion} />
         </section>
 
         {/* ============ SLOGAN TICKER ============ */}
