@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { trackDownload, trackVideoPlay } from "../lib/analytics";
+import { trackClick } from "../lib/webAnalytics";
 
 const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDATOR", playStoreUrl = "https://priveee.onelink.me/AMM3/VEDATOR" }) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -174,7 +175,10 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
                   href={appStoreUrl}
                   target="_blank"
                   className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline"
-                  onClick={() => trackDownload('App Store', 'Inline Text Link 1')}
+                  onClick={() => {
+                    trackDownload('App Store', 'Inline Text Link 1');
+                    trackClick('appstore');
+                  }}
                 >
                   Preuzmite aplikaciju
                 </Link>
@@ -183,7 +187,10 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
                   href={appStoreUrl}
                   target="_blank"
                   className="text-[#CD1B70] hover:text-[#3B1872] transition-colors duration-300 cursor-pointer underline"
-                  onClick={() => trackDownload('App Store', 'Inline Text Link 2')}
+                  onClick={() => {
+                    trackDownload('App Store', 'Inline Text Link 2');
+                    trackClick('appstore');
+                  }}
                 >
                   Privee Worlda
                 </Link>
@@ -680,7 +687,10 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
             href={appStoreUrl}
             target="_blank"
             className="w-[160px] sm:w-[180px]"
-            onClick={() => trackDownload('App Store', 'Hardcoded Content')}
+            onClick={() => {
+              trackDownload('App Store', 'Hardcoded Content');
+              trackClick('appstore');
+            }}
           >
             <Image
               src="/App_Store.svg"
@@ -694,7 +704,10 @@ const HardcodedContent = ({ appStoreUrl = "https://priveee.onelink.me/AMM3/VEDAT
             href={playStoreUrl}
             target="_blank"
             className="w-[160px] sm:w-[180px]"
-            onClick={() => trackDownload('Google Play', 'Hardcoded Content')}
+            onClick={() => {
+              trackDownload('Google Play', 'Hardcoded Content');
+              trackClick('playstore');
+            }}
           >
             <Image
               src="/Google_Play.svg"

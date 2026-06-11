@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { trackDownload } from "../../lib/analytics";
+import { trackClick } from "../../lib/webAnalytics";
 
 export default function Footer() {
   return (
@@ -26,7 +27,10 @@ export default function Footer() {
                 href="https://apps.apple.com/pl/app/privee-world/id1629866639"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackDownload('App Store', 'Footer')}
+                onClick={() => {
+                  trackDownload('App Store', 'Footer');
+                  trackClick('appstore');
+                }}
               >
                 <motion.div
                   whileHover={{ scale: 1.05, y: -2 }}
@@ -48,7 +52,10 @@ export default function Footer() {
                 href="https://play.google.com/store/apps/details?id=com.privee.privee_mobile"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackDownload('Google Play', 'Footer')}
+                onClick={() => {
+                  trackDownload('Google Play', 'Footer');
+                  trackClick('playstore');
+                }}
               >
                 <motion.div
                   whileHover={{ scale: 1.05, y: -2 }}

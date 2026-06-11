@@ -6,6 +6,7 @@ import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-moti
 import TopNav from "../components/TopNav";
 import FullscreenNav from "../components/FullscreenNav";
 import { trackDownload } from "../../lib/analytics";
+import { trackClick } from "../../lib/webAnalytics";
 
 const ONELINK_URL = "https://priveee.onelink.me/AMM3/ARENABH";
 
@@ -232,7 +233,10 @@ export default function ArenaPage() {
                 href={ONELINK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackDownload("OneLink", "Arena Hero")}
+                onClick={() => {
+                  trackDownload("OneLink", "Arena Hero");
+                  trackClick("onelink");
+                }}
                 className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-10 py-4 font-clashDisplay text-base font-semibold uppercase tracking-[0.2em] text-[#111111] transition-transform duration-300 hover:scale-[1.04] active:scale-95"
                 style={{ backgroundColor: ARENA.cyan, boxShadow: "0 0 50px rgba(0,212,249,0.35)" }}
               >
@@ -374,7 +378,10 @@ export default function ArenaPage() {
                   href={ONELINK_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackDownload("Google Play", "Arena Page")}
+                  onClick={() => {
+                    trackDownload("Google Play", "Arena Page");
+                    trackClick("playstore");
+                  }}
                   className="mt-8 inline-block transition-transform duration-300 hover:scale-105 active:scale-95"
                 >
                   <Image
@@ -412,7 +419,10 @@ export default function ArenaPage() {
                   href={ONELINK_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackDownload("App Store", "Arena Page")}
+                  onClick={() => {
+                    trackDownload("App Store", "Arena Page");
+                    trackClick("appstore");
+                  }}
                   className="mt-8 inline-block transition-transform duration-300 hover:scale-105 active:scale-95"
                 >
                   <Image
@@ -447,7 +457,10 @@ export default function ArenaPage() {
                 href={ONELINK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackDownload("OneLink", "Arena Signoff")}
+                onClick={() => {
+                  trackDownload("OneLink", "Arena Signoff");
+                  trackClick("onelink");
+                }}
                 className="mt-10 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-7 py-3 transition-all duration-300 hover:border-[#00D4F9]/60 hover:bg-white/[0.07]"
               >
                 <span className="relative flex h-2 w-2">

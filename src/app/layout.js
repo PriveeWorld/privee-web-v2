@@ -3,6 +3,7 @@ import "./globals.css";
 import ClientLayoutWrapper from "./components/ClientLayoutWrapper";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import PageAnalytics from "@/components/PageAnalytics";
+import WebAnalytics from "@/components/WebAnalytics";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -65,6 +66,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <PageAnalytics />
+        <WebAnalytics />
         <div id="root">
           <ClientLayoutWrapper>
             {children}
