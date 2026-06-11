@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import { trackDownload, trackTrafficSource } from '../../lib/analytics';
+import { trackClick } from '../../lib/webAnalytics';
 
 function DownloadPageContent() {
   const searchParams = useSearchParams();
@@ -61,7 +62,10 @@ function DownloadPageContent() {
             target="_blank"
             rel="noopener noreferrer"
             className="w-full block"
-            onClick={() => trackDownload('App Store', 'Download Page')}
+            onClick={() => {
+              trackDownload('App Store', 'Download Page');
+              trackClick('appstore');
+            }}
           >
             <motion.div
               whileHover={{ scale: 1.02 }}
@@ -84,7 +88,10 @@ function DownloadPageContent() {
             target="_blank"
             rel="noopener noreferrer"
             className="w-full block"
-            onClick={() => trackDownload('Google Play', 'Download Page')}
+            onClick={() => {
+              trackDownload('Google Play', 'Download Page');
+              trackClick('playstore');
+            }}
           >
             <motion.div
               whileHover={{ scale: 1.02 }}
