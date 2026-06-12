@@ -8,7 +8,13 @@ import FullscreenNav from "../components/FullscreenNav";
 import { trackDownload } from "../../lib/analytics";
 import { trackClick } from "../../lib/webAnalytics";
 
-const ONELINK_URL = "https://priveee.onelink.me/AMM3/ARENABH";
+const APP_STORE_URL = "https://apps.apple.com/us/app/arena-sport-universe/id6772972968";
+const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.arenabh.app&hl=en";
+
+function isAppleDevice() {
+  if (typeof navigator === "undefined") return false;
+  return /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent || "");
+}
 
 const ARENA = {
   black: "#111111",
@@ -134,6 +140,14 @@ export default function ArenaPage() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const reduceMotion = useReducedMotion();
 
+  // SSR renders the Play Store link; Apple devices switch after hydration.
+  const [storeURL, setStoreURL] = useState(PLAY_STORE_URL);
+  useEffect(() => {
+    if (isAppleDevice()) setStoreURL(APP_STORE_URL);
+  }, []);
+  const storeName = storeURL === APP_STORE_URL ? "App Store" : "Google Play";
+  const storeLabel = storeURL === APP_STORE_URL ? "appstore" : "playstore";
+
   const rise = (delay = 0) => ({
     initial: { opacity: 0, y: reduceMotion ? 0 : 32 },
     whileInView: { opacity: 1, y: 0 },
@@ -230,12 +244,12 @@ export default function ArenaPage() {
 
             <motion.div {...heroItem(0.6)} className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
               <a
-                href={ONELINK_URL}
+                href={storeURL}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
-                  trackDownload("OneLink", "Arena Hero");
-                  trackClick("onelink");
+                  trackDownload(storeName, "Arena Hero");
+                  trackClick(storeLabel);
                 }}
                 className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-10 py-4 font-clashDisplay text-base font-semibold uppercase tracking-[0.2em] text-[#111111] transition-transform duration-300 hover:scale-[1.04] active:scale-95"
                 style={{ backgroundColor: ARENA.cyan, boxShadow: "0 0 50px rgba(0,212,249,0.35)" }}
@@ -375,7 +389,7 @@ export default function ArenaPage() {
                   Direktno preuzimanje Arena Sport Universe aplikacije:
                 </p>
                 <a
-                  href={ONELINK_URL}
+                  href={PLAY_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => {
@@ -404,19 +418,18 @@ export default function ArenaPage() {
                     App Store
                   </h3>
                   <Image
-                    src="/images/priveewhite.png"
-                    alt="Privee World logo"
-                    width={96}
-                    height={32}
-                    className="mt-2 h-auto w-24 opacity-90"
+                    src="/images/arena/arena-app-icon.png"
+                    alt="Arena Sport Universe ikona aplikacije"
+                    width={64}
+                    height={64}
+                    className="rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(0,212,249,0.15)]"
                   />
                 </div>
                 <p className="mt-6 font-inter text-base leading-relaxed text-[#BDBDBD]">
-                  Za Apple korisnike, trenutno u Arena Sport Universe ulazite preuzimanjem Privee
-                  World aplikacije putem ovog linka:
+                  Direktno preuzimanje Arena Sport Universe aplikacije:
                 </p>
                 <a
-                  href={ONELINK_URL}
+                  href={APP_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => {
@@ -433,12 +446,6 @@ export default function ArenaPage() {
                     className="h-[54px] w-auto"
                   />
                 </a>
-                <div className="mt-8 rounded-xl border-l-2 bg-white/[0.04] p-4" style={{ borderColor: ARENA.cyan }}>
-                  <p className="font-inter text-sm leading-relaxed text-white/70">
-                    Vaši iPhone uređaji će downloadovati Privee World i preko ovog linka nakon
-                    registracije ulazite u Arena Sport Universe.
-                  </p>
-                </div>
               </motion.div>
             </div>
 
@@ -454,12 +461,12 @@ export default function ArenaPage() {
                 Uživajte!
               </p>
               <a
-                href={ONELINK_URL}
+                href={storeURL}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
-                  trackDownload("OneLink", "Arena Signoff");
-                  trackClick("onelink");
+                  trackDownload(storeName, "Arena Signoff");
+                  trackClick(storeLabel);
                 }}
                 className="mt-10 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-7 py-3 transition-all duration-300 hover:border-[#00D4F9]/60 hover:bg-white/[0.07]"
               >
